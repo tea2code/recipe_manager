@@ -5,18 +5,20 @@
 
     <title>Recipe Manager{{' - ' + title if title else ''}}</title>
 
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="icon" href="favicon.png">
-    <!--[if IE]><link rel="shortcut icon" href="favicon.ico"><![endif]-->
-
     <meta name="description" content="A simple Python and SQLite based recipe manager.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/css/normalize.css">
 </head>
-<body>
+<body id="{{id}}">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/manage/categories">Manage: Categories</a></li>
+    </ul>
+
     %include
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 </body>
 </html>
