@@ -1,4 +1,4 @@
-# Recipe Manager
+# Recipe Manager "NomNomNom"
 
 A simple Python and SQLite based recipe manager.
 
