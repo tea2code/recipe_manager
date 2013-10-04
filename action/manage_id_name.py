@@ -10,9 +10,10 @@ class ManageIdName:
     def __init__(self, db):
         self.db = db
 
-    def handle(self, action, classname):
+    def handle(self, classname):
         """ Handle action for given class name. Returns found entities. """
         # Handle actions.
+        action = request.forms.get('action') or 'show'
         if action == 'new':
             name = request.forms.get('name')
             cat = classname(name=name)
@@ -28,4 +29,4 @@ class ManageIdName:
                 cat.save(self.db)
 
         # Load content.
-        return classname.findall(self.db)
+        return classname.find_all(self.db)

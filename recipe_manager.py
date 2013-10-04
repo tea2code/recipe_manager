@@ -15,32 +15,32 @@ sqlPlugin = sqlite.Plugin(dbfile=DB_FILE)
 app.install(sqlPlugin)
 
 # Routes #######################################################################
-@app.route('/', template='index')
+@app.get('/', template='index')
 def index():
     """ Index page. """
     return dict()
 
-@app.route('/manage/categories', template='manage_id_name')
-@app.route('/manage/categories/<action>', template='manage_id_name', method='POST')
-def manage_categories(db, action='show'):
+@app.get('/manage/categories', template='manage_id_name')
+@app.post('/manage/categories', template='manage_id_name')
+def manage_categories(db):
     """ Category managing page. """
     manager = manage_id_name.ManageIdName(db)
-    categories = manager.handle(action, category.Category)
+    categories = manager.handle(category.Category)
     return dict(path='categories', name='Category', existing=categories,
                 title='Categories')
 
-@app.route('/manage/languages', template='manage_id_name')
-@app.route('/manage/languages/<action>', template='manage_id_name', method='POST')
-def manage_languages(db, action='show'):
+@app.get('/manage/languages', template='manage_id_name')
+@app.post('/manage/languages', template='manage_id_name')
+def manage_languages(db):
     """ Language managing page. """
     manager = manage_id_name.ManageIdName(db)
-    languages = manager.handle(action, language.Language)
+    languages = manager.handle(language.Language)
     return dict(path='languages', name='Language', existing=languages,
                 title='Languages')
 
 # Statics ######################################################################
-@app.route('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')
-@app.route('/<type:re:(css|img|js)>/<file>')
+@app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')
+@app.get('/<type:re:(css|img|js)>/<file>')
 def statics(file, type='img'):
     """ Static content like css, images and javascript. """
     return bottle.static_file(file, root='static/'+type)
