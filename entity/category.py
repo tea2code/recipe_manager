@@ -21,7 +21,8 @@ class Category(base_entity.BaseEntity):
     def find_all(cls, db):
         """ Find all categories in database. Returns list of found
         categories ordered by name ascending."""
-        query = 'SELECT id, name FROM {0} ORDER BY name COLLATE NOCASE ASC'.format(cls.TABLE)
+        query = 'SELECT id, name FROM {0} ORDER BY name COLLATE NOCASE ASC'
+        query = query.format(cls.TABLE)
         cursor = db.cursor()
         cursor.execute(query)
         result = []

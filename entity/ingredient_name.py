@@ -1,13 +1,17 @@
 from entity import base_entity
+from entity import ingredient
+from entity import language
 
-class Language(base_entity.BaseEntity):
-    """ Represents a language.
+class IngredientName(base_entity.BaseEntity):
+    """ Represents an ingredient name.
 
     Member:
-    id -- The row id or None if not yet committed (int).
+    language -- The language (language).
+    name -- The ingredient name (string).
+    parent -- The ingredient (ingredient).
     """
 
-    TABLE = 'languages'
+    TABLE = 'ingredient_names'
 
     def __init__(self, id=None, name=''):
         super().__init__(id)
@@ -47,4 +51,4 @@ class Language(base_entity.BaseEntity):
 
     @staticmethod
     def entity_from_row(row):
-        return Language(row[0], row[1])
+        return Category(row[0], row[1])

@@ -9,6 +9,7 @@
 % for parent in parents:
     <fieldset>
         <form action="/manage/{{path}}" method="post">
+            <input type="hidden" name="parent-id" value="{{parent.id}}" />
             <input type="hidden" name="action" value="delete" />
             <button type="submit">Delete {{name}}</button>
         </form>
