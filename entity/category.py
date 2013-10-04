@@ -1,50 +1,78 @@
-from entity import base_entity
-
-class Category(base_entity.BaseEntity):
+class Category():
     """ Represents a category.
 
     Member:
+    id -- The row id or None if not yet committed (int).
     name -- The category name (string).
     """
 
-    TABLE = 'categories'
-
     def __init__(self, id=None, name=''):
-        super().__init__(id)
+        self.id = id
         self.name = name
 
     def __str__(self):
         template = 'Category({0}, {1})'
         return template.format(self.id, self.name)
 
-    @classmethod
-    def find_all(cls, db):
-        """ Find all categories in database. Returns list of found
-        categories ordered by name ascending."""
-        query = 'SELECT id, name FROM {0} ORDER BY name COLLATE NOCASE ASC'
-        query = query.format(cls.TABLE)
+    def delete(self, db):
+        """ Delete entity from database. """
+        query = 'DELETE FROM categories WHERE id = ?'
+        params = [self.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+
+    @staticmethod
+    def find_all(db):
+        """ Find all entities in database. Returns list of found
+        entities ordered by name ascending."""
+        query = 'SELECT id, name FROM categories ORDER BY name COLLATE NOCASE ASC'
         cursor = db.cursor()
         cursor.execute(query)
         result = []
         for row in cursor.fetchall():
-            result.append(cls.entity_from_row(row))
+            result.append(Category.from_row(row))
         return result
 
-    @classmethod
-    def find_name(cls, db, name):
-        """ Find category by name in database. Returns found
-        category or None. """
-        query = 'SELECT id, name FROM {0} WHERE name = ?'.format(cls.TABLE)
+    @staticmethod
+    def find_name( db, name):
+        """ Find entity by name in database. Returns found
+        entity or None. """
+        query = 'SELECT id, name FROM categories WHERE name = ?'
         params = [name]
-        return super().generic_find(db, query, params)
-
-    def save(self, db):
-        """ Write category to database. """
-        params = [self.name]
-        if not self.is_new():
-            params = [self.name, self.id]
-        super()._save(db, params)
+        return Category.__generic_find(db, query, params)
 
     @staticmethod
-    def entity_from_row(row):
-        return Category(row[0], row[1])
+    def find_pk(cls, db, id):
+        """ Find entity by primary key aka row id in database. Returns found
+        entity or None. """
+        query = 'SELECT id, name FROM categories WHERE id = ?'
+        params = [id]
+        return Category.__generic_find(db, query, params)
+
+    @staticmethod
+    def from_row(row):
+        """ Create entity from given row. """
+        return Category(id=row[0], name=row[1])
+
+    def is_new(self):
+        """ Returns True if entity is not yet committed else False. """
+        return self.id is None
+
+    def save(self, db):
+        """ Write entity to database. """
+        query = 'INSERT INTO categories (name) VALUES (?)'
+        params = [self.name]
+        if not self.is_new():
+            query = 'UPDATE categories SET name = ? WHERE id = ?'
+            params.append(self.id)
+        cursor = db.cursor()
+        cursor.execute(query, params)
+
+    @staticmethod
+    def __generic_find(db, query, params):
+        """ Generic implementation of a find single method. Returns entity or
+        None. """
+        cursor = db.cursor()
+        cursor.execute(query, params)
+        row = cursor.fetchone()
+        return Category.from_row(row) if row else None

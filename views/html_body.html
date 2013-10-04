@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Recipe Manager{{' - ' + title if title else ''}}</title>
+    <title>{{title + ' - ' if title else ''}}NomNomNom</title>
 
     <meta name="description" content="A simple Python and SQLite based recipe manager.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="/css/normalize.css">
 </head>
 <body id="{{id}}">
+    <h1>NomNomNom</h1>
+
     <ul>
         <li><a href="/">Home</a></li>
+        % for category in categories:
+            <li><a href="/category/{{category.id}}-{{category.name.lower()}}">{{category.name}}</a></li>
+        % end-for
+    </ul>
+
+    <ul>
         <li><a href="/manage/categories">Manage: Categories</a></li>
-        <li><a href="/manage/ingredients">Manage: Ingredients</a></li>
-        <li><a href="/manage/languages">Manage: Languages</a></li>
-        <li><a href="/manage/units">Manage: Units</a></li>
     </ul>
 
     %include

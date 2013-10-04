@@ -1,0 +1,33 @@
+<h2>Manage: Categories</h2>
+
+<form action="/manage/categories" method="post">
+    <fieldset>
+        <legend>New Category</legend>
+        <div>
+            <label for="new-name">Name:</label>
+            <input type="hidden" name="action" value="new" />
+            <input type="text" id="new-name" name="name" />
+        </div>
+        <div>
+            <button type="submit">Create Category</button>
+        </div>
+    </fieldset>
+</form>
+
+<fieldset>
+    <legend>Edit Categories</legend>
+    % for category in categories:
+        <form action="/manage/categories" method="post">
+            <div>
+                <label for="edit-name-{{category.id}}">Name:</label>
+                <input type="text" id="edit-name-{{category.id}}" name="name" value="{{category.name}}" />
+                <input type="hidden" name="id" value="{{category.id}}" />
+                <input type="hidden" name="action" value="edit" />
+                <button type="submit" name="edit">Edit</button>
+                <button type="submit" name="delete">Delete</button>
+            </div>
+        </form>
+    % end-for
+</fieldset>
+
+%rebase html_body id='manage-categories', title='Categories', categories=categories

@@ -1,12 +1,13 @@
 import bottle
-from action import manage_id_name
+from action import category_manager
 from bottle.ext import sqlite
-from entity import category, language
+from entity import category
+from migration import migration_manager
 
 # Configuration ################################################################
 DB_FILE = 'dev-db.sqlite'
 DEBUG = True
-HOST = 'localhost'
+HOST = '192.168.0.10'
 PORT = 8081
 
 # Initialization ###############################################################
@@ -14,29 +15,22 @@ app = bottle.Bottle()
 sqlPlugin = sqlite.Plugin(dbfile=DB_FILE)
 app.install(sqlPlugin)
 
+migration = migration_manager.MigrationManager(DB_FILE)
+migration.migrate()
+
 # Routes #######################################################################
 @app.get('/', template='index')
-def index():
+def index(db):
     """ Index page. """
-    return dict()
+    return dict(categories=category.Category.find_all(db))
 
-@app.get('/manage/categories', template='manage_id_name')
-@app.post('/manage/categories', template='manage_id_name')
+@app.get('/manage/categories', template='manage_categories')
+@app.post('/manage/categories', template='manage_categories')
 def manage_categories(db):
     """ Category managing page. """
-    manager = manage_id_name.ManageIdName(db)
-    categories = manager.handle(category.Category)
-    return dict(path='categories', name='Category', existing=categories,
-                title='Categories')
-
-@app.get('/manage/languages', template='manage_id_name')
-@app.post('/manage/languages', template='manage_id_name')
-def manage_languages(db):
-    """ Language managing page. """
-    manager = manage_id_name.ManageIdName(db)
-    languages = manager.handle(language.Language)
-    return dict(path='languages', name='Language', existing=languages,
-                title='Languages')
+    manager = category_manager.CategoryManager(db)
+    categories = manager.action()
+    return dict(categories=categories)
 
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')
