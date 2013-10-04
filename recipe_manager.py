@@ -1,4 +1,5 @@
 import bottle
+from action import manage_id_name
 from bottle.ext import sqlite
 from entity import category, language
 
@@ -23,23 +24,8 @@ def index():
 @app.route('/manage/categories/<action>', template='manage_id_name', method='POST')
 def manage_categories(db, action='show'):
     """ Category managing page. """
-    # Handle actions.
-    if action == 'new':
-        name = bottle.request.forms.get('name')
-        cat = category.Category(name=name)
-        cat.save(db)
-    elif action == 'edit':
-        is_delete = bottle.request.forms.get('delete') is not None
-        id = bottle.request.forms.get('id')
-        name = bottle.request.forms.get('name')
-        cat = category.Category(id, name)
-        if is_delete:
-            cat.delete(db)
-        else:
-            cat.save(db)
-
-    # Load content.
-    categories = category.Category.findall(db)
+    manager = manage_id_name.ManageIdName(db)
+    categories = manager.handle(action, category.Category)
     return dict(path='categories', name='Category', existing=categories,
                 title='Categories')
 
@@ -47,23 +33,8 @@ def manage_categories(db, action='show'):
 @app.route('/manage/languages/<action>', template='manage_id_name', method='POST')
 def manage_languages(db, action='show'):
     """ Language managing page. """
-    # Handle actions.
-    if action == 'new':
-        name = bottle.request.forms.get('name')
-        lang = language.Language(name=name)
-        lang.save(db)
-    elif action == 'edit':
-        is_delete = bottle.request.forms.get('delete') is not None
-        id = bottle.request.forms.get('id')
-        name = bottle.request.forms.get('name')
-        lang = language.Language(id, name)
-        if is_delete:
-            lang.delete(db)
-        else:
-            lang.save(db)
-
-    # Load content.
-    languages = language.Language.findall(db)
+    manager = manage_id_name.ManageIdName(db)
+    languages = manager.handle(action, language.Language)
     return dict(path='languages', name='Language', existing=languages,
                 title='Languages')
 
