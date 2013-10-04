@@ -23,9 +23,9 @@ class Category:
 
     @staticmethod
     def findall(db):
-        """ Find all Categories in database. Returns list of found
-        Categories ordered by name ascending."""
-        query = 'SELECT id, name FROM categories ORDER BY name ASC'
+        """ Find all categories in database. Returns list of found
+        categories ordered by name ascending."""
+        query = 'SELECT id, name FROM categories ORDER BY name COLLATE NOCASE ASC'
         cursor = db.cursor()
         cursor.execute(query)
         result = []
@@ -35,22 +35,22 @@ class Category:
 
     @staticmethod
     def findname(db, name):
-        """ Find Category by name in database. Returns found
-        Category or None. """
+        """ Find category by name in database. Returns found
+        category or None. """
         query = 'SELECT id, name FROM categories WHERE name = ?'
         params = [name]
         return Category.__generic_find(db, query, params)
 
     @staticmethod
     def findpk(db, id):
-        """ Find Category by primary key aka row id in database. Returns found
-        Category or None. """
+        """ Find category by primary key aka row id in database. Returns found
+        category or None. """
         query = 'SELECT id, name FROM categories WHERE id = ?'
         params = [id]
         return Category.__generic_find(db, query, params)
 
     def is_new(self):
-        """ Returns True if Category is not yet committed else False. """
+        """ Returns True if category is not yet committed else False. """
         return self.id is None
 
     def save(self, db):
@@ -65,7 +65,7 @@ class Category:
 
     @staticmethod
     def __generic_find(db, query, params):
-        """ Generic implementation of a find single method. Returns Category or
+        """ Generic implementation of a find single method. Returns category or
         None. """
         cursor = db.cursor()
         cursor.execute(query, params)

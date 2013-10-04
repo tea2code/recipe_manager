@@ -1,6 +1,6 @@
 import bottle
 from bottle.ext import sqlite
-from entity import category
+from entity import category, language
 
 # Configuration ################################################################
 DB_FILE = 'dev-db.sqlite'
@@ -19,8 +19,8 @@ def index():
     """ Index page. """
     return dict()
 
-@app.route('/manage/categories', template='manage_categories')
-@app.route('/manage/categories/<action>', template='manage_categories', method='POST')
+@app.route('/manage/categories', template='manage_id_name')
+@app.route('/manage/categories/<action>', template='manage_id_name', method='POST')
 def manage_categories(db, action='show'):
     """ Category managing page. """
     # Handle actions.
@@ -40,7 +40,32 @@ def manage_categories(db, action='show'):
 
     # Load content.
     categories = category.Category.findall(db)
-    return dict(categories=categories)
+    return dict(path='categories', name='Category', existing=categories,
+                title='Categories')
+
+@app.route('/manage/languages', template='manage_id_name')
+@app.route('/manage/languages/<action>', template='manage_id_name', method='POST')
+def manage_languages(db, action='show'):
+    """ Language managing page. """
+    # Handle actions.
+    if action == 'new':
+        name = bottle.request.forms.get('name')
+        lang = language.Language(name=name)
+        lang.save(db)
+    elif action == 'edit':
+        is_delete = bottle.request.forms.get('delete') is not None
+        id = bottle.request.forms.get('id')
+        name = bottle.request.forms.get('name')
+        lang = language.Language(id, name)
+        if is_delete:
+            lang.delete(db)
+        else:
+            lang.save(db)
+
+    # Load content.
+    languages = language.Language.findall(db)
+    return dict(path='languages', name='Language', existing=languages,
+                title='Languages')
 
 # Statics ######################################################################
 @app.route('/css/<file>')

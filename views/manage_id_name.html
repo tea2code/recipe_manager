@@ -1,0 +1,29 @@
+<form action="/manage/{{path}}/new" method="post">
+    <fieldset>
+        <legend>New {{name}}</legend>
+        <div>
+            <label for="new-name">Name:</label>
+            <input type="text" id="new-name" name="name" />
+        </div>
+        <div>
+            <button type="submit">Create {{name}}</button>
+        </div>
+    </fieldset>
+</form>
+
+<fieldset>
+    <legend>Edit {{name}}</legend>
+    % for item in existing:
+        <form action="/manage/{{path}}/edit" method="post">
+            <div>
+                <label for="edit-name-{{item.id}}">Name:</label>
+                <input type="text" id="edit-name-{{item.id}}" name="name" value="{{item.name}}" />
+                <input type="hidden" name="id" value="{{item.id}}" />
+                <button type="submit" name="edit">Edit</button>
+                <button type="submit" name="delete">Delete</button>
+            </div>
+        </form>
+    % end-for
+</fieldset>
+
+%rebase html_body id='manage-id-name', title=title
