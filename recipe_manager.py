@@ -39,21 +39,11 @@ def manage_languages(db, action='show'):
                 title='Languages')
 
 # Statics ######################################################################
-@app.route('/css/<file>')
-def css(file):
-    """ Static content: css. """
-    return bottle.static_file(file, root='static/css')
-
 @app.route('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')
-@app.route('/img/<file>')
-def img(file):
-    """ Static content: img. """
-    return bottle.static_file(file, root='static/img')
-
-@app.route('/js/<file>')
-def js(file):
-    """ Static content: js. """
-    return bottle.static_file(file, root='static/js')
+@app.route('/<type:re:(css|img|js)>/<file>')
+def statics(file, type='img'):
+    """ Static content like css, images and javascript. """
+    return bottle.static_file(file, root='static/'+type)
 
 # Run ##########################################################################
 app.run(host=HOST, port=PORT, debug=DEBUG, reloader=DEBUG)
