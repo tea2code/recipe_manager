@@ -32,7 +32,8 @@ def manage_categories(db):
     """ Category managing page. """
     manager = category_manager.CategoryManager(db)
     categories = manager.action()
-    return dict(categories=categories)
+    hints = manager.hints
+    return dict(categories=categories, hints=hints)
 
 @app.get('/manage/recipe', template='manage_recipe')
 @app.get('/manage/recipe/<id:int>', template='manage_recipe')
@@ -43,7 +44,8 @@ def manage_recipe(db, id=None):
     categories = category.Category.find_all(db)
     manager = recipe_manager.RecipeManager(db)
     recipe = manager.action(id)
-    return dict(categories=categories, recipe=recipe)
+    hints = manager.hints
+    return dict(categories=categories, recipe=recipe, hints=hints)
 
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')

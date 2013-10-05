@@ -13,21 +13,47 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body id="{{id}}">
-    <h1>NomNomNom</h1>
+    <div class="grid">
+        <div class="col-1-1">
+            <h1>NomNomNom</h1>
+        </div>
+    </div>
 
-    <ul>
-        <li><a href="/">Home</a></li>
-        % for category in categories:
-            <li><a href="/category/{{category.id}}-{{category.name.lower()}}">{{category.name}}</a></li>
-        % end-for
-    </ul>
+    <div class="grid">
+        <div class="col-1-2">
+            <ul>
+                <li><a href="/">Home</a></li>
+                % for category in categories:
+                    <li><a href="/category/{{category.id}}-{{category.name.lower()}}">{{category.name}}</a></li>
+                % end
+            </ul>
+        </div>
 
-    <ul>
-        <li><a href="/manage/categories">Manage: Categories</a></li>
-        <li><a href="/manage/recipe">New: Recipe</a></li>
-    </ul>
+        <div class="col-1-2">
+            <ul>
+                <li><a href="/manage/categories">Manage: Categories</a></li>
+                <li><a href="/manage/recipe">New: Recipe</a></li>
+            </ul>
+        </div>
+    </div>
 
-    %include
+    % if defined('hints') and hints:
+        <div class="grid">
+            <div class="col-1-1">
+                <ul>
+                    % for hint in hints:
+                        <li>{{hint.text}}</li>
+                    % end
+                </ul>
+            </div>
+        </div>
+    % end
+
+    <div class="grid">
+        <div class="col-1-1">
+            % include
+        </div>
+    </div>
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>

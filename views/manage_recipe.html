@@ -24,7 +24,7 @@
                             {{!selected if recipe.id and recipe.category.id is category.id else ''}}>
                         {{category.name}}
                     </option>
-                % end-for
+                % end
             </select>
         </div>
 
@@ -55,4 +55,4 @@
     </fieldset>
 </form>
 
-%rebase html_body id='manage-recipe', title='Recipe', categories=categories
+% rebase html_body id='manage-recipe', title='Recipe', categories=categories, hints=hints

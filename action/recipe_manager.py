@@ -2,16 +2,19 @@ from bottle import redirect
 from bottle import request
 from entity import category as category_entity
 from entity import recipe
+from helper import hint
 
 class RecipeManager:
     """ Handle recipe related actions.
 
     Member:
     db -- The database connection.
+    hints -- List of hints which occurred during action handling.
     """
 
     def __init__(self, db):
         self.db = db
+        self.hints = []
 
     def action(self, id=None):
         """ Handle actions. If id is given it is assumed that an existing
