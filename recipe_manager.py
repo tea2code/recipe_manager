@@ -35,6 +35,13 @@ def category_list(db, id):
     categories = category.Category.find_all(db)
     return dict(categories=categories, category=cat, recipes=recipes)
 
+@app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
+def view_recipe(db, id):
+    """ Recipe view page. """
+    rec = recipe.Recipe.find_pk(db, id)
+    categories = category.Category.find_all(db)
+    return dict(categories=categories,  recipe=rec)
+
 @app.get('/manage/categories', template='manage_categories')
 @app.post('/manage/categories', template='manage_categories')
 def manage_categories(db):
