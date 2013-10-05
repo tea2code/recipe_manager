@@ -34,7 +34,7 @@ class Category():
         return result
 
     @staticmethod
-    def find_name( db, name):
+    def find_name(db, name):
         """ Find entity by name in database. Returns found
         entity or None. """
         query = 'SELECT id, name FROM categories WHERE name = ?'
@@ -42,7 +42,7 @@ class Category():
         return Category.__generic_find(db, query, params)
 
     @staticmethod
-    def find_pk(cls, db, id):
+    def find_pk(db, id):
         """ Find entity by primary key aka row id in database. Returns found
         entity or None. """
         query = 'SELECT id, name FROM categories WHERE id = ?'
@@ -67,6 +67,8 @@ class Category():
             params.append(self.id)
         cursor = db.cursor()
         cursor.execute(query, params)
+        if self.is_new():
+            self.id = cursor.lastrowid
 
     @staticmethod
     def __generic_find(db, query, params):

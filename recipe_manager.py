@@ -1,5 +1,6 @@
 import bottle
 from action import category_manager
+from action import recipe_manager
 from bottle.ext import sqlite
 from entity import category
 from migration import migration_manager
@@ -22,7 +23,8 @@ migration.migrate()
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
-    return dict(categories=category.Category.find_all(db))
+    categories = category.Category.find_all(db)
+    return dict(categories=categories)
 
 @app.get('/manage/categories', template='manage_categories')
 @app.post('/manage/categories', template='manage_categories')
@@ -31,6 +33,17 @@ def manage_categories(db):
     manager = category_manager.CategoryManager(db)
     categories = manager.action()
     return dict(categories=categories)
+
+@app.get('/manage/recipe', template='manage_recipe')
+@app.get('/manage/recipe/<id:int>', template='manage_recipe')
+@app.post('/manage/recipe', template='manage_recipe')
+@app.post('/manage/recipe/<id:int>', template='manage_recipe')
+def manage_recipe(db, id=None):
+    """ Recipe managing page. """
+    categories = category.Category.find_all(db)
+    manager = recipe_manager.RecipeManager(db)
+    recipe = manager.action(id)
+    return dict(categories=categories, recipe=recipe)
 
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')

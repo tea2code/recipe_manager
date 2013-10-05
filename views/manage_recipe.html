@@ -1,0 +1,58 @@
+<h2>Manage: Recipe</h2>
+
+% selected = 'selected="selected"'
+
+<form action="/manage/recipe{{'/'+str(recipe.id) if recipe.id else ''}}" method="post">
+    <fieldset>
+        <legend>{{'Edit' if recipe.id else 'New'}} Recipe</legend>
+        <div>
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating">
+                <option value="-1" {{!selected if not recipe.id else ''}}> </option>
+                <option value="0" {{!selected if recipe.rating is 0 else ''}}>☆</option>
+                <option value="1" {{!selected if recipe.rating is 1 else ''}}>★</option>
+                <option value="2" {{!selected if recipe.rating is 2 else ''}}>★★</option>
+                <option value="3" {{!selected if recipe.rating is 3 else ''}}>★★★</option>
+            </select>
+        </div>
+        <div>
+            <label for="category">Category:</label>
+            <select id="category" name="category">
+                <option value="-1" {{!selected if not recipe.id else ''}}> </option>
+                % for category in categories:
+                    <option value="{{category.id}}"
+                            {{!selected if recipe.id and recipe.category.id is category.id else ''}}>
+                        {{category.name}}
+                    </option>
+                % end-for
+            </select>
+        </div>
+
+        <div>
+            <label for="title">Name:</label>
+            <input type="text" id="title" name="title" value="{{recipe.title}}" />
+        </div>
+        <div>
+            <label for="serving-size">Serving Size:</label>
+            <input type="text" id="serving-size" name="serving-size" value="{{recipe.serving_size}}" />
+        </div>
+        <div>
+            <label for="ingredients">Ingredients:</label>
+            <textarea id="ingredients" name="ingredients">{{recipe.ingredients}}</textarea>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description">{{recipe.description}}</textarea>
+        </div>
+        <div>
+            <label for="info">Info:</label>
+            <textarea id="info" name="info">{{recipe.info}}</textarea>
+        </div>
+        <div>
+            <button type="submit" name="edit">{{'Edit' if recipe.id else 'Create'}} Recipe</button>
+            {{!'<button type="submit" name="delete">Delete Recipe</button>' if recipe.id else ''}}
+        </div>
+    </fieldset>
+</form>
+
+%rebase html_body id='manage-recipe', title='Recipe', categories=categories

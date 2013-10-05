@@ -2,7 +2,7 @@ from bottle import request
 from entity import category
 
 class CategoryManager:
-    """ Action handler for simple id-name-managing pages.
+    """ Handle category related actions.
 
     Member:
     db -- The database connection.
@@ -21,7 +21,7 @@ class CategoryManager:
             cat.save(self.db)
         elif action == 'edit':
             is_delete = request.forms.get('delete') is not None
-            id = request.forms.get('id')
+            id = int(request.forms.get('id'))
             name = request.forms.get('name')
             entity = category.Category(id, name)
             if is_delete:

@@ -32,6 +32,7 @@ class Recipe:
 
     def delete(self, db):
         """ Delete entity from database. """
+        # TODO Delete synonyms.
         # TODO Delete urls.
         # TODO Delete images.
         # TODO Delete recipe_has_tag.
@@ -46,7 +47,14 @@ class Recipe:
     def find_all(db):
         """ Find all entities in database. Returns list of found
         entities ordered by name ascending."""
-        query = 'SELECT * FROM recipes ORDER BY name COLLATE NOCASE ASC'
+        # TODO Find synonyms.
+        # TODO Find urls.
+        # TODO Find images.
+        # TODO Find tags.
+
+        query = 'SELECT category_id, description, id, info, ingredients, ' \
+                'rating, serving_size, title FROM recipes ORDER BY name ' \
+                'COLLATE NOCASE ASC'
         cursor = db.cursor()
         cursor.execute(query)
         result = []
@@ -55,20 +63,26 @@ class Recipe:
         return result
 
     @staticmethod
-    def find_pk(cls, db, id):
+    def find_pk(db, id):
         """ Find entity by primary key aka row id in database. Returns found
         entity or None. """
-        query = 'SELECT * FROM recipe WHERE id = ?'
+        # TODO Find synonyms.
+        # TODO Find urls.
+        # TODO Find images.
+        # TODO Find tags.
+
+        query = 'SELECT category_id, description, id, info, ingredients, ' \
+                'rating, serving_size, title FROM recipes WHERE id = ?'
         params = [id]
         return Recipe.__generic_find(db, query, params)
 
     @staticmethod
     def from_row(db, row):
         """ Create entity from given row. """
-        category = category_entity.Category.find_pk(db, row[1])
-        return Recipe(id=row[0], category=category, title=row[2],
-                      serving_size=row[3], ingredients=row[4],
-                      description=row[5], info=row[6], rating=row[7])
+        category = category_entity.Category.find_pk(db, row[0])
+        return Recipe(category=category, description=row[1], id=row[2],
+                      info=row[3], ingredients=row[4], rating=row[5],
+                      serving_size=row[6], title=row[7])
 
     def is_new(self):
         """ Returns True if entity is not yet committed else False. """
@@ -76,17 +90,20 @@ class Recipe:
 
     def save(self, db):
         """ Write entity to database. """
-        query = 'INSERT INTO recipe (category, description, info, ' \
-                'ingredients, rating, serving_size, title) VALUES (?)'
+        query = 'INSERT INTO recipes (category_id, description, info, ' \
+                'ingredients, rating, serving_size, title) VALUES (?, ?, ?, ' \
+                '?, ?, ?, ?)'
         params = [self.category.id, self.description, self.info,
                   self.ingredients, self.rating, self.serving_size, self.title]
         if not self.is_new():
-            query = 'UPDATE recipe SET category = ?, description = ?, ' \
+            query = 'UPDATE recipes SET category_id = ?, description = ?, ' \
                     'info = ?, ingredients = ?, rating = ?, serving_size = ?,' \
                     'title = ? WHERE id = ?'
             params.append(self.id)
         cursor = db.cursor()
         cursor.execute(query, params)
+        if self.is_new():
+            self.id = cursor.lastrowid
 
     @staticmethod
     def __generic_find(db, query, params):
