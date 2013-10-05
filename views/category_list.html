@@ -1,0 +1,9 @@
+<h2>Category: {{category.name}}</h2>
+
+<ul>
+% for recipe in recipes:
+    <li><a href="/recipe/{{recipe.id}}-{{recipe.title.lower()}}">{{recipe.title}}</a></li>
+% end
+</ul>
+
+% rebase html_body id='category', title=category.name, categories=categories

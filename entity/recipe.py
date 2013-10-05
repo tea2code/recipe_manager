@@ -53,10 +53,33 @@ class Recipe:
         # TODO Find tags.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
-                'rating, serving_size, title FROM recipes ORDER BY name ' \
-                'COLLATE NOCASE ASC'
+                'rating, serving_size, title ' \
+                'FROM recipes' \
+                ' ORDER BY title COLLATE NOCASE ASC'
         cursor = db.cursor()
         cursor.execute(query)
+        result = []
+        for row in cursor.fetchall():
+            result.append(Recipe.from_row(db, row))
+        return result
+
+    @staticmethod
+    def find_category(db, category):
+        """ Find entities by category in database. Returns list of found
+        entities ordered by name ascending."""
+        # TODO Find synonyms.
+        # TODO Find urls.
+        # TODO Find images.
+        # TODO Find tags.
+
+        query = 'SELECT category_id, description, id, info, ingredients, ' \
+                'rating, serving_size, title ' \
+                'FROM recipes ' \
+                'WHERE category_id = ?' \
+                'ORDER BY title COLLATE NOCASE ASC'
+        params = [category.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
         result = []
         for row in cursor.fetchall():
             result.append(Recipe.from_row(db, row))

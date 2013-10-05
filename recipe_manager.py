@@ -3,6 +3,7 @@ from action import category_manager
 from action import recipe_manager
 from bottle.ext import sqlite
 from entity import category
+from entity import recipe
 from migration import migration_manager
 
 # Configuration ################################################################
@@ -25,6 +26,14 @@ def index(db):
     """ Index page. """
     categories = category.Category.find_all(db)
     return dict(categories=categories)
+
+@app.get('/category/<id:int>-<:re:.+>', template='category_list')
+def category_list(db, id):
+    """ Category list page. """
+    cat = category.Category.find_pk(db, id)
+    recipes = recipe.Recipe.find_category(db, cat)
+    categories = category.Category.find_all(db)
+    return dict(categories=categories, category=cat, recipes=recipes)
 
 @app.get('/manage/categories', template='manage_categories')
 @app.post('/manage/categories', template='manage_categories')
