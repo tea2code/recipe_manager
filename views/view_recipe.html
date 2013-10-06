@@ -4,12 +4,15 @@
     </div>
 </div>
 
+% from helper import html_escape
+% escape = html_escape.HtmlEscape.html_escape_nl2br
+
 <div class="grid">
     <div class="col-2-3">
         <div>Serving Size: {{recipe.serving_size}}</div>
-        <div>Ingredients: {{recipe.ingredients}}</div>
-        <div>Description: {{recipe.description}}</div>
-        <div>Info: {{recipe.info}}</div>
+        <div>Ingredients: {{!escape(recipe.ingredients)}}</div>
+        <div>Description: {{!escape(recipe.description)}}</div>
+        <div>Info: {{!escape(recipe.info)}}</div>
     </div>
 
     <div class="col-1-3">

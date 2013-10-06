@@ -4,6 +4,7 @@ from action import recipe_manager
 from bottle.ext import sqlite
 from entity import category
 from entity import recipe
+from helper import html_escape
 from migration import migration_manager
 
 # Configuration ################################################################
@@ -14,9 +15,12 @@ PORT = 8081
 
 # Initialization ###############################################################
 app = bottle.Bottle()
+
+# Plugins
 sqlPlugin = sqlite.Plugin(dbfile=DB_FILE)
 app.install(sqlPlugin)
 
+# Migration
 migration = migration_manager.MigrationManager(DB_FILE)
 migration.migrate()
 
