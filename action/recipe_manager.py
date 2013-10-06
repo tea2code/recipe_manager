@@ -72,11 +72,11 @@ class RecipeManager(base_manager.BaseManager):
         name_cookie = self.get_cookie(self.HINT_NAME)
         if hint_cookie and name_cookie:
             if hint_cookie == self.HINT_NEW:
-                hint_text = 'New recipe "{}" created.'.format(name_cookie)
+                hint_text = 'New recipe "{}" has been created.'.format(name_cookie)
             elif hint_cookie == self.HINT_EDIT:
-                hint_text = 'Recipe "{}" updated.'.format(name_cookie)
+                hint_text = 'Recipe "{}" has been updated.'.format(name_cookie)
             else:
-                hint_text = 'Recipe "{}" removed.'.format(name_cookie)
+                hint_text = 'Recipe "{}" has been removed.'.format(name_cookie)
             self.hints.append(hint.Hint(hint_text))
             self.delete_cookie(self.HINT_COOKIE)
             self.delete_cookie(self.HINT_NAME)

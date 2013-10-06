@@ -4,7 +4,6 @@ from action import recipe_manager
 from bottle.ext import sqlite
 from entity import category
 from entity import recipe
-from helper import html_escape
 from migration import migration_manager
 
 # Configuration ################################################################

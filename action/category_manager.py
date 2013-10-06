@@ -23,7 +23,7 @@ class CategoryManager(base_manager.BaseManager):
             name = self.get_form('name')
             cat = category.Category(name=name)
             cat.save(self.db)
-            hint_text = 'New category "{}" created.'.format(name)
+            hint_text = 'New category "{}" has been created.'.format(name)
             self.hints.append(hint.Hint(hint_text))
 
         elif action == 'edit':
@@ -33,11 +33,11 @@ class CategoryManager(base_manager.BaseManager):
             entity = category.Category(id, name)
             if is_delete:
                 entity.delete(self.db)
-                hint_text = 'Category "{}" removed.'.format(name)
+                hint_text = 'Category "{}" has been removed.'.format(name)
                 self.hints.append(hint.Hint(hint_text))
             else:
                 entity.save(self.db)
-                hint_text = 'Category "{}" updated.'.format(name)
+                hint_text = 'Category "{}" has been updated.'.format(name)
                 self.hints.append(hint.Hint(hint_text))
 
         # Load content.

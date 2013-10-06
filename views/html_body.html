@@ -33,6 +33,9 @@
             <ul>
                 <li><a href="/manage/categories">Manage: Categories</a></li>
                 <li><a href="/manage/recipe">New: Recipe</a></li>
+                % if defined('edit_recipe') and edit_recipe:
+                    <li><a href="/manage/recipe/{{recipe.id}}">Edit: Recipe</a></li>
+                % end
             </ul>
         </div>
     </div>
