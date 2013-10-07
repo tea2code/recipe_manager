@@ -9,57 +9,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/simplegrid.css">
+    <link rel="stylesheet" href="/css/gridism.css">
+    <link rel="stylesheet" href="/css/chosen.min.css">
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body id="{{id}}">
-    <div class="grid">
-        <div class="col-1-1">
-            <h1>NomNomNom</h1>
-        </div>
-    </div>
-
-    <div class="grid">
-        <div class="col-1-2">
-            <ul>
-                <li><a href="/">Home</a></li>
-                % for category in categories:
-                    <li><a href="/category/{{category.id}}-{{category.name.lower()}}">{{category.name}}</a></li>
-                % end
-            </ul>
+    <div class="wrap wider">
+        <div class="grid">
+            <div class="unit w-1-1">
+                <h1>NomNomNom</h1>
+            </div>
         </div>
 
-        <div class="col-1-2">
-            <ul>
-                <li><a href="/manage/recipe">New: Recipe</a></li>
-                % if defined('edit_recipe') and edit_recipe:
-                    <li><a href="/manage/recipe/{{recipe.id}}">Edit: Recipe</a></li>
-                % end
-                <li><a href="/manage/categories">Manage: Categories</a></li>
-                <li><a href="/manage/tags">Manage: Tags</a></li>
-            </ul>
-        </div>
-    </div>
-
-    % if defined('hints') and hints:
-        <div id="hints" class="grid">
-            <div class="col-1-1">
+        <div class="grid">
+            <div class="unit w-1-2">
                 <ul>
-                    % for hint in hints:
-                        <li>{{hint.text}}</li>
+                    <li><a href="/">Home</a></li>
+                    % for category in categories:
+                        <li><a href="/category/{{category.id}}-{{category.name.lower()}}">{{category.name}}</a></li>
                     % end
                 </ul>
             </div>
-        </div>
-    % end
 
-    <div class="grid">
-        <div class="col-1-1">
-            % include
+            <div class="unit w-1-2">
+                <ul>
+                    <li><a href="/manage/recipe">New: Recipe</a></li>
+                    % if defined('edit_recipe') and edit_recipe:
+                        <li><a href="/manage/recipe/{{recipe.id}}">Edit: Recipe</a></li>
+                    % end
+                    <li><a href="/manage/categories">Manage: Categories</a></li>
+                    <li><a href="/manage/tags">Manage: Tags</a></li>
+                </ul>
+            </div>
+        </div>
+
+        % if defined('hints') and hints:
+            <div id="hints" class="grid">
+                <div class="unit w-1-1">
+                    <ul>
+                        % for hint in hints:
+                            <li>{{hint.text}}</li>
+                        % end
+                    </ul>
+                </div>
+            </div>
+        % end
+
+        <div class="grid">
+            <div class="unit w-1-1">
+                % include
+            </div>
         </div>
     </div>
 
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script src="/js/chosen.jquery.min.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

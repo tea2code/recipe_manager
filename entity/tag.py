@@ -42,9 +42,7 @@ class Tag:
         cursor.execute(query)
         result = []
         for row in cursor.fetchall():
-            tag = Tag.from_row(row)
-            tag.find_synonyms(db)
-            result.append(tag)
+            result.append(Tag.from_row(db, row))
         return result
 
     @staticmethod
@@ -63,10 +61,27 @@ class Tag:
         params = [id]
         return Tag.__generic_find(db, query, params)
 
+    @staticmethod
+    def find_recipe(db, recipe):
+        """ Find entities by recipe. Returns list of found entities ordered by
+        name ascending. """
+        query = 'SELECT t.id, t.synonym_of, t.name ' \
+                'FROM tags t, recipe_has_tag rht ' \
+                'WHERE t.id = rht.tag_id ' \
+                'AND rht.recipe_id = ?'
+        params = [recipe.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+        result = []
+        for row in cursor.fetchall():
+            result.append(Tag.from_row(db, row))
+        return result
+
     def find_synonyms(self, db):
         """ Find synonyms of a parent. Doesn't return but add them to
         parent. """
-        query = 'SELECT id, synonym_of, name FROM tags ' \
+        query = 'SELECT id, synonym_of, name ' \
+                'FROM tags ' \
                 'WHERE synonym_of = ? ' \
                 'ORDER BY name COLLATE NOCASE ASC'
         params = [self.id]
@@ -74,12 +89,15 @@ class Tag:
         cursor.execute(query, params)
         self.synonyms = []
         for row in cursor.fetchall():
-            self.synonyms.append(Tag.from_row(row))
+            self.synonyms.append(Tag.from_row(db, row))
 
     @staticmethod
-    def from_row(row):
+    def from_row(db, row):
         """ Create entity from given row. """
-        return Tag(id=row[0], name=row[2], synonym_of=row[1])
+        tag = Tag(id=row[0], name=row[2], synonym_of=row[1])
+        if tag.synonym_of is None:
+            tag.find_synonyms(db)
+        return tag
 
     def is_new(self):
         """ Returns True if entity is not yet committed else False. """
@@ -104,7 +122,4 @@ class Tag:
         cursor = db.cursor()
         cursor.execute(query, params)
         row = cursor.fetchone()
-        tag = Tag.from_row(row) if row else None
-        if tag and tag.synonym_of is None:
-            tag.find_synonyms(db)
-        return tag
+        return Tag.from_row(db, row) if row else None

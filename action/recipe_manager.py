@@ -1,7 +1,9 @@
 from action import base_manager
 from bottle import redirect
+from bottle import request
 from entity import category as category_entity
-from entity import recipe
+from entity import recipe as recipe_entity
+from entity import tag as tag_entity
 from helper import hint
 
 class RecipeManager(base_manager.BaseManager):
@@ -41,15 +43,21 @@ class RecipeManager(base_manager.BaseManager):
             category_id = int(self.get_form('category'))
             category = category_entity.Category.find_pk(self.db, category_id)
 
-            result = recipe.Recipe()
+            tags = []
+            for tag_id in request.forms.getall('tags'):
+                tag = tag_entity.Tag.find_pk(self.db, tag_id)
+                tags.append(tag)
+
+            result = recipe_entity.Recipe()
             if not is_new:
-                result = recipe.Recipe.find_pk(self.db, id)
+                result = recipe_entity.Recipe.find_pk(self.db, id)
             result.category = category
             result.description = self.get_form('description')
             result.info = self.get_form('info')
             result.ingredients = self.get_form('ingredients')
             result.rating = int(self.get_form('rating'))
             result.serving_size = self.get_form('serving-size')
+            result.tags = tags
             result.title = self.get_form('title')
             result.save(self.db)
 
@@ -58,16 +66,16 @@ class RecipeManager(base_manager.BaseManager):
             self.set_cookie(self.HINT_NAME, result.title)
             redirect('/manage/recipe/'+str(result.id))
         elif is_delete:
-            old_recipe = recipe.Recipe.find_pk(self.db, id)
-            old_recipe.delete(self.db)
+            recipe = recipe_entity.Recipe.find_pk(self.db, id)
+            recipe.delete(self.db)
 
             self.set_cookie(self.HINT_COOKIE, self.HINT_DELETE)
-            self.set_cookie(self.HINT_NAME, old_recipe.title)
+            self.set_cookie(self.HINT_NAME, recipe.title)
             redirect('/manage/recipe')
         elif is_new:
-            result = recipe.Recipe()
+            result = recipe_entity.Recipe()
         else:
-            result = recipe.Recipe.find_pk(self.db, id)
+            result = recipe_entity.Recipe.find_pk(self.db, id)
 
         # Cookies
         hint_cookie = self.get_cookie(self.HINT_COOKIE)

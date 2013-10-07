@@ -1,4 +1,5 @@
 from entity import category as category_entity
+from entity import tag as tag_entity
 
 class Recipe:
     """ Represents a recipe.
@@ -11,12 +12,13 @@ class Recipe:
     ingredients -- The ingredients (string).
     rating -- The rating (int).
     serving_size -- A short description of the serving size (string).
+    tags -- List of tags (list tag).
     title -- The title (string).
     """
 
     def __init__(self, category=None, description='', id=None, info='',
-                 ingredients='', rating=None, serving_size='', title='' ):
-
+                 ingredients='', rating=None, serving_size='', title='',
+                 tags=[]):
         self.category = category
         self.description = description
         self.id = id
@@ -24,24 +26,27 @@ class Recipe:
         self.ingredients = ingredients
         self.rating = rating
         self.serving_size = serving_size
+        self.tags = tags
         self.title = title
 
     def __str__(self):
-        category = self.category.name if self.category else None
-        template = 'Recipe({0}, {2}, {1})'
-        return template.format(self.id, self.title, category)
+        template = 'Recipe({0}, {1})'
+        return template.format(self.id, self.title)
 
     def delete(self, db):
         """ Delete entity from database. """
         # TODO Delete synonyms.
         # TODO Delete urls.
         # TODO Delete images.
-        # TODO Delete recipe_has_tag.
+
+        cursor = db.cursor()
+
+        # Delete recipe_has_tag.
+        self.__delete_recipe_has_tag(db)
 
         # Delete entity.
         query = 'DELETE FROM recipes WHERE id = ?'
         params = [self.id]
-        cursor = db.cursor()
         cursor.execute(query, params)
 
     @staticmethod
@@ -51,12 +56,11 @@ class Recipe:
         # TODO Find synonyms.
         # TODO Find urls.
         # TODO Find images.
-        # TODO Find tags.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
                 'rating, serving_size, title ' \
-                'FROM recipes' \
-                ' ORDER BY title COLLATE NOCASE ASC'
+                'FROM recipes ' \
+                'ORDER BY title COLLATE NOCASE ASC'
         cursor = db.cursor()
         cursor.execute(query)
         result = []
@@ -71,7 +75,6 @@ class Recipe:
         # TODO Find synonyms.
         # TODO Find urls.
         # TODO Find images.
-        # TODO Find tags.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
                 'rating, serving_size, title ' \
@@ -93,7 +96,6 @@ class Recipe:
         # TODO Find synonyms.
         # TODO Find urls.
         # TODO Find images.
-        # TODO Find tags.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
                 'rating, serving_size, title FROM recipes WHERE id = ?'
@@ -104,9 +106,11 @@ class Recipe:
     def from_row(db, row):
         """ Create entity from given row. """
         category = category_entity.Category.find_pk(db, row[0])
-        return Recipe(category=category, description=row[1], id=row[2],
-                      info=row[3], ingredients=row[4], rating=row[5],
-                      serving_size=row[6], title=row[7])
+        recipe = Recipe(category=category, description=row[1], id=row[2],
+                        info=row[3], ingredients=row[4], rating=row[5],
+                        serving_size=row[6], title=row[7])
+        recipe.tags = tag_entity.Tag.find_recipe(db, recipe)
+        return recipe
 
     def is_new(self):
         """ Returns True if entity is not yet committed else False. """
@@ -114,20 +118,38 @@ class Recipe:
 
     def save(self, db):
         """ Write entity to database. """
+        cursor = db.cursor()
+
+        # Entity
         query = 'INSERT INTO recipes (category_id, description, info, ' \
-                'ingredients, rating, serving_size, title) VALUES (?, ?, ?, ' \
-                '?, ?, ?, ?)'
+                'ingredients, rating, serving_size, title) ' \
+                'VALUES (?, ?, ?, ?, ?, ?, ?)'
         params = [self.category.id, self.description, self.info,
                   self.ingredients, self.rating, self.serving_size, self.title]
         if not self.is_new():
-            query = 'UPDATE recipes SET category_id = ?, description = ?, ' \
-                    'info = ?, ingredients = ?, rating = ?, serving_size = ?,' \
-                    'title = ? WHERE id = ?'
+            query = 'UPDATE recipes ' \
+                    'SET category_id = ?, description = ?, info = ?, ' \
+                    'ingredients = ?, rating = ?, serving_size = ?, title = ? ' \
+                    'WHERE id = ?'
             params.append(self.id)
-        cursor = db.cursor()
         cursor.execute(query, params)
         if self.is_new():
             self.id = cursor.lastrowid
+
+        # Tags
+        self.__delete_recipe_has_tag(db)
+        for tag in self.tags:
+            query = 'INSERT INTO recipe_has_tag (recipe_id, tag_id) ' \
+                    'VALUES (?, ?)'
+            params = [self.id, tag.id]
+            cursor.execute(query, params)
+
+    def __delete_recipe_has_tag(self, db):
+        """ Deletes entries in recipe_has_tag. """
+        query = 'DELETE FROM recipe_has_tag WHERE recipe_id = ?'
+        params = [self.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
 
     @staticmethod
     def __generic_find(db, query, params):

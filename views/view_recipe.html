@@ -1,5 +1,5 @@
 <div class="grid">
-    <div class="col-1-1">
+    <div class="unit w-1-1">
         <h2>Recipe: {{recipe.title}}</h2>
     </div>
 </div>
@@ -8,14 +8,14 @@
 % escape = html_escape.HtmlEscape.html_escape_nl2br
 
 <div class="grid">
-    <div class="col-2-3">
+    <div class="unit w-2-3">
         <div>Serving Size: {{recipe.serving_size}}</div>
         <div>Ingredients: {{!escape(recipe.ingredients)}}</div>
         <div>Description: {{!escape(recipe.description)}}</div>
         <div>Info: {{!escape(recipe.info)}}</div>
     </div>
 
-    <div class="col-1-3">
+    <div class="unit w-1-3">
         <div>Images (Later, Someday...)</div>
         % rating = '-'
         % if recipe.rating is 0:
@@ -29,6 +29,7 @@
         % end
         <div>Rating: {{rating}}</div>
         <div>URLs (Later, Someday...)</div>
+        <div>Tags: {{', '.join(tag.name for tag in recipe.tags)}}</div>
     </div>
 </div>
 

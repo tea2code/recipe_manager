@@ -8,7 +8,7 @@
         <div>
             <label for="rating">Rating:</label>
             <select id="rating" name="rating">
-                <option value="-1" {{!selected if not recipe.id else ''}}> </option>
+                <option value="-1"> </option>
                 <option value="0" {{!selected if recipe.rating is 0 else ''}}>☆</option>
                 <option value="1" {{!selected if recipe.rating is 1 else ''}}>★</option>
                 <option value="2" {{!selected if recipe.rating is 2 else ''}}>★★</option>
@@ -18,7 +18,7 @@
         <div>
             <label for="category">Category:</label>
             <select id="category" name="category">
-                <option value="-1" {{!selected if not recipe.id else ''}}> </option>
+                <option value="-1"> </option>
                 % for category in categories:
                     <option value="{{category.id}}"
                             {{!selected if recipe.id and recipe.category.id is category.id else ''}}>
@@ -47,6 +47,27 @@
         <div>
             <label for="info">Info:</label>
             <textarea id="info" name="info">{{recipe.info}}</textarea>
+        </div>
+        <div>
+            <label for="tags">Tags:</label>
+            <select id="tags" name="tags" multiple="multiple">
+                <option> </option>
+                % tag_ids = [tag.id for tag in recipe.tags]
+                % for tag in tags:
+                    <optgroup label="{{tag.name}}">
+                        <option value="{{tag.id}}"
+                                {{!selected if tag.id in tag_ids else ''}}>
+                            {{tag.name}}
+                        </option>
+                        % for synonym in tag.synonyms:
+                            <option value="{{synonym.id}}"
+                                    {{!selected if synonym.id in tag_ids else ''}}>
+                                {{synonym.name}}
+                            </option>
+                        % end
+                    </optgroup>
+                % end
+            </select>
         </div>
         <div>
             <button type="submit" name="edit">{{'Edit' if recipe.id else 'Create'}} Recipe</button>

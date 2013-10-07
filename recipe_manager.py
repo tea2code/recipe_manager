@@ -5,6 +5,7 @@ from action import tag_manager
 from bottle.ext import sqlite
 from entity import category
 from entity import recipe
+from entity import tag
 from migration import migration_manager
 
 # Configuration ################################################################
@@ -62,7 +63,8 @@ def manage_recipe(db, id=None):
     manager = recipe_manager.RecipeManager(db)
     recipe = manager.action(id)
     hints = manager.hints
-    return dict(categories=categories, recipe=recipe, hints=hints)
+    tags = tag.Tag.find_all(db)
+    return dict(categories=categories, recipe=recipe, hints=hints, tags=tags)
 
 # Manage: Tag
 @app.get('/manage/tags', template='manage_tags')
