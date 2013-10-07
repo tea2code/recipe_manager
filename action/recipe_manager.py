@@ -16,7 +16,7 @@ class RecipeManager(base_manager.BaseManager):
 
     Member:
     db -- The database connection.
-    hints -- List of hints which occurred during action handling (list).
+    hints -- List of hints which occurred during action handling (list hint).
     """
 
     HINT_COOKIE = 'show_hint'
@@ -41,7 +41,7 @@ class RecipeManager(base_manager.BaseManager):
             category_id = int(self.get_form('category'))
             category = category_entity.Category.find_pk(self.db, category_id)
 
-            result = recipe.Recipe(id=id)
+            result = recipe.Recipe.find_pk(self.db, id)
             result.category = category
             result.description = self.get_form('description')
             result.info = self.get_form('info')

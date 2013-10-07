@@ -27,8 +27,9 @@ class Recipe:
         self.title = title
 
     def __str__(self):
-        template = 'Recipe({0}, {1})'
-        return template.format(self.id, self.title)
+        category = self.category.name if self.category else None
+        template = 'Recipe({0}, {2}, {1})'
+        return template.format(self.id, self.title, category)
 
     def delete(self, db):
         """ Delete entity from database. """

@@ -1,6 +1,7 @@
 import bottle
 from action import category_manager
 from action import recipe_manager
+from action import tag_manager
 from bottle.ext import sqlite
 from entity import category
 from entity import recipe
@@ -24,12 +25,14 @@ migration = migration_manager.MigrationManager(DB_FILE)
 migration.migrate()
 
 # Routes #######################################################################
+# Index
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
     categories = category.Category.find_all(db)
     return dict(categories=categories)
 
+# Category
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')
 def category_list(db, id):
     """ Category list page. """
@@ -38,13 +41,7 @@ def category_list(db, id):
     categories = category.Category.find_all(db)
     return dict(categories=categories, category=cat, recipes=recipes)
 
-@app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
-def view_recipe(db, id):
-    """ Recipe view page. """
-    rec = recipe.Recipe.find_pk(db, id)
-    categories = category.Category.find_all(db)
-    return dict(categories=categories,  recipe=rec)
-
+# Manage: Category
 @app.get('/manage/categories', template='manage_categories')
 @app.post('/manage/categories', template='manage_categories')
 def manage_categories(db):
@@ -54,6 +51,7 @@ def manage_categories(db):
     hints = manager.hints
     return dict(categories=categories, hints=hints)
 
+# Manage: Recipe
 @app.get('/manage/recipe', template='manage_recipe')
 @app.get('/manage/recipe/<id:int>', template='manage_recipe')
 @app.post('/manage/recipe', template='manage_recipe')
@@ -65,6 +63,25 @@ def manage_recipe(db, id=None):
     recipe = manager.action(id)
     hints = manager.hints
     return dict(categories=categories, recipe=recipe, hints=hints)
+
+# Manage: Tag
+@app.get('/manage/tags', template='manage_tags')
+@app.post('/manage/tags', template='manage_tags')
+def manage_tag(db):
+    """ Tag managing page. """
+    categories = category.Category.find_all(db)
+    manager = tag_manager.TagManager(db)
+    tags = manager.action()
+    hints = manager.hints
+    return dict(categories=categories, tags=tags, hints=hints)
+
+# Recipe
+@app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
+def view_recipe(db, id):
+    """ Recipe view page. """
+    rec = recipe.Recipe.find_pk(db, id)
+    categories = category.Category.find_all(db)
+    return dict(categories=categories,  recipe=rec)
 
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')

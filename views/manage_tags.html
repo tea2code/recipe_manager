@@ -1,0 +1,64 @@
+<h2>Manage: Tags</h2>
+
+<form action="/manage/tags" method="post">
+    <fieldset>
+        <legend>New Tag</legend>
+        <div>
+            <label for="new-name">Name:</label>
+            <input type="text" id="new-name" name="name" />
+        </div>
+        <div>
+            <input type="hidden" name="action" value="new" />
+            <button type="submit">Create Tag</button>
+        </div>
+    </fieldset>
+</form>
+
+% for tag in tags:
+    <fieldset>
+        <legend>{{tag.name}}</legend>
+        <form action="/manage/tags" method="post">
+            <div>
+                <label for="edit-name-{{tag.id}}">Name:</label>
+                <input type="text" id="edit-name-{{tag.id}}" name="name" value="{{tag.name}}" />
+                <input type="hidden" name="id" value="{{tag.id}}" />
+                <input type="hidden" name="action" value="edit" />
+                <button type="submit" name="edit">Edit</button>
+                <button type="submit" name="delete">Delete (including synonyms)</button>
+            </div>
+        </form>
+
+        <form action="/manage/tags" method="post">
+            <fieldset>
+                <legend>New Synonym</legend>
+                <div>
+                    <label for="new-name-{{tag.id}}">Name:</label>
+                    <input type="text" id="new-name-{{tag.id}}" name="name" />
+                </div>
+                <div>
+                    <input type="hidden" name="id" value="{{tag.id}}" />
+                    <input type="hidden" name="action" value="new-synonym" />
+                    <button type="submit">Create Synonym</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <fieldset>
+            <legend>Edit Synonym</legend>
+            % for synonym in tag.synonyms:
+                <form action="/manage/tags" method="post">
+                    <div>
+                        <label for="edit-name-{{synonym.id}}">Name:</label>
+                        <input type="text" id="edit-name-{{synonym.id}}" name="name" value="{{synonym.name}}" />
+                        <input type="hidden" name="id" value="{{synonym.id}}" />
+                        <input type="hidden" name="action" value="edit" />
+                        <button type="submit" name="edit">Edit</button>
+                        <button type="submit" name="delete">Delete</button>
+                    </div>
+                </form>
+            % end
+         </fieldset>
+    </fieldset>
+% end
+
+% rebase html_body id='manage-tags', title='Tags'

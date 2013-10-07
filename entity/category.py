@@ -1,4 +1,4 @@
-class Category():
+class Category:
     """ Represents a category.
 
     Member:
@@ -16,6 +16,8 @@ class Category():
 
     def delete(self, db):
         """ Delete entity from database. """
+        # TODO Delete/move recipe?
+
         query = 'DELETE FROM categories WHERE id = ?'
         params = [self.id]
         cursor = db.cursor()
