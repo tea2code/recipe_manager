@@ -41,7 +41,9 @@ class RecipeManager(base_manager.BaseManager):
             category_id = int(self.get_form('category'))
             category = category_entity.Category.find_pk(self.db, category_id)
 
-            result = recipe.Recipe.find_pk(self.db, id)
+            result = recipe.Recipe()
+            if not is_new:
+                result = recipe.Recipe.find_pk(self.db, id)
             result.category = category
             result.description = self.get_form('description')
             result.info = self.get_form('info')
