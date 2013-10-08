@@ -9,27 +9,61 @@
 
 <div class="grid">
     <div class="unit w-2-3">
-        <div>Serving Size: {{recipe.serving_size}}</div>
-        <div>Ingredients: {{!escape(recipe.ingredients)}}</div>
-        <div>Description: {{!escape(recipe.description)}}</div>
-        <div>Info: {{!escape(recipe.info)}}</div>
+        <div>
+            <h3>Serving Size:</h3>
+            <p>{{recipe.serving_size}}</p>
+        </div>
+        <div>
+            <h3>Ingredients:</h3>
+            <p>{{!escape(recipe.ingredients)}}</p>
+        </div>
+        <div>
+            <h3>Description:</h3>
+            <p>{{!escape(recipe.description)}}</p>
+        </div>
+        <div>
+            <h3>Info:</h3>
+            <p>{{!escape(recipe.info)}}</p>
+        </div>
     </div>
 
     <div class="unit w-1-3">
-        <div>Images (Later, Someday...)</div>
-        % rating = '-'
-        % if recipe.rating is 0:
-        %   rating = '☆'
-        % elif recipe.rating is 1:
-        %   rating = '★'
-        % elif recipe.rating is 2:
-        %   rating = '★★'
-        % else:
-        %   rating = '★★★'
-        % end
-        <div>Rating: {{rating}}</div>
-        <div>URLs (Later, Someday...)</div>
-        <div>Tags: {{', '.join(tag.name for tag in recipe.tags)}}</div>
+        <div>
+            <h3>Images:</h3>
+            <p>(Later, Someday...)</p>
+        </div>
+        <div>
+            % rating = '-'
+            % if recipe.rating is 0:
+            %   rating = '☆'
+            % elif recipe.rating is 1:
+            %   rating = '★'
+            % elif recipe.rating is 2:
+            %   rating = '★★'
+            % else:
+            %   rating = '★★★'
+            % end
+            <h3>Rating:</h3>
+            <p>{{rating}}</p>
+        </div>
+        <div>
+            <h3>Links:</h3>
+            % if recipe.urls:
+                <ul>
+                    % for url in recipe.urls:
+                        % name = url.name if url.name else url.url[:30]
+                        % if not url.name and len(url.url) > 30:
+                        %    name += '...'
+                        % end
+                        <li><a href="{{url.url}}">{{name}}</a></li>
+                    % end
+                </ul>
+            % end
+        </div>
+        <div>
+            <h3>Tags:</h3>
+            <p>{{', '.join(tag.name for tag in recipe.tags)}}</p>
+        </div>
     </div>
 </div>
 

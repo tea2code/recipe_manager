@@ -1,5 +1,6 @@
 from entity import category as category_entity
 from entity import tag as tag_entity
+from entity import url as url_entity
 
 class Recipe:
     """ Represents a recipe.
@@ -14,11 +15,12 @@ class Recipe:
     serving_size -- A short description of the serving size (string).
     tags -- List of tags (list tag).
     title -- The title (string).
+    urls -- List of urls (list url).
     """
 
     def __init__(self, category=None, description='', id=None, info='',
                  ingredients='', rating=None, serving_size='', title='',
-                 tags=[]):
+                 tags=[], urls=[]):
         self.category = category
         self.description = description
         self.id = id
@@ -28,6 +30,7 @@ class Recipe:
         self.serving_size = serving_size
         self.tags = tags
         self.title = title
+        self.urls = urls
 
     def __str__(self):
         template = 'Recipe({0}, {1})'
@@ -36,13 +39,15 @@ class Recipe:
     def delete(self, db):
         """ Delete entity from database. """
         # TODO Delete synonyms.
-        # TODO Delete urls.
         # TODO Delete images.
 
         cursor = db.cursor()
 
         # Delete recipe_has_tag.
         self.__delete_recipe_has_tag(db)
+
+        # Delete urls.
+        self.__delete_urls(db)
 
         # Delete entity.
         query = 'DELETE FROM recipes WHERE id = ?'
@@ -54,7 +59,6 @@ class Recipe:
         """ Find all entities in database. Returns list of found
         entities ordered by name ascending."""
         # TODO Find synonyms.
-        # TODO Find urls.
         # TODO Find images.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
@@ -73,7 +77,6 @@ class Recipe:
         """ Find entities by category in database. Returns list of found
         entities ordered by name ascending."""
         # TODO Find synonyms.
-        # TODO Find urls.
         # TODO Find images.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
@@ -94,7 +97,6 @@ class Recipe:
         """ Find entity by primary key aka row id in database. Returns found
         entity or None. """
         # TODO Find synonyms.
-        # TODO Find urls.
         # TODO Find images.
 
         query = 'SELECT category_id, description, id, info, ingredients, ' \
@@ -110,6 +112,7 @@ class Recipe:
                         info=row[3], ingredients=row[4], rating=row[5],
                         serving_size=row[6], title=row[7])
         recipe.tags = tag_entity.Tag.find_recipe(db, recipe)
+        recipe.urls = url_entity.Url.find_recipe(db, recipe)
         return recipe
 
     def is_new(self):
@@ -118,6 +121,9 @@ class Recipe:
 
     def save(self, db):
         """ Write entity to database. """
+        # TODO Save synonyms.
+        # TODO Save images.
+
         cursor = db.cursor()
 
         # Entity
@@ -144,9 +150,22 @@ class Recipe:
             params = [self.id, tag.id]
             cursor.execute(query, params)
 
+        # Urls
+        self.__delete_urls(db)
+        for url in self.urls:
+            url.recipe_id = self.id
+            url.save(db)
+
     def __delete_recipe_has_tag(self, db):
         """ Deletes entries in recipe_has_tag. """
         query = 'DELETE FROM recipe_has_tag WHERE recipe_id = ?'
+        params = [self.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+
+    def __delete_urls(self, db):
+        """ Deletes entries in urls. """
+        query = 'DELETE FROM urls WHERE recipe_id = ?'
         params = [self.id]
         cursor = db.cursor()
         cursor.execute(query, params)

@@ -4,6 +4,7 @@ from bottle import request
 from entity import category as category_entity
 from entity import recipe as recipe_entity
 from entity import tag as tag_entity
+from entity import url as url_entity
 from helper import hint
 
 class RecipeManager(base_manager.BaseManager):
@@ -48,6 +49,17 @@ class RecipeManager(base_manager.BaseManager):
                 tag = tag_entity.Tag.find_pk(self.db, tag_id)
                 tags.append(tag)
 
+            urls = []
+            url_counter = 0
+            url_url = self.get_form('url-url-'+str(url_counter))
+            while url_url is not None:
+                if url_url:
+                    url_name = self.get_form('url-name-'+str(url_counter))
+                    url = url_entity.Url(name=url_name, url=url_url)
+                    urls.append(url)
+                url_counter += 1
+                url_url = self.get_form('url-url-'+str(url_counter))
+
             result = recipe_entity.Recipe()
             if not is_new:
                 result = recipe_entity.Recipe.find_pk(self.db, id)
@@ -59,6 +71,7 @@ class RecipeManager(base_manager.BaseManager):
             result.serving_size = self.get_form('serving-size')
             result.tags = tags
             result.title = self.get_form('title')
+            result.urls = urls
             result.save(self.db)
 
             type = self.HINT_NEW if is_new else self.HINT_EDIT

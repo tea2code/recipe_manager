@@ -69,9 +69,40 @@
                 % end
             </select>
         </div>
+        % url_counter = 0
+        <div id="urls">
+            % for url in recipe.urls:
+                <div>
+                    <label for="url-name-{{url_counter}}">Name of link {{url_counter + 1}}:</label>
+                    <input type="text" id="url-name-{{url_counter}}" name="url-name-{{url_counter}}" value="{{url.name}}" />
+                </div>
+                <div>
+                    <label for="url-url-{{url_counter}}">Link {{url_counter + 1}}:</label>
+                    <input type="text" id="url-url-{{url_counter}}" name="url-url-{{url_counter}}" value="{{url.url}}" />
+                </div>
+                % url_counter += 1
+            % end
+            % if not recipe.urls:
+                <div>
+                    <label for="url-name-0">Name of Link 1:</label>
+                    <input type="text" id="url-name-0" name="url-name-0" value="" />
+                </div>
+                <div>
+                    <label for="url-url-0">Link 1:</label>
+                    <input type="text" id="url-url-0" name="url-url-0" value="" />
+                </div>
+                % url_counter += 1
+            % end
+        </div>
+        <div>
+            <input type="hidden" id="url-counter" name="url-counter" value="{{url_counter}}" />
+            <button id="add-url">Add Link</button>
+        </div>
         <div>
             <button type="submit" name="edit">{{'Edit' if recipe.id else 'Create'}} Recipe</button>
-            {{!'<button type="submit" name="delete">Delete Recipe</button>' if recipe.id else ''}}
+            % if recipe.id:
+                <button type="submit" name="delete">Delete Recipe</button>
+            % end
         </div>
     </fieldset>
 </form>
