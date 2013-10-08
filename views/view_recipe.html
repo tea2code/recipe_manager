@@ -1,6 +1,7 @@
 <div class="grid">
     <div class="unit w-1-1">
         <h2>Recipe: {{recipe.title}}</h2>
+        <h3>Synonyms: {{', '.join(synonym.name for synonym in recipe.synonyms)}}</h3>
     </div>
 </div>
 

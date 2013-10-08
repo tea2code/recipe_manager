@@ -5,6 +5,7 @@
 <form action="/manage/recipe{{'/'+str(recipe.id) if recipe.id else ''}}" method="post">
     <fieldset>
         <legend>{{'Edit' if recipe.id else 'New'}} Recipe</legend>
+
         <div>
             <label for="rating">Rating:</label>
             <select id="rating" name="rating">
@@ -15,6 +16,7 @@
                 <option value="3" {{!selected if recipe.rating is 3 else ''}}>★★★</option>
             </select>
         </div>
+
         <div>
             <label for="category">Category:</label>
             <select id="category" name="category">
@@ -32,22 +34,49 @@
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value="{{recipe.title}}" />
         </div>
+
+        % synonym_counter = 0
+        <div id="synonyms">
+            % for synonym in recipe.synonyms:
+                <div>
+                    <label for="synonym-{{synonym_counter}}">Synonym {{synonym_counter + 1}}:</label>
+                    <input type="text" id="synonym-{{synonym_counter}}" name="synonym-{{synonym_counter}}" value="{{synonym.name}}" />
+                </div>
+                % synonym_counter += 1
+            % end
+            % if not recipe.synonyms:
+                <div>
+                    <label for="synonym-0">Synonym 1:</label>
+                    <input type="text" id="synonym-0" name="synonym-0" value="" />
+                </div>
+                % synonym_counter += 1
+            % end
+        </div>
+        <div>
+            <input type="hidden" id="synonym-counter" name="synonym-counter" value="{{synonym_counter}}" />
+            <button id="add-synonym">Add Synonym</button>
+        </div>
+
         <div>
             <label for="serving-size">Serving Size:</label>
             <input type="text" id="serving-size" name="serving-size" value="{{recipe.serving_size}}" />
         </div>
+
         <div>
             <label for="ingredients">Ingredients:</label>
             <textarea id="ingredients" name="ingredients">{{recipe.ingredients}}</textarea>
         </div>
+
         <div>
             <label for="description">Description:</label>
             <textarea id="description" name="description">{{recipe.description}}</textarea>
         </div>
+
         <div>
             <label for="info">Info:</label>
             <textarea id="info" name="info">{{recipe.info}}</textarea>
         </div>
+
         <div>
             <label for="tags">Tags:</label>
             <select id="tags" name="tags" multiple="multiple">
@@ -69,11 +98,12 @@
                 % end
             </select>
         </div>
+
         % url_counter = 0
         <div id="urls">
             % for url in recipe.urls:
                 <div>
-                    <label for="url-name-{{url_counter}}">Name of link {{url_counter + 1}}:</label>
+                    <label for="url-name-{{url_counter}}">Name of Link {{url_counter + 1}}:</label>
                     <input type="text" id="url-name-{{url_counter}}" name="url-name-{{url_counter}}" value="{{url.name}}" />
                 </div>
                 <div>
@@ -98,6 +128,7 @@
             <input type="hidden" id="url-counter" name="url-counter" value="{{url_counter}}" />
             <button id="add-url">Add Link</button>
         </div>
+
         <div>
             <button type="submit" name="edit">{{'Edit' if recipe.id else 'Create'}} Recipe</button>
             % if recipe.id:

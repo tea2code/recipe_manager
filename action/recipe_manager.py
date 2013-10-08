@@ -3,6 +3,7 @@ from bottle import redirect
 from bottle import request
 from entity import category as category_entity
 from entity import recipe as recipe_entity
+from entity import synonym as synonym_entity
 from entity import tag as tag_entity
 from entity import url as url_entity
 from helper import hint
@@ -44,6 +45,16 @@ class RecipeManager(base_manager.BaseManager):
             category_id = int(self.get_form('category'))
             category = category_entity.Category.find_pk(self.db, category_id)
 
+            synonyms = []
+            synonym_counter = 0
+            synonym_name = self.get_form('synonym-'+str(synonym_counter))
+            while synonym_name is not None:
+                if synonym_name:
+                    synonym = synonym_entity.Synonym(name=synonym_name)
+                    synonyms.append(synonym)
+                synonym_counter += 1
+                synonym_name = self.get_form('synonym-'+str(synonym_counter))
+
             tags = []
             for tag_id in request.forms.getall('tags'):
                 tag = tag_entity.Tag.find_pk(self.db, tag_id)
@@ -69,6 +80,7 @@ class RecipeManager(base_manager.BaseManager):
             result.ingredients = self.get_form('ingredients')
             result.rating = int(self.get_form('rating'))
             result.serving_size = self.get_form('serving-size')
+            result.synonyms = synonyms
             result.tags = tags
             result.title = self.get_form('title')
             result.urls = urls

@@ -1,9 +1,13 @@
 <h2>Category: {{category.name}}</h2>
 
-if recipes:
+% if recipes:
     <ul>
     % for recipe in recipes:
-        <li><a href="/recipe/{{recipe.id}}-{{recipe.title.lower()}}">{{recipe.title}}</a></li>
+        <li>
+            <a href="/recipe/{{recipe.id}}-{{recipe.title.lower()}}">
+                {{recipe.title}}{{' ('+', '.join(tag.name for tag in recipe.tags)+')' if recipe.tags else ''}}
+            </a>
+        </li>
     % end
     </ul>
 % end
