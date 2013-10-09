@@ -2,7 +2,7 @@
 
 % selected = 'selected="selected"'
 
-<form action="/manage/recipe{{'/'+str(recipe.id) if recipe.id else ''}}" method="post">
+<form action="/manage/recipe{{'/'+str(recipe.id) if recipe.id else ''}}" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>{{'Edit' if recipe.id else 'New'}} Recipe</legend>
 
@@ -127,6 +127,28 @@
         <div>
             <input type="hidden" id="url-counter" name="url-counter" value="{{url_counter}}" />
             <button id="add-url">Add Link</button>
+        </div>
+
+        % image_counter = 0
+        <div id="images">
+            % for image in recipe.images:
+                <div id="image-{{image_counter}}">
+                    <label>Image {{image_counter + 1}}:</label>
+                    <img src="{{image.path}}" alt="{{image.path}}" />
+                    <input type="hidden" name="image-{{image_counter}}" value="{{image.path}}" />
+                    <button class="delete-image" data-rel="image-{{image_counter}}">Remove Image</button>
+                </div>
+                % image_counter += 1
+            % end
+            <div>
+                <label for="new-image-0">New Image 1:</label>
+                <input type="file" id="new-image-0" accept="image/gif, image/jpeg, image/png" name="new-image-0" />
+            </div>
+        </div>
+        <div>
+            <input type="hidden" id="image-counter" name="image-counter" value="{{image_counter}}" />
+            <input type="hidden" id="new-image-counter" name="new-image-counter" value="1" />
+            <button id="add-image">Add Image</button>
         </div>
 
         <div>

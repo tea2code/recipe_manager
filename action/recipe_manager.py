@@ -2,11 +2,14 @@ from action import base_manager
 from bottle import redirect
 from bottle import request
 from entity import category as category_entity
+from entity import image as image_entity
 from entity import recipe as recipe_entity
 from entity import synonym as synonym_entity
 from entity import tag as tag_entity
 from entity import url as url_entity
 from helper import hint
+
+import os
 
 class RecipeManager(base_manager.BaseManager):
     """ Handle recipe related actions.
@@ -17,6 +20,8 @@ class RecipeManager(base_manager.BaseManager):
     HINT_EDIT -- Value of edit hint cookie (string).
     HINT_NAME -- Name of cookie which stores name of last changed recipe (string).
     HINT_NEW -- Value of new hint cookie (string).
+    IMAGE_PATH -- Path template for image uploads (string).
+    STATIC_PATH -- Path to statics folder (string).
 
     Member:
     db -- The database connection.
@@ -28,6 +33,8 @@ class RecipeManager(base_manager.BaseManager):
     HINT_EDIT = 'edit'
     HINT_NAME = 'last_name'
     HINT_NEW = 'new'
+    IMAGE_PATH = '/img/upload/{0}{2}{1}'
+    STATIC_PATH = 'static'
 
     def __init__(self, db):
         self.db = db
@@ -44,6 +51,37 @@ class RecipeManager(base_manager.BaseManager):
         if is_edit:
             category_id = int(self.get_form('category'))
             category = category_entity.Category.find_pk(self.db, category_id)
+
+            images = []
+            image_counter = 0
+            image_path = self.get_form('image-'+str(image_counter))
+            while image_path is not None:
+                if image_path:
+                    image = image_entity.Image(path=image_path)
+                    images.append(image)
+                image_counter += 1
+                image_path = self.get_form('image-'+str(image_counter))
+            image_counter = 0
+            image_upload = request.files.get('new-image-'+str(image_counter))
+            while image_upload is not None:
+                name, ext = os.path.splitext(image_upload.filename)
+                if ext not in ('.png','.jpg','.jpeg', '.gif'):
+                    text = 'Extension "{}" is not an allowed image type.'\
+                        .format(ext)
+                    self.hints.append(hint.Hint(text))
+                    image_counter += 1
+                    image_upload = request.files.get('new-image-'+str(image_counter))
+                    continue
+                image_path = self.IMAGE_PATH.format(name, ext, '')
+                path_counter = 0
+                while os.path.exists(self.STATIC_PATH + image_path):
+                    image_path = self.IMAGE_PATH.format(name, ext, path_counter)
+                    path_counter += 1
+                image_upload.save(self.STATIC_PATH + image_path)
+                image = image_entity.Image(path=image_path)
+                images.append(image)
+                image_counter += 1
+                image_upload = request.files.get('new-image-'+str(image_counter))
 
             synonyms = []
             synonym_counter = 0
@@ -76,6 +114,7 @@ class RecipeManager(base_manager.BaseManager):
                 result = recipe_entity.Recipe.find_pk(self.db, id)
             result.category = category
             result.description = self.get_form('description')
+            result.images = images
             result.info = self.get_form('info')
             result.ingredients = self.get_form('ingredients')
             result.rating = int(self.get_form('rating'))

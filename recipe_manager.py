@@ -88,6 +88,7 @@ def view_recipe(db, id):
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')
 @app.get('/<type:re:(css|img|js)>/<file>')
+@app.get('/<type:re:img/upload>/<file>')
 def statics(file, type='img'):
     """ Static content like css, images and javascript. """
     return bottle.static_file(file, root='static/'+type)
