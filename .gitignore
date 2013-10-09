@@ -36,3 +36,4 @@ nosetests.xml
 .idea
 dev-db.sqlite
 db.sqlite
+static/img/upload/*
