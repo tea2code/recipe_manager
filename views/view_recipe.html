@@ -1,7 +1,9 @@
 <div class="grid">
     <div class="unit w-1-1">
-        <h2>Recipe: {{recipe.title}}</h2>
-        <h3>Synonyms: {{', '.join(synonym.name for synonym in recipe.synonyms)}}</h3>
+        <h2>{{recipe.title}}</h2>
+        % if recipe.synonyms:
+            <h3>Synonyms: {{', '.join(synonym.name for synonym in recipe.synonyms)}}</h3>
+        % end
     </div>
 </div>
 
@@ -29,7 +31,7 @@
     </div>
 
     <div class="unit w-1-3">
-        <div>
+        <div id="images">
             <h3>Images:</h3>
             % if recipe.images:
                 <ul>
@@ -66,6 +68,10 @@
                     % end
                 </ul>
             % end
+        </div>
+        <div>
+            <h3>Category:</h3>
+            <p>{{recipe.category.name}}</p>
         </div>
         <div>
             <h3>Tags:</h3>

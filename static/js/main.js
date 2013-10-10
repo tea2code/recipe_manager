@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    // Tag Groups.
+    $('.tag-group').children(':not(.tag-group-legend)').hide();
+    $('.tag-group-legend').click(function() 
+    {
+        $(this).siblings().toggle();
+    });
+
     // Chosen.
     $('#tags').chosen();
 

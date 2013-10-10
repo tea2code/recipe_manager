@@ -15,8 +15,8 @@
 </form>
 
 % for tag in tags:
-    <fieldset>
-        <legend>{{tag.name}}</legend>
+    <fieldset class="tag-group">
+        <legend class="tag-group-legend">{{tag.name}}</legend>
         <form action="/manage/tags" method="post">
             <div>
                 <label for="edit-name-{{tag.id}}">Name:</label>
@@ -24,7 +24,7 @@
                 <input type="hidden" name="id" value="{{tag.id}}" />
                 <input type="hidden" name="action" value="edit" />
                 <button type="submit" name="edit">Edit</button>
-                <button type="submit" name="delete">Delete (including synonyms)</button>
+                <button type="submit" name="delete">Delete</button>
             </div>
         </form>
 
