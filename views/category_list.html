@@ -3,10 +3,37 @@
 % if recipes:
     <ul>
     % for recipe in recipes:
-        <li>
-            <a href="/recipe/{{recipe.id}}-{{recipe.title.lower()}}">
-                {{recipe.title}}{{' ('+', '.join(tag.name for tag in recipe.tags)+')' if recipe.tags else ''}}
-            </a>
+        <li class="grid">
+            <div class="unit w-1-5">
+                % if recipe.images:
+                    <a href="/recipe/{{recipe.id}}-{{recipe.title.lower()}}">
+                        <img src="{{recipe.images[0].path}}" alt="{{recipe.images[0].path}}" />
+                    </a>
+                % end
+            </div>
+            <div class="unit w-4-5">
+                <div id="title">
+                    <a class="grid" href="/recipe/{{recipe.id}}-{{recipe.title.lower()}}">
+                        {{recipe.title}}
+                    </a>
+                </div>
+                <div id="rating">
+                    % rating = '-'
+                    % if recipe.rating is 0:
+                    %   rating = '☆'
+                    % elif recipe.rating is 1:
+                    %   rating = '★'
+                    % elif recipe.rating is 2:
+                    %   rating = '★★'
+                    % elif recipe.rating is 3:
+                    %   rating = '★★★'
+                    % end
+                    {{rating}}
+                </div>
+                <div id="tags">
+                    {{', '.join(tag.name for tag in recipe.tags) if recipe.tags else ''}}
+                </div>
+            </div>
         </li>
     % end
     </ul>
