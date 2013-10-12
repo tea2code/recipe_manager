@@ -15,7 +15,6 @@ class MigrationManager:
     EMPTY_DB_FILE -- Name of empty database file (string).
 
     Member:
-    db -- The database connection.
     db_file -- Path to sqlite database file.
     """
 
@@ -23,24 +22,29 @@ class MigrationManager:
     EMPTY_DB_FILE = 'empty-db.sqlite'
 
     def __init__(self, db_file):
-        if os.path.exists(db_file):
-            self.db = sqlite3.connect(db_file)
         self.db_file = db_file
 
     def migrate(self):
-        """ Executes checks and migrates if necessary. """
+        """ Executes checks and migrates if necessary. Sub functions should
+        always commit changes in the database. """
         # Version 1
         self.__create_db()
+        db = sqlite3.connect(self.db_file)
 
         # Version 1 -> 2
-        if self.__is_version(1):
-            self.__create_tags_001()
-            self.__update_version(2)
+        if self.__is_version(db, 1):
+            self.__create_tags_001(db)
+            self.__update_version(db, 2)
 
         # Finished
-        self.db.close()
+        db.close()
 
-    def __create_tags_001(self):
+    def __create_db(self):
+        """ Create database file if not existing. """
+        if not os.path.exists(self.db_file):
+            shutil.copy(self.EMPTY_DB_FILE, self.db_file)
+
+    def __create_tags_001(self, db):
         """ Create initial set of German and English tags. """
         tags = tag_lists.tags_001
         for tag_names in tags:
@@ -49,29 +53,23 @@ class MigrationManager:
             for tag_name in tag_names:
                 tag = tag_entity.Tag(name=tag_name, synonym_of=parent_id)
                 try:
-                    tag.save(self.db)
+                    tag.save(db)
                 except sqlite3.IntegrityError:
                     print('{} in [{}]'.format(tag_name, ', '.join(tag_names)))
                     sys.exit(80085)
                 if first:
                     parent_id = tag.id
                     first = False
-        self.db.commit()
+        db.commit()
 
-    def __create_db(self):
-        """ Create database file if not existing. """
-        if not os.path.exists(self.db_file):
-            shutil.copy(self.EMPTY_DB_FILE, self.db_file)
-            self.db = sqlite3.connect(self.db_file)
-
-    def __is_version(self, version):
+    def __is_version(self, db, version):
         """ Checks version in configuration table. """
-        config = config_entity.Configuration.find_name(self.db, self.CONFIG_VERSION)
+        config = config_entity.Configuration.find_name(db, self.CONFIG_VERSION)
         return int(config.value) is version
 
-    def __update_version(self, version):
+    def __update_version(self, db, version):
         """ Sets version in configuration table to given value. """
-        config = config_entity.Configuration.find_name(self.db, self.CONFIG_VERSION)
+        config = config_entity.Configuration.find_name(db, self.CONFIG_VERSION)
         config.value = str(version)
-        config.save(self.db)
-        self.db.commit()
+        config.save(db)
+        db.commit()

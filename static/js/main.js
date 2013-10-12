@@ -7,7 +7,8 @@ $(document).ready(function() {
     });
 
     // Chosen.
-    $('#tags').chosen();
+    $('#manage-recipe #categories').chosen();
+    $('#manage-recipe #tags').chosen();
 
     // Add Images.
     $('#manage-recipe #add-image').click(function(event)

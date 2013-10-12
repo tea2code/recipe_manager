@@ -77,7 +77,7 @@
         </div>
         <div>
             <h3>Category:</h3>
-            <p>{{recipe.category.name}}</p>
+            <p>{{', '.join(category.name for category in recipe.categories)}}</p>
         </div>
         <div>
             <h3>Tags:</h3>

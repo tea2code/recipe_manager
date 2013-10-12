@@ -52,6 +52,22 @@ class Category:
         return Category.__generic_find(db, query, params)
 
     @staticmethod
+    def find_recipe(db, recipe):
+        """ Find entities by recipe. Returns list of found entities ordered by
+        name ascending. """
+        query = 'SELECT c.id, c.name ' \
+                'FROM categories c, recipe_has_category rhc ' \
+                'WHERE c.id = rhc.category_id ' \
+                'AND rhc.recipe_id = ?'
+        params = [recipe.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+        result = []
+        for row in cursor.fetchall():
+            result.append(Category.from_row(row))
+        return result
+
+    @staticmethod
     def from_row(row):
         """ Create entity from given row. """
         return Category(id=row[0], name=row[1])

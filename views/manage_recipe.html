@@ -18,12 +18,13 @@
         </div>
 
         <div>
-            <label for="category">Category:</label>
-            <select id="category" name="category">
+            <label for="categories">Category:</label>
+            <select id="categories" name="categories" multiple="multiple">
                 <option value="-1"> </option>
+                % category_ids = [category.id for category in recipe.categories]
                 % for category in categories:
                     <option value="{{category.id}}"
-                            {{!selected if recipe.id and recipe.category.id is category.id else ''}}>
+                            {{!selected if category.id in category_ids else ''}}>
                         {{category.name}}
                     </option>
                 % end

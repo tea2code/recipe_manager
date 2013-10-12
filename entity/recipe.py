@@ -10,7 +10,7 @@ class Recipe:
     """ Represents a recipe.
 
     Member:
-    category -- The category of this recipe (category).
+    categories -- List of category of this recipe (list category).
     description -- The cooking description (string).
     id -- The row id or None if not yet committed (int).
     images -- List of images (list image).
@@ -24,10 +24,10 @@ class Recipe:
     urls -- List of urls (list url).
     """
 
-    def __init__(self, category=None, description='', id=None, info='',
+    def __init__(self, categories=[], description='', id=None, info='',
                  ingredients='', rating=None, serving_size='', title='',
                  tags=[], urls=[], synonyms=[], images=[]):
-        self.category = category
+        self.categories = categories
         self.description = description
         self.id = id
         self.images = images
@@ -51,6 +51,9 @@ class Recipe:
         # Delete images.
         self.__delete_images(db, force=True)
 
+        # Delete recipe_has_category.
+        self.__delete_recipe_has_category(db)
+
         # Delete recipe_has_tag.
         self.__delete_recipe_has_tag(db)
 
@@ -69,7 +72,7 @@ class Recipe:
     def find_all(db):
         """ Find all entities in database. Returns list of found
         entities ordered by name ascending."""
-        query = 'SELECT category_id, description, id, info, ingredients, ' \
+        query = 'SELECT description, id, info, ingredients, ' \
                 'rating, serving_size, title ' \
                 'FROM recipes ' \
                 'ORDER BY title COLLATE NOCASE ASC'
@@ -84,10 +87,11 @@ class Recipe:
     def find_category(db, category):
         """ Find entities by category in database. Returns list of found
         entities ordered by name ascending."""
-        query = 'SELECT category_id, description, id, info, ingredients, ' \
-                'rating, serving_size, title ' \
-                'FROM recipes ' \
-                'WHERE category_id = ?' \
+        query = 'SELECT r.description, r.id, r.info, r.ingredients, ' \
+                'r.rating, r.serving_size, r.title ' \
+                'FROM recipes r, recipe_has_category rhc ' \
+                'WHERE rhc.recipe_id = r.id ' \
+                'AND rhc.category_id = ? ' \
                 'ORDER BY title COLLATE NOCASE ASC'
         params = [category.id]
         cursor = db.cursor()
@@ -101,18 +105,20 @@ class Recipe:
     def find_pk(db, id):
         """ Find entity by primary key aka row id in database. Returns found
         entity or None. """
-        query = 'SELECT category_id, description, id, info, ingredients, ' \
-                'rating, serving_size, title FROM recipes WHERE id = ?'
+        query = 'SELECT description, id, info, ingredients, rating, ' \
+                'serving_size, title ' \
+                'FROM recipes ' \
+                'WHERE id = ?'
         params = [id]
         return Recipe.__generic_find(db, query, params)
 
     @staticmethod
     def from_row(db, row):
         """ Create entity from given row. """
-        recipe = Recipe(description=row[1], id=row[2], info=row[3],
-                        ingredients=row[4], rating=row[5], serving_size=row[6],
-                        title=row[7])
-        recipe.category = category_entity.Category.find_pk(db, row[0])
+        recipe = Recipe(description=row[0], id=row[1], info=row[2],
+                        ingredients=row[3], rating=row[4], serving_size=row[5],
+                        title=row[6])
+        recipe.categories = category_entity.Category.find_recipe(db, recipe)
         recipe.images = image_entity.Image.find_recipe(db, recipe)
         recipe.synonyms = synonym_entity.Synonym.find_recipe(db, recipe)
         recipe.tags = tag_entity.Tag.find_recipe(db, recipe)
@@ -128,15 +134,15 @@ class Recipe:
         cursor = db.cursor()
 
         # Entity
-        query = 'INSERT INTO recipes (category_id, description, info, ' \
+        query = 'INSERT INTO recipes (description, info, ' \
                 'ingredients, rating, serving_size, title) ' \
-                'VALUES (?, ?, ?, ?, ?, ?, ?)'
-        params = [self.category.id, self.description, self.info,
+                'VALUES (?, ?, ?, ?, ?, ?)'
+        params = [self.description, self.info,
                   self.ingredients, self.rating, self.serving_size, self.title]
         if not self.is_new():
             query = 'UPDATE recipes ' \
-                    'SET category_id = ?, description = ?, info = ?, ' \
-                    'ingredients = ?, rating = ?, serving_size = ?, title = ? ' \
+                    'SET description = ?, info = ?, ingredients = ?, ' \
+                    'rating = ?, serving_size = ?, title = ? ' \
                     'WHERE id = ?'
             params.append(self.id)
         cursor.execute(query, params)
@@ -148,6 +154,14 @@ class Recipe:
         for image in self.images:
             image.recipe_id = self.id
             image.save(db)
+
+        # Categories
+        self.__delete_recipe_has_category(db)
+        for category in self.categories:
+            query = 'INSERT INTO recipe_has_category (recipe_id, category_id) ' \
+                    'VALUES (?, ?)'
+            params = [self.id, category.id]
+            cursor.execute(query, params)
 
         # Synonyms
         self.__delete_synonyms(db)
@@ -182,6 +196,13 @@ class Recipe:
 
         # Database
         query = 'DELETE FROM images WHERE recipe_id = ?'
+        params = [self.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+
+    def __delete_recipe_has_category(self, db):
+        """ Deletes entries in recipe_has_tag. """
+        query = 'DELETE FROM recipe_has_category WHERE recipe_id = ?'
         params = [self.id]
         cursor = db.cursor()
         cursor.execute(query, params)

@@ -49,8 +49,10 @@ class RecipeManager(base_manager.BaseManager):
 
         # Actions
         if is_edit:
-            category_id = int(self.get_form('category'))
-            category = category_entity.Category.find_pk(self.db, category_id)
+            categories = []
+            for category_id in request.forms.getall('categories'):
+                category = category_entity.Category.find_pk(self.db, category_id)
+                categories.append(category)
 
             images = []
             image_counter = 0
@@ -112,7 +114,7 @@ class RecipeManager(base_manager.BaseManager):
             result = recipe_entity.Recipe()
             if not is_new:
                 result = recipe_entity.Recipe.find_pk(self.db, id)
-            result.category = category
+            result.categories = categories
             result.description = self.get_form('description')
             result.images = images
             result.info = self.get_form('info')
