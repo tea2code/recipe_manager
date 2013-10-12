@@ -1,4 +1,6 @@
-<h2>Manage: Recipe</h2>
+<h2>
+    {{!'<a href="/recipe/'+str(recipe.id)+'-'+str(recipe.title.lower())+'">Manage: Recipe</a>' if recipe.id else 'Manage: Recipe'}}
+</h2>
 
 % selected = 'selected="selected"'
 
@@ -69,7 +71,7 @@
         </div>
 
         <div>
-            <label for="description">Description:</label>
+            <label for="description">Preparation:</label>
             <textarea id="description" name="description">{{recipe.description}}</textarea>
         </div>
 

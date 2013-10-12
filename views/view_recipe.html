@@ -7,38 +7,52 @@
     </div>
 </div>
 
-% import markdown
+% #import markdown
+% #def t(text):
+% #  text = markdown.markdown(text,
+% #                           extensions=['tables'],
+% #                           output_format='html5',
+% #                           safe_mode='escape')
+% #  return text
+% from helper import html_escape
 % def t(text):
-%   text = markdown.markdown(text,
-%                            extensions=['tables'],
-%                            output_format='html5',
-%                            safe_mode='escape')
+%   text = html_escape.HtmlEscape.html_escape_nl2br(text)
 %   return text
 % end
 
 <div class="grid">
     <div class="unit w-2-3">
-        <div>
-            <h3>Serving Size:</h3>
-            <p>{{recipe.serving_size}}</p>
-        </div>
-        <div>
-            <h3>Ingredients:</h3>
-            {{!t(recipe.ingredients)}}
-        </div>
-        <div>
-            <h3>Description:</h3>
-            {{!t(recipe.description)}}
-        </div>
-        <div>
-            <h3>Info:</h3>
-            {{!t(recipe.info)}}
-        </div>
+        % if recipe.serving_size:
+            <div>
+                <h3>Serving Size:</h3>
+                <p>{{recipe.serving_size}}</p>
+            </div>
+        % end
+
+        % if recipe.ingredients:
+            <div>
+                <h3>Ingredients:</h3>
+                {{!t(recipe.ingredients)}}
+            </div>
+        % end
+
+        % if recipe.description:
+            <div>
+                <h3>Preparation:</h3>
+                {{!t(recipe.description)}}
+            </div>
+        % end
+
+        % if recipe.info:
+            <div>
+                <h3>Info:</h3>
+                {{!t(recipe.info)}}
+            </div>
+        % end
     </div>
 
     <div class="unit w-1-3">
         <div id="images">
-            <h3>Images:</h3>
             % if recipe.images:
                 <ul>
                     % for image in recipe.images:
@@ -55,7 +69,7 @@
             %   rating = '★'
             % elif recipe.rating is 2:
             %   rating = '★★'
-            % else:
+            % elif recipe.rating is 3:
             %   rating = '★★★'
             % end
             <h3>Rating:</h3>

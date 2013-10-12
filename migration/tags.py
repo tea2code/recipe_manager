@@ -314,3 +314,7 @@ tags_001 = [
     ['Zucchini', 'Courgette'],
     ['Zwiebeln', 'Onions'],
 ]
+
+tags_002 = [
+    ['Limonade', 'Lemonade']
+]

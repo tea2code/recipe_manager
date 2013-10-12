@@ -68,7 +68,8 @@ class Tag:
         query = 'SELECT t.id, t.synonym_of, t.name ' \
                 'FROM tags t, recipe_has_tag rht ' \
                 'WHERE t.id = rht.tag_id ' \
-                'AND rht.recipe_id = ?'
+                'AND rht.recipe_id = ? ' \
+                'ORDER BY name COLLATE NOCASE ASC'
         params = [recipe.id]
         cursor = db.cursor()
         cursor.execute(query, params)

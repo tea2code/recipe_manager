@@ -9,7 +9,7 @@ from entity import tag
 from migration import migration_manager
 
 # Configuration ################################################################
-DB_FILE = 'dev-db.sqlite'
+DB_FILE = 'db.sqlite'
 DEBUG = True
 HOST = '192.168.0.10'
 PORT = 8081

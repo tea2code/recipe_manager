@@ -33,8 +33,13 @@ class MigrationManager:
 
         # Version 1 -> 2
         if self.__is_version(db, 1):
-            self.__create_tags_001(db)
+            self.__create_tags(db, tag_lists.tags_001)
             self.__update_version(db, 2)
+
+        # Version 2 -> 3
+        if self.__is_version(db, 2):
+            self.__create_tags(db, tag_lists.tags_002)
+            self.__update_version(db, 3)
 
         # Finished
         db.close()
@@ -44,9 +49,8 @@ class MigrationManager:
         if not os.path.exists(self.db_file):
             shutil.copy(self.EMPTY_DB_FILE, self.db_file)
 
-    def __create_tags_001(self, db):
+    def __create_tags(self, db, tags):
         """ Create initial set of German and English tags. """
-        tags = tag_lists.tags_001
         for tag_names in tags:
             first = True
             parent_id = None
