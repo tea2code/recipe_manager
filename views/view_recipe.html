@@ -7,8 +7,14 @@
     </div>
 </div>
 
-% from helper import html_escape
-% escape = html_escape.HtmlEscape.html_escape_nl2br
+% import markdown
+% def t(text):
+%   text = markdown.markdown(text,
+%                            extensions=['tables'],
+%                            output_format='html5',
+%                            safe_mode='escape')
+%   return text
+% end
 
 <div class="grid">
     <div class="unit w-2-3">
@@ -18,15 +24,15 @@
         </div>
         <div>
             <h3>Ingredients:</h3>
-            <p>{{!escape(recipe.ingredients)}}</p>
+            {{!t(recipe.ingredients)}}
         </div>
         <div>
             <h3>Description:</h3>
-            <p>{{!escape(recipe.description)}}</p>
+            {{!t(recipe.description)}}
         </div>
         <div>
             <h3>Info:</h3>
-            <p>{{!escape(recipe.info)}}</p>
+            {{!t(recipe.info)}}
         </div>
     </div>
 
