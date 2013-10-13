@@ -28,8 +28,12 @@
             <div class="unit w-1-2">
                 <ul>
                     <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    % import urllib
                     % for category in categories:
-                        <li><a href="/category/{{category.id}}-{{category.name.lower()}}">{{category.name}}</a></li>
+                        % quoted_title = urllib.parse.quote(category.name.lower())
+                        % url = '/category/{}-{}'.format(category.id, quoted_title)
+                        <li><a href="{{url}}">{{category.name}}</a></li>
                     % end
                 </ul>
             </div>

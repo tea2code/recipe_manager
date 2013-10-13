@@ -1,0 +1,46 @@
+% include
+
+% import urllib
+% if recipes:
+    <ul id="recipe-list">
+    % for recipe in recipes:
+        % quoted_title = urllib.parse.quote(recipe.title.lower())
+        % url = '/recipe/{}-{}'.format(recipe.id, quoted_title)
+
+        <li class="grid">
+            <div class="unit w-1-5">
+                % if recipe.images:
+                    <a href="{{url}}">
+                        <img src="{{recipe.images[0].path}}" alt="{{recipe.images[0].path}}" />
+                    </a>
+                % end
+            </div>
+            <div class="unit w-4-5">
+                <div class="title">
+                    <a class="grid" href="{{url}}">
+                        {{recipe.title}}
+                    </a>
+                </div>
+                <div class="rating">
+                    % rating = '-'
+                    % if recipe.rating is 0:
+                    %   rating = '☆'
+                    % elif recipe.rating is 1:
+                    %   rating = '★'
+                    % elif recipe.rating is 2:
+                    %   rating = '★★'
+                    % elif recipe.rating is 3:
+                    %   rating = '★★★'
+                    % end
+                    {{rating}}
+                </div>
+                <div class="tags">
+                    {{', '.join(tag.name for tag in recipe.tags) if recipe.tags else ''}}
+                </div>
+            </div>
+        </li>
+    % end
+    </ul>
+% end
+
+% rebase html_body id=id, title=title

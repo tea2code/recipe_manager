@@ -33,7 +33,7 @@ class RecipeManager(base_manager.BaseManager):
     HINT_EDIT = 'edit'
     HINT_NAME = 'last_name'
     HINT_NEW = 'new'
-    IMAGE_PATH = '/img/upload/{0}{2}{1}'
+    IMAGE_PATH = '/img/upload/'
     STATIC_PATH = 'static'
 
     def __init__(self, db):
@@ -54,6 +54,8 @@ class RecipeManager(base_manager.BaseManager):
                 category = category_entity.Category.find_pk(self.db, category_id)
                 categories.append(category)
 
+            if not os.path.exists(self.STATIC_PATH+self.IMAGE_PATH):
+                os.mkdir(self.STATIC_PATH+self.IMAGE_PATH)
             images = []
             image_counter = 0
             image_path = self.get_form('image-'+str(image_counter))
@@ -74,10 +76,15 @@ class RecipeManager(base_manager.BaseManager):
                     image_counter += 1
                     image_upload = request.files.get('new-image-'+str(image_counter))
                     continue
-                image_path = self.IMAGE_PATH.format(name, ext, '')
+                image_path = self.IMAGE_PATH
+                image_path += name
+                image_path += ext
                 path_counter = 0
                 while os.path.exists(self.STATIC_PATH + image_path):
-                    image_path = self.IMAGE_PATH.format(name, ext, path_counter)
+                    image_path = self.IMAGE_PATH
+                    image_path += name
+                    image_path += ext
+                    image_path += path_counter
                     path_counter += 1
                 image_upload.save(self.STATIC_PATH + image_path)
                 image = image_entity.Image(path=image_path)

@@ -1,0 +1,17 @@
+<h2>Search</h2>
+
+<form action="/search" method="post">
+    <fieldset>
+        <div>
+            <label for="search-text">Search Text:</label>
+            <input type="text" id="search-text" name="search-text"
+                   autofocus="autofocus" value="{{query}}" />
+        </div>
+        <div>
+            <input type="hidden" name="action" value="new" />
+            <button type="submit">Search</button>
+        </div>
+    </fieldset>
+</form>
+
+% rebase recipe_list id='search', title='Search'
