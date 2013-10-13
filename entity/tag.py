@@ -5,7 +5,7 @@ class Tag:
     id -- The row id or None if not yet committed (int).
     name -- The tag name (string).
     synonym_of -- Id of parent tag or None (tag).
-    synonyms -- List of synonyms. Filled only for parents (list tag).
+    synonyms -- List of synonyms (list tag).
     """
 
     def __init__(self, id=None, name='', synonym_of=None, synonyms=[]):
@@ -86,17 +86,24 @@ class Tag:
                 'WHERE synonym_of = ? ' \
                 'ORDER BY name COLLATE NOCASE ASC'
         params = [self.id]
+        if self.synonym_of is not None:
+            query = 'SELECT id, synonym_of, name ' \
+                    'FROM tags ' \
+                    'WHERE synonym_of = ? ' \
+                    'OR id = ? ' \
+                    'ORDER BY name COLLATE NOCASE ASC'
+            params.append(self.synonym_of)
         cursor = db.cursor()
         cursor.execute(query, params)
         self.synonyms = []
         for row in cursor.fetchall():
-            self.synonyms.append(Tag.from_row(db, row))
+            self.synonyms.append(Tag.from_row(db, row, find_synonyms=False))
 
     @staticmethod
-    def from_row(db, row):
+    def from_row(db, row, find_synonyms=True):
         """ Create entity from given row. """
         tag = Tag(id=row[0], name=row[2], synonym_of=row[1])
-        if tag.synonym_of is None:
+        if find_synonyms:
             tag.find_synonyms(db)
         return tag
 

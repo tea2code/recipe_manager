@@ -51,6 +51,11 @@ class MigrationManager:
             self.__tags_rename_brackets(db)
             self.__update_version(db, 5)
 
+        # Version 5 -> 6
+        if self.__is_version(db, 5):
+            self.__create_tags(db, tag_lists.tags_003)
+            self.__update_version(db, 6)
+
         # Finished
         db.close()
 
