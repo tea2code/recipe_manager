@@ -84,7 +84,7 @@ class RecipeManager(base_manager.BaseManager):
                     image_path = self.IMAGE_PATH
                     image_path += name
                     image_path += ext
-                    image_path += path_counter
+                    image_path += str(path_counter)
                     path_counter += 1
                 image_upload.save(self.STATIC_PATH + image_path)
                 image = image_entity.Image(path=image_path)

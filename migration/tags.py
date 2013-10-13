@@ -106,7 +106,7 @@ tags_001 = [
     ['Haferflocken', 'Rolled Oats', 'Oats', 'Oat Flakes'],
     ['Haselnuss', 'Hazelnut'],
     ['Kokosnuss', 'Coconut'],
-    ['Kokosnussmilch', 'Coconut Milk'],
+    ['Kokosnussmilch', 'Coconut Milk', 'Creme De Coconut', 'Cream Of Coconut'],
     ['Kürbiskerne', 'Pumpkin Seed'],
     ['Leinsamen', 'Flax Seed'],
     ['Maismehl', 'Cornmeal'],
@@ -269,7 +269,7 @@ tags_001 = [
     ['Weißwein', 'White Wine'],
     ['Whisky', 'Whiskey'],
     ['Zimt Sirup', 'Cinnamon Syrup'],
-    ['Zuckersirup', 'Simple Syrup'],
+    ['Zuckersirup', 'Simple Syrup', 'Sugar Syrup'],
 
     # Vegetables
     ['Anschovis', 'Anchovis', 'Anchovy'],

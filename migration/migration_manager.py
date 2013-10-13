@@ -41,6 +41,16 @@ class MigrationManager:
             self.__create_tags(db, tag_lists.tags_002)
             self.__update_version(db, 3)
 
+        # Version 3 -> 4
+        if self.__is_version(db, 3):
+            self.__tags_rename_vermouth(db)
+            self.__update_version(db, 4)
+
+        # Version 4 -> 5
+        if self.__is_version(db, 4):
+            self.__tags_rename_brackets(db)
+            self.__update_version(db, 5)
+
         # Finished
         db.close()
 
@@ -70,6 +80,30 @@ class MigrationManager:
         """ Checks version in configuration table. """
         config = config_entity.Configuration.find_name(db, self.CONFIG_VERSION)
         return int(config.value) is version
+
+    def __tags_rename_brackets(self, db):
+        """ Correct brackets in tags. """
+        tag = tag_entity.Tag.find_name(db, 'Paprika [Gewürz]')
+        tag.name = 'Paprika (Gewürz)'
+        tag.save(db)
+        tag = tag_entity.Tag.find_name(db, 'Paprika [Spice]')
+        tag.name = 'Paprika (Spice)'
+        tag.save(db)
+        tag = tag_entity.Tag.find_name(db, 'Rum [Dark]')
+        tag.name = 'Rum (Dark)'
+        tag.save(db)
+        tag = tag_entity.Tag.find_name(db, 'Rum [Light]')
+        tag.name = 'Rum (Light)'
+        tag.save(db)
+
+    def __tags_rename_vermouth(self, db):
+        """ Correct brackets in vermouth. """
+        tag = tag_entity.Tag.find_name(db, 'Vermouth [Dry')
+        tag.name = 'Vermouth (Dry)'
+        tag.save(db)
+        tag = tag_entity.Tag.find_name(db, 'Vermouth [Sweet]')
+        tag.name = 'Vermouth (Sweet)'
+        tag.save(db)
 
     def __update_version(self, db, version):
         """ Sets version in configuration table to given value. """
