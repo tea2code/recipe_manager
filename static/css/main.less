@@ -1,18 +1,51 @@
-/* Global */
+/* Definitions ****************************************************************/
+@color: #333;
+@font: Helvetica, Arial;
+@header-size: 32px;
+
+/* Global *********************************************************************/
 body {
+    color: @color;
+    font-family: @font;
     font-size: 100%;
 }
 
-#header {
-    @size: 96px;
-    background: url(/img/apple-touch-icon.png) no-repeat;
-    height: @size;
-    line-height: @size;
-    padding-left: (@size + 15px);
+a {
+    color: @color;
+    text-decoration: none;
+}
+
+a:active,
+a:focus,
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header/Navigation **********************************************************/
+#page-top {
+    height: @header-size;
+    line-height: @header-size;
     vertical-align: middle;
 }
 
-/* Forms */
+#header h1 {
+    background: url(/img/apple-touch-icon.png) no-repeat;
+    background-size: @header-size auto;
+    padding-left: (@header-size + 15px);
+}
+
+#action-nav {
+    text-align: right;
+}
+
+#action-nav li,
+#category-nav li {
+    display: inline-block;
+    line-height: 1.5em;
+    padding-right: 10px;
+}
+
+/* Forms **********************************************************************/
 fieldset {
     margin-bottom: 20px;
 }
@@ -61,7 +94,7 @@ textarea {
     cursor: pointer;
 }
 
-/* Rendered Content */
+/* Rendered Content ***********************************************************/
 #recipe-list,
 #images ul {
     list-style-type: none;
@@ -79,7 +112,7 @@ textarea {
 }
 
 #recipe-list li {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid @color;
     margin: 3px 0;
 }
 
