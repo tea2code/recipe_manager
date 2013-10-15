@@ -3,9 +3,34 @@
 <form action="/search" method="post">
     <fieldset>
         <div>
-            <label for="search-text">Search Text:</label>
+            <label for="search-text">Query:</label>
             <input type="text" id="search-text" name="search-text"
                    autofocus="autofocus" value="{{query}}" />
+        </div>
+        <div class="input-row">
+            <label>Fields:</label>
+            <span>
+                categories, description, info, ingredients, 
+                tags (default), title, rated
+            </span>
+        </div>
+        <div class="input-row">
+            <label>Boolean:</label>
+            <span>
+                AND, OR, NOT (Example: "coffee AND cream NOT milk")
+            </span>
+        </div>
+        <div class="input-row">
+            <label>Inexact Terms:</label>
+            <span>
+                ?, * (Example: "coconut*")
+            </span>
+        </div>
+        <div class="input-row">
+            <label>Boosting Query Elements:</label>
+            <span>
+                ^ (Example: "coffee^2 cream")
+            </span>
         </div>
         <div>
             <input type="hidden" name="action" value="new" />
@@ -14,4 +39,6 @@
     </fieldset>
 </form>
 
-% rebase recipe_list id='search', title='Search'
+% include recipe_list
+
+% rebase html_body id='search', title='Search'

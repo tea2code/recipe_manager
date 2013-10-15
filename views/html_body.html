@@ -15,16 +15,30 @@
 
     <!-- Custom -->
     <link rel="stylesheet/less" type="text/css" href="/css/main.less">
+    % from helper import browser
+    % if browser.Browser.is_mobile():
+        <link rel="stylesheet/less" type="text/css" href="/css/mobile.less">
+    % end
+
+    <!-- LESS -->
+    <script>
+        less = {
+            env: "development",
+            functions: {},
+            dumpLineNumbers: "comments",
+        };
+    </script>
+    <script src="/js/less.min.js"></script>
 </head>
 <body>
     <div class="wrap wider">
         <div id="page-top" class="grid">
             <div id="header" class="unit w-1-3">
-                <h1>NomNomNom</h1>
+                <h1><a href="/">NomNomNom</a></h1>
             </div>
 
-            <div id="action-nav" class="unit w-2-3">
-                <ul>
+            <div class="unit w-2-3">
+                <ul id="action-nav">
                     <li><a href="/search">Search</a></li>
                     <li><a href="/manage/recipe">New: Recipe</a></li>
                     % if defined('edit_recipe') and edit_recipe:
@@ -39,7 +53,6 @@
         <div class="grid">
             <div class="unit w-1-1">
                 <ul id="category-nav">
-                    <li><a href="/">Home</a></li>
                     % import urllib
                     % for category in categories:
                         % quoted_title = urllib.parse.quote(category.name.lower())
@@ -68,16 +81,6 @@
             </div>
         </div>
     </div>
-
-    <!-- LESS -->
-    <script>
-        less = {
-            env: "development",
-            functions: {},
-            dumpLineNumbers: "comments",
-        };
-    </script>
-    <script src="/js/less.min.js"></script>
 
     <!-- jQuery -->
     <script src="/js/jquery.min.js"></script>

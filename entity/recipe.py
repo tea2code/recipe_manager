@@ -85,15 +85,23 @@ class Recipe:
 
     @staticmethod
     def find_category(db, category):
-        """ Find entities by category in database. Returns list of found
-        entities ordered by name ascending."""
-        query = 'SELECT r.description, r.id, r.info, r.ingredients, ' \
-                'r.rating, r.serving_size, r.title ' \
-                'FROM recipes r, recipe_has_category rhc ' \
-                'WHERE rhc.recipe_id = r.id ' \
-                'AND rhc.category_id = ? ' \
+        """ Find entities by category in database or entities without category
+        if category is None. Returns list of found
+        entities ordered by name ascending. """
+        query = 'SELECT description, id, info, ingredients, ' \
+                'rating, serving_size, title ' \
+                'FROM recipes ' \
+                'WHERE id NOT IN (SELECT recipe_id FROM recipe_has_category) ' \
                 'ORDER BY title COLLATE NOCASE ASC'
-        params = [category.id]
+        params = []
+        if category:
+            query = 'SELECT r.description, r.id, r.info, r.ingredients, ' \
+                    'r.rating, r.serving_size, r.title ' \
+                    'FROM recipes r, recipe_has_category rhc ' \
+                    'WHERE rhc.recipe_id = r.id ' \
+                    'AND rhc.category_id = ? ' \
+                    'ORDER BY title COLLATE NOCASE ASC'
+            params = [category.id]
         cursor = db.cursor()
         cursor.execute(query, params)
         result = []
@@ -111,6 +119,23 @@ class Recipe:
                 'WHERE id = ?'
         params = [id]
         return Recipe.__generic_find(db, query, params)
+
+    @staticmethod
+    def find_random(db, num):
+        """ Find random entities in database. Returns list of found
+        entities ordered by name ascending."""
+        query = 'SELECT description, id, info, ingredients, ' \
+                'rating, serving_size, title ' \
+                'FROM recipes ' \
+                'ORDER BY RANDOM() ' \
+                'LIMIT ?'
+        params = [num]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+        result = []
+        for row in cursor.fetchall():
+            result.append(Recipe.from_row(db, row))
+        return result
 
     @staticmethod
     def from_row(db, row):

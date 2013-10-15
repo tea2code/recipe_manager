@@ -106,7 +106,7 @@ tags_001 = [
     ['Haferflocken', 'Rolled Oats', 'Oats', 'Oat Flakes'],
     ['Haselnuss', 'Hazelnut'],
     ['Kokosnuss', 'Coconut'],
-    ['Kokosnussmilch', 'Coconut Milk', 'Creme De Coconut', 'Cream Of Coconut'],
+    ['Kokosnussmilch', 'Kokosmilch', 'Coconut Milk', 'Creme De Coconut', 'Cream Of Coconut'],
     ['Kürbiskerne', 'Pumpkin Seed'],
     ['Leinsamen', 'Flax Seed'],
     ['Maismehl', 'Cornmeal'],
@@ -157,7 +157,7 @@ tags_001 = [
     ['Truthahn', 'Turkey'],
     ['Wild', 'Venison'],
     ['Wildschwein', 'Boar'],
-    ['Würste', 'Sausages'],
+    ['Würste', 'Wurst', 'Sausage'],
 
     # Oil
     ['Hanföl', 'Hempseed Oil'],
@@ -233,7 +233,7 @@ tags_001 = [
     ['Grüner Tee', 'Green Tea'],
     ['Irish Cream', 'Bailey\'s Irish Cream'],
     ['Irish Whiskey'],
-    ['Kaffee', 'Coffee'],
+    ['Kaffee', 'Coffee', 'Espresso'],
     ['Kaffeelikör', 'Coffee Liqueur', 'Kahlua'],
     ['Kräuterlikör', 'Herbal Liqueur'],
     ['Kornbrand', 'Korn'],
@@ -305,7 +305,7 @@ tags_001 = [
     ['Rucola', 'Arugula'],
     ['Salat', 'Lettuce'],
     ['Schalotten', 'Shallot', 'Scallions'],
-    ['Selerie', 'Celery'],
+    ['Sellerie', 'Celery'],
     ['Spargel', 'Asparagus'],
     ['Spinat', 'Spinach'],
     ['Süßkartoffel', 'Sweet Potato'],
@@ -321,4 +321,12 @@ tags_002 = [
 
 tags_003 = [
     ['Himbeersaft', 'Raspberry Juice']
+]
+
+tags_004 = [
+    ['Mexikanisch', 'Mexican']
+]
+
+tags_005 = [
+    ['Nüsse', 'Nuss', 'Nuts']
 ]

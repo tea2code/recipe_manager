@@ -9,7 +9,7 @@ from entity import tag
 from migration import migration_manager
 from search import indexer as indexer_class
 from search import searcher as searcher_class
-
+from helper import browser
 import sqlite3
 
 # Configuration ################################################################
@@ -18,6 +18,7 @@ DEBUG = True
 HOST = '192.168.0.10'
 INDEX_PATH = 'index/'
 PORT = 8081
+RANDOM_RECIPES = 3
 
 # Initialization ###############################################################
 app = bottle.Bottle()
@@ -49,8 +50,10 @@ init_search()
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
+    recipes = recipe.Recipe.find_category(db, None)
+    randoms = recipe.Recipe.find_random(db, RANDOM_RECIPES)
     categories = category.Category.find_all(db)
-    return dict(categories=categories)
+    return dict(categories=categories, recipes=recipes, randoms=randoms)
 
 # Category
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')

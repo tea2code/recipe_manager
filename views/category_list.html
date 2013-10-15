@@ -1,3 +1,5 @@
-<h2>Category: {{category.name}}</h2>
+<h2>{{category.name}}</h2>
 
-% rebase recipe_list id='category', title=category.name
+% include recipe_list
+
+% rebase html_body id='category', title=category.name

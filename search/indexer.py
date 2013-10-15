@@ -35,9 +35,9 @@ class Indexer:
                                 id=recipe.id,
                                 info=recipe.info,
                                 ingredients=recipe.ingredients,
-                                synonyms=synonyms,
                                 tags=tags,
-                                title=recipe.title)
+                                title=recipe.title+' '+synonyms,
+                                rated=(recipe.rating is not -1))
         writer.commit()
 
     def open_index(self, schema):
@@ -60,9 +60,9 @@ class Indexer:
                                id=fields.STORED,
                                info=fields.TEXT,
                                ingredients=fields.TEXT,
-                               synonyms=fields.TEXT,
                                tags=fields.TEXT,
-                               title=fields.TEXT)
+                               title=fields.TEXT,
+                               rated=fields.BOOLEAN)
         return schema
 
     def searcher(self):

@@ -1,3 +1,36 @@
-<p>Under construction.</p>
+<div class="grid">
+    <div class="unit w-4-5">
+        % if recipes:
+            % include recipe_list
+        % else:
+            <p>All recipes have at least one category.</p>
+        % end
+    </div>
+
+    <div class="unit w-1-5">
+        % if randoms:
+            <ul id="randoms">
+            % import urllib
+            % for random in randoms:
+                % quoted_title = urllib.parse.quote(random.title.lower())
+                % url = '/recipe/{}-{}'.format(random.id, quoted_title)
+                <li>
+                    % if random.images:
+                        <div>
+                            <a href="{{url}}">
+                                <img src="{{random.images[0].path}}"
+                                     alt="{{random.images[0].path}}" />
+                            </a>
+                        </div>
+                    % end
+                    <div>
+                        <a href="{{url}}">{{random.title}}</a>
+                    </div>
+                </li>
+            % end
+            </ul>
+        %end
+    </div>
+</div>
 
 % rebase html_body id='index', title=None

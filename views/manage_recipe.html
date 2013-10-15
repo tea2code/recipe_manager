@@ -1,5 +1,9 @@
 <h2>
-    {{!'<a href="/recipe/'+str(recipe.id)+'-'+str(recipe.title.lower())+'">Manage: Recipe</a>' if recipe.id else 'Manage: Recipe'}}
+    % if recipe.id:
+        <a href="/recipe/{{str(recipe.id)}}-{{str(recipe.title.lower())}}">{{recipe.title}}</a>
+    % else:
+        New Recipe
+    % end
 </h2>
 
 % selected = 'selected="selected"'

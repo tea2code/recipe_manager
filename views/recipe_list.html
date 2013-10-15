@@ -1,6 +1,7 @@
-% include
-
+% from helper import browser
 % import urllib
+
+% is_mobile = browser.Browser.is_mobile()
 % if recipes:
     <ul id="recipe-list">
     % for recipe in recipes:
@@ -8,18 +9,20 @@
         % url = '/recipe/{}-{}'.format(recipe.id, quoted_title)
 
         <li class="grid">
-            <div class="unit w-1-5">
-                % if recipe.images:
-                    <a href="{{url}}">
-                        <img src="{{recipe.images[0].path}}" alt="{{recipe.images[0].path}}" />
-                    </a>
-                % end
-            </div>
-            <div class="unit w-4-5">
+            % text_width = 'w-5-5'
+            % if not is_mobile:
+                % text_width = 'w-4-5'
+                <div class="unit w-1-5">
+                    % if recipe.images:
+                        <a href="{{url}}">
+                            <img src="{{recipe.images[0].path}}" alt="{{recipe.images[0].path}}" />
+                        </a>
+                    % end
+                </div>
+            % end
+            <div class="unit {{text_width}}">
                 <div class="title">
-                    <a class="grid" href="{{url}}">
-                        {{recipe.title}}
-                    </a>
+                    <a href="{{url}}">{{recipe.title}}</a>
                 </div>
                 <div class="rating">
                     % rating = '-'
@@ -42,5 +45,3 @@
     % end
     </ul>
 % end
-
-% rebase html_body id=id, title=title

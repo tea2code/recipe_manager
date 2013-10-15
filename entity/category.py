@@ -27,7 +27,9 @@ class Category:
     def find_all(db):
         """ Find all entities in database. Returns list of found
         entities ordered by name ascending."""
-        query = 'SELECT id, name FROM categories ORDER BY name COLLATE NOCASE ASC'
+        query = 'SELECT id, name ' \
+                'FROM categories ' \
+                'ORDER BY name COLLATE NOCASE ASC'
         cursor = db.cursor()
         cursor.execute(query)
         result = []
@@ -58,7 +60,8 @@ class Category:
         query = 'SELECT c.id, c.name ' \
                 'FROM categories c, recipe_has_category rhc ' \
                 'WHERE c.id = rhc.category_id ' \
-                'AND rhc.recipe_id = ?'
+                'AND rhc.recipe_id = ? ' \
+                'ORDER BY name COLLATE NOCASE ASC'
         params = [recipe.id]
         cursor = db.cursor()
         cursor.execute(query, params)
