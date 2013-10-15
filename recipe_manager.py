@@ -50,10 +50,12 @@ init_search()
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
+    num_recipes = recipe.Recipe.count_all(db)
     recipes = recipe.Recipe.find_category(db, None)
     randoms = recipe.Recipe.find_random(db, RANDOM_RECIPES)
     categories = category.Category.find_all(db)
-    return dict(categories=categories, recipes=recipes, randoms=randoms)
+    return dict(categories=categories, recipes=recipes, randoms=randoms,
+                num_recipes=num_recipes)
 
 # Category
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')

@@ -1,5 +1,7 @@
 <h2>{{category.name}}</h2>
 
+<p>{{'This category contains {} recipes.'.format(len(recipes))}}</p>
+
 % include recipe_list
 
 % rebase html_body id='category', title=category.name

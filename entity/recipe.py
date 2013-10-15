@@ -44,6 +44,15 @@ class Recipe:
         template = 'Recipe({0}, {1})'
         return template.format(self.id, self.title)
 
+    @staticmethod
+    def count_all(db):
+        """ Returns number of all recipes in database. """
+        query = 'SELECT COUNT(*) ' \
+                'FROM recipes'
+        cursor = db.cursor()
+        cursor.execute(query)
+        return cursor.fetchone()[0]
+
     def delete(self, db):
         """ Delete entity from database. """
         cursor = db.cursor()

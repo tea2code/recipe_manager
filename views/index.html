@@ -1,5 +1,6 @@
 <div class="grid">
     <div class="unit w-4-5">
+        <p>{{'The database contains {} recipes.'.format(num_recipes)}}</p>
         % if recipes:
             % include recipe_list
         % else:
