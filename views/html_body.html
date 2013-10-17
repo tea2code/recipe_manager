@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/gridism.css">
     <link rel="stylesheet" href="/css/chosen.min.css">
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans'>
 
     <!-- Custom -->
     <link rel="stylesheet/less" type="text/css" href="/css/main.less">
@@ -32,48 +33,50 @@
 </head>
 <body>
     <div class="wrap wider">
-        <div id="page-top" class="grid">
-            <div id="header" class="unit w-1-3">
-                <h1><a href="/">NomNomNom</a></h1>
+        <div class="only-screen">
+            <div id="page-top" class="grid">
+                <div id="header" class="unit w-1-3">
+                    <h1><a href="/">NomNomNom</a></h1>
+                </div>
+
+                <div class="unit w-2-3">
+                    <ul id="action-nav">
+                        <li><a href="/search">Search</a></li>
+                        <li><a href="/manage/recipe">New: Recipe</a></li>
+                        % if defined('edit_recipe') and edit_recipe:
+                            <li><a href="/manage/recipe/{{recipe.id}}">Edit: Recipe</a></li>
+                        % end
+                        <li><a href="/manage/categories">Manage: Categories</a></li>
+                        <li><a href="/manage/tags">Manage: Tags</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="unit w-2-3">
-                <ul id="action-nav">
-                    <li><a href="/search">Search</a></li>
-                    <li><a href="/manage/recipe">New: Recipe</a></li>
-                    % if defined('edit_recipe') and edit_recipe:
-                        <li><a href="/manage/recipe/{{recipe.id}}">Edit: Recipe</a></li>
-                    % end
-                    <li><a href="/manage/categories">Manage: Categories</a></li>
-                    <li><a href="/manage/tags">Manage: Tags</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="unit w-1-1">
-                <ul id="category-nav">
-                    % import urllib
-                    % for category in categories:
-                        % quoted_title = urllib.parse.quote(category.name.lower())
-                        % url = '/category/{}-{}'.format(category.id, quoted_title)
-                        <li><a href="{{url}}">{{category.name}}</a></li>
-                    % end
-                </ul>
-            </div>
-        </div>
-
-        % if defined('hints') and hints:
-            <div id="hints" class="grid">
+            <div class="grid">
                 <div class="unit w-1-1">
-                    <ul>
-                        % for hint in hints:
-                            <li>{{hint.text}}</li>
+                    <ul id="category-nav">
+                        % import urllib
+                        % for category in categories:
+                            % quoted_title = urllib.parse.quote(category.name.lower())
+                            % url = '/category/{}-{}'.format(category.id, quoted_title)
+                            <li><a href="{{url}}">{{category.name}}</a></li>
                         % end
                     </ul>
                 </div>
             </div>
-        % end
+
+            % if defined('hints') and hints:
+                <div id="hints" class="grid">
+                    <div class="unit w-1-1">
+                        <ul>
+                            % for hint in hints:
+                                <li>{{hint.text}}</li>
+                            % end
+                        </ul>
+                    </div>
+                </div>
+            % end
+        </div>
 
         <div class="grid">
             <div id="{{id}}" class="unit w-1-1">
