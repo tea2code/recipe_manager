@@ -66,6 +66,11 @@ class MigrationManager:
             self.__create_tags(db, tag_lists.tags_005)
             self.__update_version(db, 8)
 
+        # Version 8 -> 9
+        if self.__is_version(db, 8):
+            self.__create_tags(db, tag_lists.tags_006)
+            self.__update_version(db, 9)
+
         # Finished
         db.close()
 

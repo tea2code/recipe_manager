@@ -11,7 +11,7 @@ class Searcher:
     _indexer -- The indexer (indexer).
     """
 
-    DEFAULT_FIELD = 'tags'
+    DEFAULT_FIELD = 'titletags'
 
     def __init__(self, indexer):
         self._indexer = indexer

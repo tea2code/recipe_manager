@@ -37,6 +37,7 @@ class Indexer:
                                 ingredients=recipe.ingredients,
                                 tags=tags,
                                 title=recipe.title+' '+synonyms,
+                                titletags=tags+recipe.title+' '+synonyms,
                                 rated=(recipe.rating is not -1))
         writer.commit()
 
@@ -62,6 +63,7 @@ class Indexer:
                                ingredients=fields.TEXT,
                                tags=fields.TEXT,
                                title=fields.TEXT,
+                               titletags=fields.TEXT,
                                rated=fields.BOOLEAN)
         return schema
 

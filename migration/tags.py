@@ -184,7 +184,7 @@ tags_001 = [
     ['Kakao', 'Cocoa'],
     ['Kardamom', 'Cardamom'],
     ['Ketchup'],
-    ['Koriander', 'Cilantro'],
+    ['Koriander', 'Coriander', 'Cilantro'],
     ['Kreuzkümmel', 'Kumin', 'Cumin'],
     ['Kurkuma', 'Turmeric'],
     ['Lorbeerblätter', 'Bay Leaves'],
@@ -329,4 +329,8 @@ tags_004 = [
 
 tags_005 = [
     ['Nüsse', 'Nuss', 'Nuts']
+]
+
+tags_006 = [
+    ['Couscous', 'Kuskus']
 ]
