@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from entity import category as category_entity
 from entity import image as image_entity
 from entity import synonym as synonym_entity

@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """ This file contains lists of tags. First entry is always the tag
 representant and the rest are the synonyms. """
 

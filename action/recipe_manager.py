@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from action import base_manager
 from bottle import redirect
 from bottle import request

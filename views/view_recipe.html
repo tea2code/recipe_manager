@@ -80,8 +80,8 @@
             % if recipe.urls:
                 <ul>
                     % for url in recipe.urls:
-                        % name = url.name if url.name else url.url[:30]
-                        % if not url.name and len(url.url) > 30:
+                        % name = url.name if url.name else url.url[:25]
+                        % if not url.name and len(url.url) > 25:
                         %    name += '...'
                         % end
                         <li><a href="{{url.url}}">{{name}}</a></li>

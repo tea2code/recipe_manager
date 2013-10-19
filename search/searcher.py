@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from entity import recipe as recipe_entity
 from whoosh import qparser
 

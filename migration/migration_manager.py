@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from entity import configuration as config_entity
 from entity import tag as tag_entity
 from migration import tags as tag_lists

@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import bottle
 from action import category_manager
 from action import recipe_manager
