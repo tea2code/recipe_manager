@@ -3,7 +3,7 @@
 <form action="/manage/tags" method="post">
     <fieldset>
         <legend>New Tag</legend>
-        <div>
+        <div class="input-row">
             <label for="new-name">Name:</label>
             <input type="text" id="new-name" name="name" />
         </div>
@@ -18,7 +18,7 @@
     <fieldset class="tag-group">
         <legend class="tag-group-legend">{{tag.name}}</legend>
         <form action="/manage/tags" method="post">
-            <div>
+            <div class="input-row">
                 <label for="edit-name-{{tag.id}}">Name:</label>
                 <input type="text" id="edit-name-{{tag.id}}" name="name" value="{{tag.name}}" />
                 <input type="hidden" name="id" value="{{tag.id}}" />
@@ -31,7 +31,7 @@
         <form action="/manage/tags" method="post">
             <fieldset>
                 <legend>New Synonym</legend>
-                <div>
+                <div class="input-row">
                     <label for="new-name-{{tag.id}}">Name:</label>
                     <input type="text" id="new-name-{{tag.id}}" name="name" />
                 </div>
@@ -45,9 +45,13 @@
 
         <fieldset>
             <legend>Edit Synonym</legend>
-            % for synonym in tag.synonyms:
+            % length = len(tag.synonyms)
+            % for i in range(length):
+                % synonym = tag.synonyms[i]
+                % cls = ' class="input-row"'
+                % c = cls if (i < length - 1) else ''
                 <form action="/manage/tags" method="post">
-                    <div>
+                    <div{{!c}}>
                         <label for="edit-name-{{synonym.id}}">Name:</label>
                         <input type="text" id="edit-name-{{synonym.id}}" name="name" value="{{synonym.name}}" />
                         <input type="hidden" name="id" value="{{synonym.id}}" />

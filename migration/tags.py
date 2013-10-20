@@ -316,24 +316,10 @@ tags_001 = [
     ['Tomaten', 'Tomatoes'],
     ['Zucchini', 'Courgette'],
     ['Zwiebeln', 'Onions'],
-]
-
-tags_002 = [
-    ['Limonade', 'Lemonade']
-]
-
-tags_003 = [
-    ['Himbeersaft', 'Raspberry Juice']
-]
-
-tags_004 = [
-    ['Mexikanisch', 'Mexican']
-]
-
-tags_005 = [
-    ['Nüsse', 'Nuss', 'Nuts']
-]
-
-tags_006 = [
-    ['Couscous', 'Kuskus']
+    ['Limonade', 'Lemonade'],
+    ['Himbeersaft', 'Raspberry Juice'],
+    ['Mexikanisch', 'Mexican'],
+    ['Nüsse', 'Nuss', 'Nuts'],
+    ['Couscous', 'Kuskus'],
+    ['Bärlauch', 'Bear\'s Garlic', 'Ramsons'],
 ]

@@ -41,38 +41,13 @@ class MigrationManager:
 
         # Version 2 -> 3
         if self.__is_version(db, 2):
-            self.__create_tags(db, tag_lists.tags_002)
+            self.__tags_rename_vermouth(db)
             self.__update_version(db, 3)
 
         # Version 3 -> 4
         if self.__is_version(db, 3):
-            self.__tags_rename_vermouth(db)
-            self.__update_version(db, 4)
-
-        # Version 4 -> 5
-        if self.__is_version(db, 4):
             self.__tags_rename_brackets(db)
-            self.__update_version(db, 5)
-
-        # Version 5 -> 6
-        if self.__is_version(db, 5):
-            self.__create_tags(db, tag_lists.tags_003)
-            self.__update_version(db, 6)
-
-        # Version 6 -> 7
-        if self.__is_version(db, 6):
-            self.__create_tags(db, tag_lists.tags_004)
-            self.__update_version(db, 7)
-
-        # Version 7 -> 8
-        if self.__is_version(db, 7):
-            self.__create_tags(db, tag_lists.tags_005)
-            self.__update_version(db, 8)
-
-        # Version 8 -> 9
-        if self.__is_version(db, 8):
-            self.__create_tags(db, tag_lists.tags_006)
-            self.__update_version(db, 9)
+            self.__update_version(db, 4)
 
         # Finished
         db.close()

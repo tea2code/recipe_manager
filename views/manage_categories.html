@@ -16,9 +16,13 @@
 
 <fieldset>
     <legend>Edit Categories</legend>
-    % for category in categories:
+    % length = len(categories)
+    % for i in range(length):
+        % category = categories[i]
+        % cls = ' class="input-row"'
+        % c = cls if (i < length - 1) else ''
         <form action="/manage/categories" method="post">
-            <div>
+            <div{{!c}}>
                 <label for="edit-name-{{category.id}}">Name:</label>
                 <input type="text" id="edit-name-{{category.id}}" name="name" value="{{category.name}}" />
                 <input type="hidden" name="id" value="{{category.id}}" />

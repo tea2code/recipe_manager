@@ -2,42 +2,45 @@
 
 <form action="/search" method="post">
     <fieldset>
-        <div>
+        <div class="input-row">
             <label for="search-text">Query:</label>
             <input type="text" id="search-text" name="search-text"
                    autofocus="autofocus" value="{{query}}" />
         </div>
-        <div class="input-row">
-            <label>Fields:</label>
-            <span>
+        <div class="input-row grid">
+            <div class="unit w-label">Fields:</div>
+            <div class="unit w-input">
                 categories, description, info, ingredients,
-                tags , title, titletags (default), rated
-            </span>
+                tags , title, titletags (default), rated (Example: "tags:coffee")
+            </div>
         </div>
         <div class="input-row">
-            <label>Boolean:</label>
-            <span>
-                AND, OR, NOT (Example: "coffee AND cream NOT milk")
-            </span>
+            <div class="unit w-label">Boolean:</div>
+            <div class="unit w-input">
+                AND (default), OR, NOT (Example: "coffee AND cream NOT milk")
+            </div>
         </div>
         <div class="input-row">
-            <label>Inexact Terms:</label>
-            <span>
+            <div class="unit w-label">Inexact Terms:</div>
+            <div class="unit w-input">
                 ?, * (Example: "coconut*")
-            </span>
+            </div>
         </div>
         <div class="input-row">
-            <label>Boosting Query Elements:</label>
-            <span>
+            <div class="unit w-label">Boosting Query Elements:</div>
+            <div class="unit w-input">
                 ^ (Example: "coffee^2 cream")
-            </span>
+            </div>
         </div>
         <div>
-            <input type="hidden" name="action" value="new" />
             <button type="submit">Search</button>
         </div>
     </fieldset>
 </form>
+
+% if recipes:
+    <p>{{'Found {} matching recipes.'.format(len(recipes))}}</p>
+% end
 
 % include recipe_list
 

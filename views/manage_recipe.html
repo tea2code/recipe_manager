@@ -12,7 +12,7 @@
     <fieldset>
         <legend>{{'Edit' if recipe.id else 'New'}} Recipe</legend>
 
-        <div>
+        <div class="input-row">
             <label for="rating">Rating:</label>
             <select id="rating" name="rating">
                 <option value="-1"> </option>
@@ -23,7 +23,7 @@
             </select>
         </div>
 
-        <div>
+        <div class="input-row">
             <label for="categories">Category:</label>
             <select id="categories" name="categories" multiple="multiple">
                 <option value="-1"> </option>
@@ -37,13 +37,13 @@
             </select>
         </div>
 
-        <div>
+        <div class="input-row">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value="{{recipe.title}}" />
         </div>
 
         % synonym_counter = 0
-        <div id="synonyms">
+        <div id="synonyms" class="input-row">
             % for synonym in recipe.synonyms:
                 <div>
                     <label for="synonym-{{synonym_counter}}">Synonym {{synonym_counter + 1}}:</label>
@@ -59,32 +59,32 @@
                 % synonym_counter += 1
             % end
         </div>
-        <div>
+        <div class="input-row">
             <input type="hidden" id="synonym-counter" name="synonym-counter" value="{{synonym_counter}}" />
             <button id="add-synonym">Add Synonym</button>
         </div>
 
-        <div>
+        <div class="input-row">
             <label for="serving-size">Serving Size:</label>
             <input type="text" id="serving-size" name="serving-size" value="{{recipe.serving_size}}" />
         </div>
 
-        <div>
+        <div class="input-row">
             <label for="ingredients">Ingredients:</label>
             <textarea id="ingredients" name="ingredients">{{recipe.ingredients}}</textarea>
         </div>
 
-        <div>
+        <div class="input-row">
             <label for="description">Preparation:</label>
             <textarea id="description" name="description">{{recipe.description}}</textarea>
-        </div>
+        </div class="input-row">
 
-        <div>
+        <div class="input-row">
             <label for="info">Info:</label>
             <textarea id="info" name="info">{{recipe.info}}</textarea>
         </div>
 
-        <div>
+        <div class="input-row">
             <label for="tags">Tags:</label>
             <select id="tags" name="tags" multiple="multiple">
                 <option> </option>
@@ -107,9 +107,9 @@
         </div>
 
         % url_counter = 0
-        <div id="urls">
+        <div id="urls" class="input-row">
             % for url in recipe.urls:
-                <div>
+                <div class="input-row">
                     <label for="url-name-{{url_counter}}">Name of Link {{url_counter + 1}}:</label>
                     <input type="text" id="url-name-{{url_counter}}" name="url-name-{{url_counter}}" value="{{url.name}}" />
                 </div>
@@ -120,7 +120,7 @@
                 % url_counter += 1
             % end
             % if not recipe.urls:
-                <div>
+                <div class="input-row">
                     <label for="url-name-0">Name of Link 1:</label>
                     <input type="text" id="url-name-0" name="url-name-0" value="" />
                 </div>
@@ -131,15 +131,15 @@
                 % url_counter += 1
             % end
         </div>
-        <div>
+        <div class="input-row">
             <input type="hidden" id="url-counter" name="url-counter" value="{{url_counter}}" />
             <button id="add-url">Add Link</button>
         </div>
 
         % image_counter = 0
-        <div id="images">
+        <div id="images" class="input-row">
             % for image in recipe.images:
-                <div id="image-{{image_counter}}">
+                <div id="image-{{image_counter}}" class="input-row">
                     <label>Image {{image_counter + 1}}:</label>
                     <img src="{{image.path}}" alt="{{image.path}}" />
                     <input type="hidden" name="image-{{image_counter}}" value="{{image.path}}" />
@@ -152,7 +152,7 @@
                 <input type="file" id="new-image-0" accept="image/gif, image/jpeg, image/png" name="new-image-0" />
             </div>
         </div>
-        <div>
+        <div class="input-row">
             <input type="hidden" id="image-counter" name="image-counter" value="{{image_counter}}" />
             <input type="hidden" id="new-image-counter" name="new-image-counter" value="1" />
             <button id="add-image">Add Image</button>
