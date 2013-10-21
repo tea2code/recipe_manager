@@ -1,3 +1,4 @@
+% from helper.url import Url
 <div class="grid">
     <div class="unit w-4-5">
         <p>{{'The database contains {} recipes.'.format(num_recipes)}}</p>
@@ -11,10 +12,8 @@
     <div class="unit w-1-5">
         % if randoms:
             <ul id="randoms">
-            % import urllib
             % for random in randoms:
-                % quoted_title = urllib.parse.quote(random.title.lower())
-                % url = '/recipe/{}-{}'.format(random.id, quoted_title)
+                % url = Url.from_recipe(random)
                 <li>
                     % if random.images:
                         <div>

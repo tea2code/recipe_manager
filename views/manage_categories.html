@@ -1,6 +1,7 @@
+% from helper.url import Url
 <h2>Manage: Categories</h2>
 
-<form action="/manage/categories" method="post">
+<form action="{{Url.from_path(['manage', 'categories'])}}" method="post">
     <fieldset>
         <legend>New Category</legend>
         <div>
@@ -21,7 +22,7 @@
         % category = categories[i]
         % cls = ' class="input-row"'
         % c = cls if (i < length - 1) else ''
-        <form action="/manage/categories" method="post">
+        <form action="{{Url.from_path(['manage', 'categories'])}}" method="post">
             <div{{!c}}>
                 <label for="edit-name-{{category.id}}">Name:</label>
                 <input type="text" id="edit-name-{{category.id}}" name="name" value="{{category.name}}" />

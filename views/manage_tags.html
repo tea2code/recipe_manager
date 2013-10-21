@@ -1,6 +1,7 @@
+% from helper.url import Url
 <h2>Manage: Tags</h2>
 
-<form action="/manage/tags" method="post">
+<form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
     <fieldset>
         <legend>New Tag</legend>
         <div class="input-row">
@@ -17,7 +18,7 @@
 % for tag in tags:
     <fieldset class="tag-group">
         <legend class="tag-group-legend">{{tag.name}}</legend>
-        <form action="/manage/tags" method="post">
+        <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
             <div class="input-row">
                 <label for="edit-name-{{tag.id}}">Name:</label>
                 <input type="text" id="edit-name-{{tag.id}}" name="name" value="{{tag.name}}" />
@@ -28,7 +29,7 @@
             </div>
         </form>
 
-        <form action="/manage/tags" method="post">
+        <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
             <fieldset>
                 <legend>New Synonym</legend>
                 <div class="input-row">
@@ -50,7 +51,7 @@
                 % synonym = tag.synonyms[i]
                 % cls = ' class="input-row"'
                 % c = cls if (i < length - 1) else ''
-                <form action="/manage/tags" method="post">
+                <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
                     <div{{!c}}>
                         <label for="edit-name-{{synonym.id}}">Name:</label>
                         <input type="text" id="edit-name-{{synonym.id}}" name="name" value="{{synonym.name}}" />

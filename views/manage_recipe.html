@@ -1,3 +1,4 @@
+% from helper.url import Url
 <h2>
     % if recipe.id:
         <a href="/recipe/{{str(recipe.id)}}-{{str(recipe.title.lower())}}">{{recipe.title}}</a>
@@ -7,8 +8,8 @@
 </h2>
 
 % selected = 'selected="selected"'
-
-<form action="/manage/recipe{{'/'+str(recipe.id) if recipe.id else ''}}" method="post" enctype="multipart/form-data">
+% url = Url.from_path(['manage', 'recipe', str(recipe.id)]) if recipe.id else Url.from_path(['manage', 'recipe'])
+<form action="{{url}}" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>{{'Edit' if recipe.id else 'New'}} Recipe</legend>
 
@@ -43,16 +44,16 @@
         </div>
 
         % synonym_counter = 0
-        <div id="synonyms" class="input-row">
+        <div id="synonyms">
             % for synonym in recipe.synonyms:
-                <div>
+                <div class="input-row">
                     <label for="synonym-{{synonym_counter}}">Synonym {{synonym_counter + 1}}:</label>
                     <input type="text" id="synonym-{{synonym_counter}}" name="synonym-{{synonym_counter}}" value="{{synonym.name}}" />
                 </div>
                 % synonym_counter += 1
             % end
             % if not recipe.synonyms:
-                <div>
+                <div class="input-row">
                     <label for="synonym-0">Synonym 1:</label>
                     <input type="text" id="synonym-0" name="synonym-0" value="" />
                 </div>
@@ -107,7 +108,7 @@
         </div>
 
         % url_counter = 0
-        <div id="urls" class="input-row">
+        <div id="urls">
             % for url in recipe.urls:
                 <div class="input-row">
                     <label for="url-name-{{url_counter}}">Name of Link {{url_counter + 1}}:</label>
@@ -124,7 +125,7 @@
                     <label for="url-name-0">Name of Link 1:</label>
                     <input type="text" id="url-name-0" name="url-name-0" value="" />
                 </div>
-                <div>
+                <div class="input-row">
                     <label for="url-url-0">Link 1:</label>
                     <input type="text" id="url-url-0" name="url-url-0" value="" />
                 </div>
@@ -147,7 +148,7 @@
                 </div>
                 % image_counter += 1
             % end
-            <div>
+            <div class="input-row">
                 <label for="new-image-0">New Image 1:</label>
                 <input type="file" id="new-image-0" accept="image/gif, image/jpeg, image/png" name="new-image-0" />
             </div>

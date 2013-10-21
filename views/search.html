@@ -1,6 +1,7 @@
+% from helper.url import Url
 <h2>Search</h2>
 
-<form action="/search" method="post">
+<form action="{{Url.from_path(['search'])}}" method="post">
     <fieldset>
         <div class="input-row">
             <label for="search-text">Query:</label>

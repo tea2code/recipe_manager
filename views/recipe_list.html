@@ -1,12 +1,11 @@
 % from helper import browser
-% import urllib
+% from helper.url import Url
 
 % is_mobile = browser.Browser.is_mobile()
 % if recipes:
     <ul id="recipe-list">
     % for recipe in recipes:
-        % quoted_title = urllib.parse.quote(recipe.title.lower())
-        % url = '/recipe/{}-{}'.format(recipe.id, quoted_title)
+        % url = Url.from_recipe(recipe)
 
         <li class="grid">
             % text_width = 'w-5-5'
