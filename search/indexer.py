@@ -33,7 +33,7 @@ class Indexer:
                 tags += tag.name + ' '
                 for synonym in tag.synonyms:
                     tags += synonym.name + ' '
-            writer.add_document(categories=categories,
+            writer.add_document(category=categories,
                                 description=recipe.description,
                                 id=recipe.id,
                                 info=recipe.info,
@@ -59,7 +59,7 @@ class Indexer:
 
     def scheme(self):
         """ Returns the scheme. """
-        schema = fields.Schema(categories=fields.TEXT,
+        schema = fields.Schema(category=fields.TEXT,
                                description=fields.TEXT,
                                id=fields.STORED,
                                info=fields.TEXT,
