@@ -52,74 +52,11 @@ class RecipeManager(base_manager.BaseManager):
 
         # Actions
         if is_edit:
-            categories = []
-            for category_id in request.forms.getall('categories'):
-                category = category_entity.Category.find_pk(self.db, category_id)
-                categories.append(category)
-
-            if not os.path.exists(self.STATIC_PATH+self.IMAGE_PATH):
-                os.mkdir(self.STATIC_PATH+self.IMAGE_PATH)
-            images = []
-            image_counter = 0
-            image_path = self.get_form('image-'+str(image_counter))
-            while image_path is not None:
-                if image_path:
-                    image = image_entity.Image(path=image_path)
-                    images.append(image)
-                image_counter += 1
-                image_path = self.get_form('image-'+str(image_counter))
-            image_counter = 0
-            image_upload = request.files.get('new-image-'+str(image_counter))
-            while image_upload is not None:
-                name, ext = os.path.splitext(image_upload.filename)
-                if ext not in ('.png','.jpg','.jpeg', '.gif'):
-                    text = 'Extension "{}" is not an allowed image type.'\
-                        .format(ext)
-                    self.hints.append(hint.Hint(text))
-                    image_counter += 1
-                    image_upload = request.files.get('new-image-'+str(image_counter))
-                    continue
-                image_path = self.IMAGE_PATH
-                image_path += name
-                image_path += ext
-                path_counter = 0
-                while os.path.exists(self.STATIC_PATH + image_path):
-                    image_path = self.IMAGE_PATH
-                    image_path += name
-                    image_path += ext
-                    image_path += str(path_counter)
-                    path_counter += 1
-                image_upload.save(self.STATIC_PATH + image_path)
-                image = image_entity.Image(path=image_path)
-                images.append(image)
-                image_counter += 1
-                image_upload = request.files.get('new-image-'+str(image_counter))
-
-            synonyms = []
-            synonym_counter = 0
-            synonym_name = self.get_form('synonym-'+str(synonym_counter))
-            while synonym_name is not None:
-                if synonym_name:
-                    synonym = synonym_entity.Synonym(name=synonym_name)
-                    synonyms.append(synonym)
-                synonym_counter += 1
-                synonym_name = self.get_form('synonym-'+str(synonym_counter))
-
-            tags = []
-            for tag_id in request.forms.getall('tags'):
-                tag = tag_entity.Tag.find_pk(self.db, tag_id)
-                tags.append(tag)
-
-            urls = []
-            url_counter = 0
-            url_url = self.get_form('url-url-'+str(url_counter))
-            while url_url is not None:
-                if url_url:
-                    url_name = self.get_form('url-name-'+str(url_counter))
-                    url = url_entity.Url(name=url_name, url=url_url)
-                    urls.append(url)
-                url_counter += 1
-                url_url = self.get_form('url-url-'+str(url_counter))
+            categories = self.__read_categories()
+            images = self.__read_images()
+            synonyms = self.__read_synonyms()
+            tags = self.__read_tags()
+            urls = self.__read_urls()
 
             result = recipe_entity.Recipe()
             if not is_new:
@@ -141,6 +78,7 @@ class RecipeManager(base_manager.BaseManager):
             self.set_cookie(self.HINT_COOKIE, type)
             self.set_cookie(self.HINT_NAME, result.title)
             redirect('/manage/recipe/'+str(result.id))
+
         elif is_delete:
             recipe = recipe_entity.Recipe.find_pk(self.db, id)
             recipe.delete(self.db)
@@ -148,12 +86,113 @@ class RecipeManager(base_manager.BaseManager):
             self.set_cookie(self.HINT_COOKIE, self.HINT_DELETE)
             self.set_cookie(self.HINT_NAME, recipe.title)
             redirect('/manage/recipe')
+
         elif is_new:
             result = recipe_entity.Recipe()
+
         else:
             result = recipe_entity.Recipe.find_pk(self.db, id)
 
-        # Cookies
+        self.__show_hints()
+        return result
+
+    def __read_categories(self):
+        """ Read categories and return them. """
+        categories = []
+        for category_id in request.forms.getall('categories'):
+            category = category_entity.Category.find_pk(self.db, category_id)
+            categories.append(category)
+        return categories
+
+    def __read_images(self):
+        """ Read images and return them. """
+        if not os.path.exists(self.STATIC_PATH+self.IMAGE_PATH):
+                os.mkdir(self.STATIC_PATH+self.IMAGE_PATH)
+
+        images = []
+
+        # Read images from form.
+        image_counter = 0
+        image_path = self.get_form('image-'+str(image_counter))
+        while image_path is not None:
+            if image_path:
+                image = image_entity.Image(path=image_path)
+                images.append(image)
+            image_counter += 1
+            image_path = self.get_form('image-'+str(image_counter))
+        image_counter = 0
+
+        # Check images and write to file system.
+        image_upload = request.files.get('new-image-'+str(image_counter))
+        while image_upload is not None:
+            # Check file extension.
+            name, ext = os.path.splitext(image_upload.filename)
+            if ext not in ('.png','.jpg','.jpeg', '.gif'):
+                text = 'Extension "{}" is not an allowed image type.'\
+                    .format(ext)
+                self.hints.append(hint.Hint(text))
+                image_counter += 1
+                image_upload = request.files.get('new-image-'+str(image_counter))
+                continue
+            image_path = self.IMAGE_PATH
+            image_path += name
+            image_path += ext
+            path_counter = 0
+
+            # Create a unique name.
+            while os.path.exists(self.STATIC_PATH + image_path):
+                image_path = self.IMAGE_PATH
+                image_path += name
+                image_path += str(path_counter)
+                image_path += ext
+                path_counter += 1
+
+            # Save image and restart with next one.
+            image_upload.save(self.STATIC_PATH + image_path)
+            image = image_entity.Image(path=image_path)
+            images.append(image)
+            image_counter += 1
+            image_upload = request.files.get('new-image-'+str(image_counter))
+
+        return images
+
+    def __read_synonyms(self):
+        """ Read synonyms and return them. """
+        synonyms = []
+        synonym_counter = 0
+        synonym_name = self.get_form('synonym-'+str(synonym_counter))
+        while synonym_name is not None:
+            if synonym_name:
+                synonym = synonym_entity.Synonym(name=synonym_name)
+                synonyms.append(synonym)
+            synonym_counter += 1
+            synonym_name = self.get_form('synonym-'+str(synonym_counter))
+        return synonyms
+
+    def __read_tags(self):
+        """ Read tags and return them. """
+        tags = []
+        for tag_id in request.forms.getall('tags'):
+            tag = tag_entity.Tag.find_pk(self.db, tag_id)
+            tags.append(tag)
+        return tags
+
+    def __read_urls(self):
+        """ Read urls and return them. """
+        urls = []
+        url_counter = 0
+        url_url = self.get_form('url-url-'+str(url_counter))
+        while url_url is not None:
+            if url_url:
+                url_name = self.get_form('url-name-'+str(url_counter))
+                url = url_entity.Url(name=url_name, url=url_url)
+                urls.append(url)
+            url_counter += 1
+            url_url = self.get_form('url-url-'+str(url_counter))
+        return urls
+
+    def __show_hints(self):
+        """ Show hints if cookies are set. """
         hint_cookie = self.get_cookie(self.HINT_COOKIE)
         name_cookie = self.get_cookie(self.HINT_NAME)
         if hint_cookie and name_cookie:
@@ -166,5 +205,3 @@ class RecipeManager(base_manager.BaseManager):
             self.hints.append(hint.Hint(hint_text))
             self.delete_cookie(self.HINT_COOKIE)
             self.delete_cookie(self.HINT_NAME)
-
-        return result

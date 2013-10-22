@@ -35,6 +35,7 @@ class CategoryManager(base_manager.BaseManager):
             name = self.get_form('name')
             entity = category.Category.find_pk(self.db, id)
             entity.name = name
+
             if is_delete:
                 entity.delete(self.db)
                 hint_text = 'Category "{}" has been removed.'.format(name)
