@@ -166,6 +166,16 @@ class Recipe:
         """ Returns True if entity is not yet committed else False. """
         return self.id is None
 
+    @staticmethod
+    def title_exists(db, title):
+        """ Checks if a title already exists. Returns True if exists else
+        False. """
+        query = 'SELECT EXISTS(SELECT 1 FROM recipes WHERE title = ? LIMIT 1)'
+        params = [title]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+        return cursor.fetchone()[0] is 1
+
     def save(self, db):
         """ Write entity to database. """
         cursor = db.cursor()

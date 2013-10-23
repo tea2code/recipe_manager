@@ -82,6 +82,16 @@ class Category:
         """ Returns True if entity is not yet committed else False. """
         return self.id is None
 
+    @staticmethod
+    def name_exists(db, name):
+        """ Checks if a name already exists. Returns True if exists else
+        False. """
+        query = 'SELECT EXISTS(SELECT 1 FROM categories WHERE name = ? LIMIT 1)'
+        params = [name]
+        cursor = db.cursor()
+        cursor.execute(query, params)
+        return cursor.fetchone()[0] is 1
+
     def save(self, db):
         """ Write entity to database. """
         query = 'INSERT INTO categories (name) VALUES (?)'

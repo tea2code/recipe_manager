@@ -21,6 +21,7 @@ class RecipeManager(base_manager.BaseManager):
     HINT_COOKIE -- Name of hint cookie (string).
     HINT_DELETE -- Value of delete hint cookie (string).
     HINT_EDIT -- Value of edit hint cookie (string).
+    HINT_EXISTS -- Value of exists hint cookie (string).
     HINT_NAME -- Name of cookie which stores name of last changed recipe (string).
     HINT_NEW -- Value of new hint cookie (string).
     IMAGE_PATH -- Path template for image uploads (string).
@@ -34,8 +35,10 @@ class RecipeManager(base_manager.BaseManager):
     HINT_COOKIE = 'show_hint'
     HINT_DELETE = 'delete'
     HINT_EDIT = 'edit'
+    HINT_EXISTS = 'exists'
     HINT_NAME = 'last_name'
     HINT_NEW = 'new'
+    HINT_NEW_EXISTS = 'new-exists'
     IMAGE_PATH = '/img/upload/'
     STATIC_PATH = 'static'
 
@@ -58,6 +61,9 @@ class RecipeManager(base_manager.BaseManager):
             tags = self.__read_tags()
             urls = self.__read_urls()
 
+            title = self.get_form('title')
+            exists = is_new and recipe_entity.Recipe.title_exists(self.db, title)
+
             result = recipe_entity.Recipe()
             if not is_new:
                 result = recipe_entity.Recipe.find_pk(self.db, id)
@@ -70,11 +76,16 @@ class RecipeManager(base_manager.BaseManager):
             result.serving_size = self.get_form('serving-size')
             result.synonyms = synonyms
             result.tags = tags
-            result.title = self.get_form('title')
+            result.title = title
             result.urls = urls
             result.save(self.db)
 
-            type = self.HINT_NEW if is_new else self.HINT_EDIT
+            if exists:
+                type = self.HINT_NEW_EXISTS
+            elif is_new:
+                type = self.HINT_NEW
+            else:
+                type = self.HINT_EDIT
             self.set_cookie(self.HINT_COOKIE, type)
             self.set_cookie(self.HINT_NAME, result.title)
             redirect('/manage/recipe/'+str(result.id))
@@ -197,11 +208,15 @@ class RecipeManager(base_manager.BaseManager):
         name_cookie = self.get_cookie(self.HINT_NAME)
         if hint_cookie and name_cookie:
             if hint_cookie == self.HINT_NEW:
-                hint_text = 'New recipe "{}" has been created.'.format(name_cookie)
+                hint_text = 'New recipe "{}" has been created.'
             elif hint_cookie == self.HINT_EDIT:
-                hint_text = 'Recipe "{}" has been updated.'.format(name_cookie)
+                hint_text = 'Recipe "{}" has been updated.'
+            elif hint_cookie == self.HINT_NEW_EXISTS:
+                hint_text = 'New recipe "{}" has been created. ' \
+                            'A recipe with the same title already exists.'
             else:
-                hint_text = 'Recipe "{}" has been removed.'.format(name_cookie)
+                hint_text = 'Recipe "{}" has been removed.'
+            hint_text = hint_text.format(name_cookie)
             self.hints.append(hint.Hint(hint_text))
             self.delete_cookie(self.HINT_COOKIE)
             self.delete_cookie(self.HINT_NAME)
