@@ -24,8 +24,13 @@ class Tag:
 
     def delete(self, db):
         """ Delete entity from database. """
-        # TODO Delete recipe_has_tag.
+        # Delete recipe_has_tag.
+        query = 'DELETE FROM recipe_has_tag WHERE tag_id = ?'
+        params = [self.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
 
+        # Delete entity.
         query = 'DELETE FROM tags WHERE id = ?'
         params = [self.id]
         if self.synonym_of is None:

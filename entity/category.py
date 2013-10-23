@@ -19,8 +19,13 @@ class Category:
 
     def delete(self, db):
         """ Delete entity from database. """
-        # TODO Delete/move recipe?
+        # Delete recipe_has_tag.
+        query = 'DELETE FROM recipe_has_category WHERE category_id = ?'
+        params = [self.id]
+        cursor = db.cursor()
+        cursor.execute(query, params)
 
+        # Delete entity.
         query = 'DELETE FROM categories WHERE id = ?'
         params = [self.id]
         cursor = db.cursor()
