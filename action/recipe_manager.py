@@ -78,17 +78,22 @@ class RecipeManager(base_manager.BaseManager):
             result.tags = tags
             result.title = title
             result.urls = urls
-            result.save(self.db)
 
-            if exists:
-                type = self.HINT_NEW_EXISTS
-            elif is_new:
-                type = self.HINT_NEW
+            if not title:
+                hint_text = 'Title must not be empty.'.format(title)
+                self.hints.append(hint.Hint(hint_text))
             else:
-                type = self.HINT_EDIT
-            self.set_cookie(self.HINT_COOKIE, type)
-            self.set_cookie(self.HINT_NAME, result.title)
-            redirect('/manage/recipe/'+str(result.id))
+                result.save(self.db)
+
+                if exists:
+                    type = self.HINT_NEW_EXISTS
+                elif is_new:
+                    type = self.HINT_NEW
+                else:
+                    type = self.HINT_EDIT
+                self.set_cookie(self.HINT_COOKIE, type)
+                self.set_cookie(self.HINT_NAME, result.title)
+                redirect('/manage/recipe/'+str(result.id))
 
         elif is_delete:
             recipe = recipe_entity.Recipe.find_pk(self.db, id)

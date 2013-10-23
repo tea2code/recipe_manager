@@ -24,7 +24,7 @@ class CategoryManager(base_manager.BaseManager):
 
         if action == 'new':
             name = self.get_form('name')
-            if not self.__name_exists(name):
+            if self.__name_ok(name):
                 cat = category.Category(name=name)
                 cat.save(self.db)
                 hint_text = 'New category "{}" has been created.'.format(name)
@@ -42,7 +42,7 @@ class CategoryManager(base_manager.BaseManager):
                 hint_text = 'Category "{}" has been removed.'.format(name)
                 self.hints.append(hint.Hint(hint_text))
             else:
-                if not self.__name_exists(name):
+                if self.__name_ok(name):
                     entity.save(self.db)
                     hint_text = 'Category "{}" has been updated.'.format(name)
                     self.hints.append(hint.Hint(hint_text))
@@ -50,8 +50,13 @@ class CategoryManager(base_manager.BaseManager):
         # Load content.
         return category.Category.find_all(self.db)
 
-    def __name_exists(self, name):
-        """ Check if name already exists. If so returns True and adds hint. """
+    def __name_ok(self, name):
+        """ Validates the name. Returns True if ok. """
+        if not name:
+            hint_text = 'Name must not be empty.'.format(name)
+            self.hints.append(hint.Hint(hint_text))
+            return False
+
         exists = category.Category.name_exists(self.db, name)
         if exists:
             hint_text = 'Category "{}" already exists.'.format(name)

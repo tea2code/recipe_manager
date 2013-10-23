@@ -24,7 +24,7 @@ class TagManager(base_manager.BaseManager):
 
         if action == 'new':
             name = self.get_form('name')
-            if not self.__name_exists(name):
+            if self.__name_ok(name):
                 tag = tag_entity.Tag(name=name)
                 tag.save(self.db)
                 hint_text = 'New tag "{}" has been created.'.format(name)
@@ -33,7 +33,7 @@ class TagManager(base_manager.BaseManager):
         elif action == 'new-synonym':
             parent = self.get_form('id')
             name = self.get_form('name')
-            if not self.__name_exists(name):
+            if self.__name_ok(name):
                 tag = tag_entity.Tag(name=name, synonym_of=parent)
                 tag.save(self.db)
                 hint_text = 'New synonym "{}" has been created.'.format(name)
@@ -51,7 +51,7 @@ class TagManager(base_manager.BaseManager):
                 hint_text = 'Tag "{}" has been removed.'.format(name)
                 self.hints.append(hint.Hint(hint_text))
             else:
-                if not self.__name_exists(name):
+                if self.__name_ok(name):
                     entity.save(self.db)
                     hint_text = 'Tag "{}" has been updated.'.format(name)
                     self.hints.append(hint.Hint(hint_text))
@@ -59,10 +59,15 @@ class TagManager(base_manager.BaseManager):
         # Load content.
         return tag_entity.Tag.find_all(self.db)
 
-    def __name_exists(self, name):
-        """ Check if name already exists. If so returns True and adds hint. """
+    def __name_ok(self, name):
+        """ Validates the name. Returns True if ok. """
+        if not name:
+            hint_text = 'Name must not be empty.'.format(name)
+            self.hints.append(hint.Hint(hint_text))
+            return False
+
         exists = tag_entity.Tag.name_exists(self.db, name)
         if exists:
             hint_text = 'Tag "{}" already exists.'.format(name)
             self.hints.append(hint.Hint(hint_text))
-        return exists
+        return not exists
