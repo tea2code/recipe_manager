@@ -18,14 +18,16 @@ class MigrationManager:
     EMPTY_DB_FILE -- Name of empty database file (string).
 
     Member:
+    home -- The home directory (string).
     db_file -- Path to sqlite database file.
     """
 
     CONFIG_VERSION = 'version'
     EMPTY_DB_FILE = 'empty-db.sqlite'
 
-    def __init__(self, db_file):
-        self.db_file = db_file
+    def __init__(self, home, db_file):
+        self.home = home
+        self.db_file = home+db_file
 
     def migrate(self):
         """ Executes checks and migrates if necessary. Sub functions should
@@ -55,7 +57,7 @@ class MigrationManager:
     def __create_db(self):
         """ Create database file if not existing. """
         if not os.path.exists(self.db_file):
-            shutil.copy(self.EMPTY_DB_FILE, self.db_file)
+            shutil.copy(self.home+self.EMPTY_DB_FILE, self.db_file)
 
     def __create_tags(self, db, tags):
         """ Create initial set of German and English tags. """

@@ -17,30 +17,31 @@ import sqlite3
 
 # Configuration ################################################################
 DB_FILE = 'db.sqlite'
-DEBUG = True
-HOST = '192.168.0.10'
+DEBUG = False
+HOME = ''
+HOST = '127.0.0.1'
 INDEX_PATH = 'index/'
-PORT = 8081
+PORT = 80
 RANDOM_RECIPES = 3
 
 # Initialization ###############################################################
 app = bottle.Bottle()
 
 # Plugins
-sqlPlugin = sqlite.Plugin(dbfile=DB_FILE)
+sqlPlugin = sqlite.Plugin(dbfile=HOME+DB_FILE)
 app.install(sqlPlugin)
 
 # Migration
-migration = migration_manager.MigrationManager(DB_FILE)
+migration = migration_manager.MigrationManager(HOME, DB_FILE)
 migration.migrate()
 
 # Searching
 def init_search():
-    indexer = indexer_class.Indexer(INDEX_PATH)
+    indexer = indexer_class.Indexer(HOME+INDEX_PATH)
     indexer.remove_index()
     scheme = indexer.scheme()
     writer = indexer.open_index(scheme)
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect(HOME+DB_FILE)
     recipes = recipe.Recipe.find_all(db)
     db.commit()
     db.close()
@@ -120,7 +121,7 @@ def search(db):
     query = bottle.request.forms.getunicode('search-text') or ''
     recipes = []
     if query:
-        indexer = indexer_class.Indexer(INDEX_PATH)
+        indexer = indexer_class.Indexer(HOME+INDEX_PATH)
         searcher = searcher_class.Searcher(indexer)
         recipes = searcher.search(db, query)
     categories = category.Category.find_all(db)
@@ -133,7 +134,7 @@ def search(db):
 @app.get('/<type:re:img/upload>/<file>')
 def statics(file, type='img'):
     """ Static content like css, images and javascript. """
-    return bottle.static_file(file, root='static/'+type)
+    return bottle.static_file(file, root=HOME+'static/'+type)
 
 # Run ##########################################################################
 app.run(host=HOST, port=PORT, debug=DEBUG, reloader=DEBUG)
