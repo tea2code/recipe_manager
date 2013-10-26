@@ -124,7 +124,8 @@ def search(db):
         searcher = searcher_class.Searcher(indexer)
         recipes = searcher.search(db, query)
     categories = category.Category.find_all(db)
-    return dict(categories=categories, recipes=recipes, query=query)
+    tags = tag.Tag.find_all(db)
+    return dict(categories=categories, recipes=recipes, query=query, tags=tags)
 
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')

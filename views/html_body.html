@@ -86,8 +86,40 @@
     <!-- jQuery -->
     <script src="{{Url.from_js('jquery.min.js')}}"></script>
     <script src="{{Url.from_js('chosen.jquery.min.js')}}"></script>
+    <script src="{{Url.from_js('jquery.autocomplete.min.js')}}"></script>
 
     <!-- Custom -->
     <script src="{{Url.from_js('main.js')}}"></script>
+    % if id == 'search':
+        <script>
+            $('#search-text').autocomplete(
+            {
+                autoSelectFirst: true,
+                delimiter: /(\s+|:)/,
+                lookup: [
+                    // Whoosh
+                    'category:', 'description:', 'info:', 'ingredients:', 'tags:',
+                    'title:', 'rated:yes ', 'rated:no ', 'AND ', 'OR ', 'NOT ',
+                    // Category
+                    % for category in categories:
+                        '{{category.name}} ',
+                    % end
+                    // Tags
+                    % for tag in tags:
+                        '{{tag.name}} ',
+                        % for synonym in tag.synonyms:
+                            '{{synonym.name}} ',
+                        % end
+                    % end
+                ],
+                onSelect: function(suggestion) {
+                    var search = $('#search-text');
+                    var encoded = search.val();
+                    search.val( $('<div/>').html(encoded).text() );
+                },
+                tabDisabled: true
+            });
+        </script>
+    % end
 </body>
 </html>
