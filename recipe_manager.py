@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import bottle
+import bottle_sqlite as sqlite
 from action import category_manager
 from action import recipe_manager
 from action import tag_manager
-from bottle.ext import sqlite
 from entity import category
 from entity import recipe
 from entity import tag
