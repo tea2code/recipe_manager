@@ -36,8 +36,6 @@ if os.path.exists('user.config'):
     PORT = config.getint('Default', 'PORT', fallback=PORT)
     RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES', fallback=RANDOM_RECIPES)
 
-print(DB_FILE, DEBUG, HOME, HOST, INDEX_PATH, PORT, RANDOM_RECIPES)
-
 # Initialization ###############################################################
 app = bottle.Bottle()
 
