@@ -1,7 +1,8 @@
 import sys
 from cx_Freeze import setup, Executable
 
-includefiles = ['empty-db.sqlite', 'static/', 'README.md', 'LICENSE', 'views/', 'Start.bat']
+includefiles = ['empty-db.sqlite', 'static/', 'README.md', 'LICENSE', 'views/', 'Start.bat', 
+                'default.config']
 includes = ['helper.html_escape', 'helper.url']
 excludes = []
 packages = []

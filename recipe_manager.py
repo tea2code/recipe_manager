@@ -3,6 +3,9 @@
 
 import bottle
 import bottle_sqlite as sqlite
+import configparser
+import os
+import sqlite3
 from action import category_manager
 from action import recipe_manager
 from action import tag_manager
@@ -12,17 +15,28 @@ from entity import tag
 from migration import migration_manager
 from search import indexer as indexer_class
 from search import searcher as searcher_class
-from helper import browser
-import sqlite3
 
 # Configuration ################################################################
-DB_FILE = 'db.sqlite'
-DEBUG = False
-HOME = ''
-HOST = '127.0.0.1'
-INDEX_PATH = 'index/'
-PORT = 80
-RANDOM_RECIPES = 3
+config = configparser.ConfigParser()
+config.read('default.config')
+DB_FILE = config.get('Default', 'DB_FILE')
+DEBUG = config.getboolean('Default', 'DEBUG')
+HOME = config.get('Default', 'HOME')
+HOST = config.get('Default', 'HOST')
+INDEX_PATH = config.get('Default', 'INDEX_PATH')
+PORT = config.getint('Default', 'PORT')
+RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES')
+if os.path.exists('user.config'):
+    config.read('user.config')
+    DB_FILE = config.get('Default', 'DB_FILE', fallback=DB_FILE)
+    DEBUG = config.getboolean('Default', 'DEBUG', fallback=DEBUG)
+    HOME = config.get('Default', 'HOME', fallback=HOME)
+    HOST = config.get('Default', 'HOST', fallback=HOST)
+    INDEX_PATH = config.get('Default', 'INDEX_PATH', fallback=INDEX_PATH)
+    PORT = config.getint('Default', 'PORT', fallback=PORT)
+    RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES', fallback=RANDOM_RECIPES)
+
+print(DB_FILE, DEBUG, HOME, HOST, INDEX_PATH, PORT, RANDOM_RECIPES)
 
 # Initialization ###############################################################
 app = bottle.Bottle()

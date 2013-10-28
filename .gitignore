@@ -38,4 +38,4 @@ dev-db.sqlite
 db.sqlite
 static/img/upload/
 index/
-OpenShift/
+user.config
