@@ -39,6 +39,10 @@ Whoosh uses an effective system which orders the result list by a match rating. 
 
 Mobile browsers are supported. On very small screens the layout will change to a one column design. Also the font size and some margins are increased to allow an easier usage with touch screens. Images are removed from recipe lists to spare the mobile devices from a heavy CPU load.
 
+## Configuration
+
+A default configuration (host, port...) exists but it's also possible to create a user configuration and override existing values. The files are "default.config" (the default configuration) which you shouldn't change and "user.config". If not already existing create the file "user.config" (for example by copying "default.config") and change the values as you wish.
+
 ## Dependencies
 
 For execution:
