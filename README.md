@@ -4,8 +4,18 @@ A simple Python and SQLite based recipe manager.
 
 ## Other work
 
+- [Bottle by Marcel Hellkamp](http://bottlepy.org)
+- [Chosen by Patrick Filler and Matthew Lettini](http://harvesthq.github.io/chosen/)
+- [cx_Freeze](http://cx-freeze.sourceforge.net/)
 - [Favicons by Aha-Soft](http://www.aha-soft.com/free-icons/free-blue-cloud-icons/)
 - [Font "Open Sans" by Steve Matteson](https://profiles.google.com/107777320916704234605/about) ([Source](http://www.google.com/fonts))
+- [gridism by @cobyism](http://cobyism.com/gridism/)
+- [jQuery by The jQuery Foundation](https://jquery.org/)
+- [jQuery-Autocomplete by Tomas Kirda](https://github.com/devbridge/jQuery-Autocomplete)
+- [LESS by Alexis Sellier](http://lesscss.org/)
+- [normalize.css by Nicolas Gallagher](http://necolas.github.io/normalize.css/)
+- [Selenium](http://www.seleniumhq.org/)
+- [Whoosh](https://bitbucket.org/mchaput/whoosh/wiki/Home)
 
 ## Basic usage
 
