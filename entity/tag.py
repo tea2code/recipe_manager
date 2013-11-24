@@ -99,8 +99,9 @@ class Tag:
                     'FROM tags ' \
                     'WHERE synonym_of = ? ' \
                     'OR id = ? ' \
+                    'AND id != ? ' \
                     'ORDER BY name COLLATE NOCASE ASC'
-            params.append(self.synonym_of)
+            params = [self.synonym_of, self.synonym_of, self.id]
         cursor = db.cursor()
         cursor.execute(query, params)
         self.synonyms = []
