@@ -41,8 +41,10 @@
 
 % if recipes:
     <p>{{'Found {} matching recipes.'.format(len(recipes))}}</p>
+% else:
+    <p>No result.</p>
 % end
 
-% include recipe_list
+% include('recipe_list')
 
-% rebase html_body id='search', title='Search'
+% rebase('html_body', id='search', title='Search')

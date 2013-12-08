@@ -3,7 +3,7 @@
     <div class="unit w-4-5">
         <p>{{'The database contains {} recipes.'.format(num_recipes)}}</p>
         % if recipes:
-            % include recipe_list
+            % include('recipe_list')
         % else:
             <p>All recipes have at least one category.</p>
         % end
@@ -33,4 +33,4 @@
     </div>
 </div>
 
-% rebase html_body id='index', title=None
+% rebase('html_body', id='index', title=None)
