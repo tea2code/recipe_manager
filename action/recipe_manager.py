@@ -164,7 +164,9 @@ class RecipeManager(base_manager.BaseManager):
                 path_counter += 1
 
             # Save image and restart with next one.
-            image_upload.save(self.STATIC_PATH + image_path)
+            #image_upload.save(self.STATIC_PATH + image_path)
+            with open(self.STATIC_PATH + image_path, "wb") as out_file:
+                out_file.write(image_upload.file.read())
             image = image_entity.Image(path=image_path)
             images.append(image)
             image_counter += 1

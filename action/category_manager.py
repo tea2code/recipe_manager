@@ -61,4 +61,4 @@ class CategoryManager(base_manager.BaseManager):
         if exists:
             hint_text = 'Category "{}" already exists.'.format(name)
             self.hints.append(hint.Hint(hint_text))
-        return exists
+        return not exists
