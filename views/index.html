@@ -16,9 +16,10 @@
                 % url = Url.from_recipe(random)
                 <li>
                     % if random.images:
+                        % img_url = Url.from_img(random.images[0].path)
                         <div>
                             <a href="{{url}}">
-                                <img src="{{random.images[0].path}}"
+                                <img src="{{img_url}}"
                                      alt="{{random.images[0].path}}" />
                             </a>
                         </div>

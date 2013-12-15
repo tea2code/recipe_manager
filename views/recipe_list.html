@@ -13,8 +13,9 @@
                 % text_width = 'w-4-5'
                 <div class="unit w-1-5">
                     % if recipe.images:
+                        % img_url = Url.from_img(recipe.images[0].path)
                         <a href="{{url}}">
-                            <img src="{{recipe.images[0].path}}" alt="{{recipe.images[0].path}}" />
+                            <img src="{{img_url}}" alt="{{recipe.images[0].path}}" />
                         </a>
                     % end
                 </div>

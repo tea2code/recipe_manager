@@ -1,3 +1,5 @@
+% from helper.url import Url
+
 <div class="grid">
     <div class="unit w-1-1">
         <h2>{{recipe.title}}</h2>
@@ -56,7 +58,8 @@
             % if recipe.images:
                 <ul>
                     % for image in recipe.images:
-                        <li><img src="{{image.path}}" alt="{{image.path}}" /></li>
+                        % img_url = Url.from_img(image.path)
+                        <li><img src="{{img_url}}" alt="{{image.path}}" /></li>
                     % end
                 </ul>
             % end
