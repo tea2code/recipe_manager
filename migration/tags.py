@@ -176,6 +176,7 @@ tags_001 = [
     ['Aubergine', 'Eggplant'],
     ['Balsamico', 'Balsamic Vinegar'],
     ['Bittermandelöl', 'Bitter Almond Oil'],
+    ['Bohnenkraut', 'Savory'],
     ['Brauner Zucker', 'Brown Sugar'],
     ['Cayennepfeffer', 'Cayenne Pepper'],
     ['Chilisauce', 'Hot Sauce'],
