@@ -10,6 +10,7 @@ tags_001 = [
     ['Schokolade', 'Chocolate'],
     ['Semmelbrösel', 'Bread Crumbs', 'Panko Crumbs'],
     ['Speisestärke', 'Starch'],
+    ['Hefe', 'Yeast', 'Barm'],
 
     # Cheese/Milk/Cream
     ['Brie'],
