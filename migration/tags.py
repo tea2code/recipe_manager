@@ -7,10 +7,10 @@ representant and the rest are the synonyms. """
 tags_001 = [
     # ???
     ['Gelatine', 'Gelatin'],
+    ['Hefe', 'Yeast', 'Barm'],
     ['Schokolade', 'Chocolate'],
     ['Semmelbrösel', 'Bread Crumbs', 'Panko Crumbs'],
     ['Speisestärke', 'Starch'],
-    ['Hefe', 'Yeast', 'Barm'],
 
     # Cheese/Milk/Cream
     ['Brie'],
@@ -44,9 +44,10 @@ tags_001 = [
     ['Englisch', 'English'],
     ['Italienisch', 'Italian'],
     ['Japanisch', 'Japanese'],
+    ['Mexikanisch', 'Mexican'],
     ['Russisch', 'Russian'],
     ['Spanisch', 'Spanish'],
-
+    
     # Finished
     ['Baguette'],
     ['Blätterteig', 'Puff Pastry'],
@@ -103,6 +104,7 @@ tags_001 = [
 
     # Grains/Nuts/Seeds
     ['Cashew'],
+    ['Couscous', 'Kuskus'],
     ['Erdnuss', 'Peanut'],
     ['Erdnussbutter', 'Peanut Butter'],
     ['Fenchelsamen', 'Fennel Seeds'],
@@ -120,14 +122,17 @@ tags_001 = [
     ['Milchreis', 'Rice Pudding'],
     ['Mohn', 'Poppy Seeds'],
     ['Müsli', 'Granola'],
+    ['Nüsse', 'Nuss', 'Nuts'],
     ['Pinienkerne', 'Pine Nut', 'Pignolia'],
     ['Pistazien', 'Pistachio'],
+    ['Polenta'],
     ['Reis', 'Rice'],
     ['Sesam', 'Sesame'],
     ['Sonnenblumenkerne', 'Sunflower Seed'],
     ['Walnuss', 'Walnut'],
 
     # Herbs
+    ['Bärlauch', 'Bear\'s Garlic', 'Ramsons'],
     ['Basilikum', 'Basil'],
     ['Dill'],
     ['Lavendel', 'Lavender'],
@@ -139,7 +144,7 @@ tags_001 = [
     ['Schnittlauch', 'Chives'],
     ['Thymian', 'Thyme'],
     ['Zitronenmelisse', 'Balm'],
-
+    
     # Meat/Fish/Egg
     ['Huhn', 'Chicken'],
     ['Eier', 'Eggs'],
@@ -236,6 +241,7 @@ tags_001 = [
     ['Grapefruchtsaft', 'Grapefruit Juice'],
     ['Grenadine'],
     ['Grüner Tee', 'Green Tea'],
+    ['Himbeersaft', 'Raspberry Juice'],
     ['Irish Cream', 'Bailey\'s Irish Cream'],
     ['Irish Whiskey'],
     ['Kaffee', 'Coffee', 'Espresso'],
@@ -243,6 +249,7 @@ tags_001 = [
     ['Kräuterlikör', 'Herbal Liqueur'],
     ['Kornbrand', 'Korn'],
     ['Lavendel Sirup', 'Lavender Syrup'],
+    ['Limonade', 'Lemonade'],
     ['Mandelsirup', 'Almond Syrup', 'Orgeat Syrup'],
     ['Mineralwasser', 'Club Soda', 'Soda Water'],
     ['Oolong'],
@@ -318,10 +325,4 @@ tags_001 = [
     ['Tomaten', 'Tomatoes'],
     ['Zucchini', 'Courgette'],
     ['Zwiebeln', 'Onions'],
-    ['Limonade', 'Lemonade'],
-    ['Himbeersaft', 'Raspberry Juice'],
-    ['Mexikanisch', 'Mexican'],
-    ['Nüsse', 'Nuss', 'Nuts'],
-    ['Couscous', 'Kuskus'],
-    ['Bärlauch', 'Bear\'s Garlic', 'Ramsons'],
 ]
