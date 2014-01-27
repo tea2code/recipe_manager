@@ -159,7 +159,7 @@ tags_001 = [
     ['Lamm', 'Lamb'],
     ['Rind', 'Cow', 'Beef'],
     ['Schwein', 'Pork'],
-    ['Schinken', 'Ham'],
+    ['Schinken', 'Ham', 'Prosciutto'],
     ['Speck', 'Bacon'],
     ['Thunfisch', 'Tuna'],
     ['Tilapia'],
