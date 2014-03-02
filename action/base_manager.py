@@ -23,6 +23,7 @@ class BaseManager:
 
     def get_form(self, name):
         """ Returns form value for name. """
+        request.forms.recode_unicode = False
         return request.forms.getunicode(name)
 
     def set_cookie(self, name, value, httponly=True):
