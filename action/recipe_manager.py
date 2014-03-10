@@ -143,7 +143,7 @@ class RecipeManager(base_manager.BaseManager):
         while image_upload is not None:
             # Check file extension.
             name, ext = os.path.splitext(image_upload.filename)
-            if ext not in ('.png','.jpg','.jpeg', '.gif'):
+            if ext.lower() not in ('.png','.jpg','.jpeg', '.gif'):
                 text = 'Extension "{}" is not an allowed image type.'\
                     .format(ext)
                 self.hints.append(hint.Hint(text))
