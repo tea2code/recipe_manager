@@ -146,6 +146,7 @@ tags_001 = [
     ['Zitronenmelisse', 'Balm'],
     
     # Meat/Fish/Egg
+    ['Corned Beef'],
     ['Huhn', 'Chicken'],
     ['Eier', 'Eggs'],
     ['Eigelb', 'Eidotter', 'Egg Yolk', 'Yolk'],
