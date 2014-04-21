@@ -291,7 +291,7 @@ tags_001 = [
     ['Bohnen', 'Beans'],
     ['Brokkoli', 'Broccoli'],
     ['Chicoree', 'Chicory'],
-    ['Chili', 'Chilli'],
+    ['Chili', 'Chilli', 'Peperoni'],
     ['Erbsen', 'Peas'],
     ['Fenchel', 'Fennel'],
     ['Gurke', 'Cucumber'],
