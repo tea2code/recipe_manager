@@ -87,6 +87,7 @@ tags_001 = [
     ['Johannisbeeren', 'Currant'],
     ['Kirsche', 'Cherry'],
     ['Kiwi'],
+    ['Kumquat'],
     ['Limette', 'Lime'],
     ['Mandarine', 'Mandarin'],
     ['Mango'],
