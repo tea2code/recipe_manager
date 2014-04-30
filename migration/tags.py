@@ -58,6 +58,7 @@ tags_001 = [
     ['Kekse', 'Cracker'],
     ['Löffelbiskuits', 'Sponge Finger'],
     ['Marmelade', 'Konfitüre', 'Jam'],
+    ['Miso'],
     ['Nudeln', 'Pasta'],
     ['Pastetenteig', 'Pie Crust'],
     ['Pesto'],
