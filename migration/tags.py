@@ -304,7 +304,7 @@ tags_001 = [
     ['Kohl', 'Kale', 'Cabbage'],
     ['Kohlrabi', 'Cabbage Turnip'],
     ['Kürbis', 'Pumpkin'],
-    ['Lauch', 'Porree', 'Leek'],
+    ['Lauch', 'Porree', 'Leek', 'Ramp'],
     ['Linsen', 'Lentils'],
     ['Mais', 'Corn'],
     ['Mangold', 'Chard'],
