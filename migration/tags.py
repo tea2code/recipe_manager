@@ -106,6 +106,7 @@ tags_001 = [
 
     # Grains/Nuts/Seeds
     ['Cashew'],
+    ['Chia'],
     ['Couscous', 'Kuskus'],
     ['Erdnuss', 'Peanut'],
     ['Erdnussbutter', 'Peanut Butter'],
