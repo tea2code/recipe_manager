@@ -94,6 +94,7 @@ tags_001 = [
     ['Mango'],
     ['Melone', 'Melon'],
     ['Maracuja', 'Passionsfrucht', 'Passion Fruit'],
+    ['Nektarine', 'Nectarine'],
     ['Orange'],
     ['Pfirsich', 'Peach'],
     ['Pflaumen', 'Zwetschge', 'Plum'],
