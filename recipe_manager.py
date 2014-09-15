@@ -5,6 +5,7 @@ import bottle
 import bottle_sqlite as sqlite
 import configparser
 import os
+import random
 import sqlite3
 from action import category_manager
 from action import recipe_manager
@@ -136,6 +137,8 @@ def search(db):
         indexer = indexer_class.Indexer(HOME+INDEX_PATH)
         searcher = searcher_class.Searcher(indexer)
         recipes = searcher.search(db, query)
+        if bottle.request.forms.getunicode('submit') == 'lucky':
+            recipes = [random.choice(recipes)]
     categories = category.Category.find_all(db)
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipes=recipes, query=query, tags=tags)
