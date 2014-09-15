@@ -27,6 +27,7 @@ HOST = config.get('Default', 'HOST')
 INDEX_PATH = config.get('Default', 'INDEX_PATH')
 PORT = config.getint('Default', 'PORT')
 RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES')
+RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX')
 if os.path.exists('user.config'):
     config.read('user.config')
     DB_FILE = config.get('Default', 'DB_FILE', fallback=DB_FILE)
@@ -36,6 +37,7 @@ if os.path.exists('user.config'):
     INDEX_PATH = config.get('Default', 'INDEX_PATH', fallback=INDEX_PATH)
     PORT = config.getint('Default', 'PORT', fallback=PORT)
     RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES', fallback=RANDOM_RECIPES)
+    RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX', fallback=RENEW_INDEX)
 
 # Initialization ###############################################################
 app = bottle.Bottle()
@@ -60,7 +62,9 @@ def init_search():
     db.close()
     indexer.fill_index(writer, recipes)
     indexer.close_index()
-init_search()
+
+if RENEW_INDEX:
+    init_search()
 
 # Routes #######################################################################
 # Index
