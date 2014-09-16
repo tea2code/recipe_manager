@@ -94,11 +94,23 @@
         </div>
         <div>
             <h3>Category:</h3>
-            <p>{{', '.join(category.name for category in recipe.categories)}}</p>
+            <p>
+                % last_i = len(recipe.categories) - 1
+                % for i, category in enumerate(recipe.categories):
+                    % category_url = Url.from_category(category)
+                    <a href="{{category_url}}">{{category.name}}</a>{{', ' if i < last_i else ''}}
+                % end
+            </p>
         </div>
         <div>
             <h3>Tags:</h3>
-            <p>{{', '.join(tag.name for tag in recipe.tags)}}</p>
+            <p>
+                % last_i = len(recipe.tags) - 1
+                % for i, tag in enumerate(recipe.tags):
+                    % search_url = Url.search(tag.name)
+                    <a href="{{search_url}}">{{tag.name}}</a>{{', ' if i < last_i else ''}}
+                % end
+            </p>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
 % from helper.url import Url
 <h2>Search</h2>
 
-<form action="{{Url.from_path(['search'])}}" method="post">
+<form action="{{Url.from_path(['search'])}}" method="get">
     <fieldset>
         <div class="input-row">
             <label for="search-text">Query:</label>
-            <input type="text" id="search-text" name="search-text"
+            <input type="text" id="search-text" name="q"
                    autofocus="autofocus" value="{{query}}" />
         </div>
         <div class="input-row grid">

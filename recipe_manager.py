@@ -17,6 +17,7 @@ from migration import migration_manager
 from search import indexer as indexer_class
 from search import searcher as searcher_class
 
+
 # Configuration ################################################################
 config = configparser.ConfigParser()
 config.read('default.config')
@@ -28,6 +29,7 @@ INDEX_PATH = config.get('Default', 'INDEX_PATH')
 PORT = config.getint('Default', 'PORT')
 RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES')
 RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX')
+
 if os.path.exists('user.config'):
     config.read('user.config')
     DB_FILE = config.get('Default', 'DB_FILE', fallback=DB_FILE)
@@ -38,6 +40,7 @@ if os.path.exists('user.config'):
     PORT = config.getint('Default', 'PORT', fallback=PORT)
     RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES', fallback=RANDOM_RECIPES)
     RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX', fallback=RENEW_INDEX)
+
 
 # Initialization ###############################################################
 app = bottle.Bottle()
@@ -66,6 +69,7 @@ def init_search():
 if RENEW_INDEX:
     init_search()
 
+
 # Routes #######################################################################
 # Index
 @app.get('/', template='index')
@@ -78,6 +82,7 @@ def index(db):
     return dict(categories=categories, recipes=recipes, randoms=randoms,
                 num_recipes=num_recipes)
 
+
 # Category
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')
 def category_list(db, id):
@@ -86,6 +91,7 @@ def category_list(db, id):
     recipes = recipe.Recipe.find_category(db, cat)
     categories = category.Category.find_all(db)
     return dict(categories=categories, category=cat, recipes=recipes)
+
 
 # Manage: Category
 @app.get('/manage/categories', template='manage_categories')
@@ -96,6 +102,7 @@ def manage_categories(db):
     categories = manager.action()
     hints = manager.hints
     return dict(categories=categories, hints=hints)
+
 
 # Manage: Recipe
 @app.get('/manage/recipe', template='manage_recipe')
@@ -111,6 +118,7 @@ def manage_recipe(db, id=None):
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipe=rec, hints=hints, tags=tags)
 
+
 # Manage: Tag
 @app.get('/manage/tags', template='manage_tags')
 @app.post('/manage/tags', template='manage_tags')
@@ -122,6 +130,7 @@ def manage_tag(db):
     hints = manager.hints
     return dict(categories=categories, tags=tags, hints=hints)
 
+
 # Recipe
 @app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
 def view_recipe(db, id):
@@ -130,22 +139,27 @@ def view_recipe(db, id):
     categories = category.Category.find_all(db)
     return dict(categories=categories, recipe=rec)
 
+
 # Search
 @app.get('/search', template='search')
 @app.post('/search', template='search')
 def search(db):
     """ Search page. """
-    query = bottle.request.forms.getunicode('search-text') or ''
+    query = bottle.request.forms.getunicode('q') or \
+            bottle.request.query.getunicode('q') or ''
+    button = bottle.request.forms.getunicode('submit') or \
+             bottle.request.query.getunicode('submit') or ''
     recipes = []
     if query:
         indexer = indexer_class.Indexer(HOME+INDEX_PATH)
         searcher = searcher_class.Searcher(indexer)
         recipes = searcher.search(db, query)
-        if bottle.request.forms.getunicode('submit') == 'lucky':
+        if button == 'lucky':
             recipes = [random.choice(recipes)]
     categories = category.Category.find_all(db)
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipes=recipes, query=query, tags=tags)
+
 
 # Statics ######################################################################
 @app.get('/<file:re:(favicon|apple-touch-icon)\.(png|ico)>')
@@ -154,6 +168,7 @@ def search(db):
 def statics(file, type='img'):
     """ Static content like css, images and javascript. """
     return bottle.static_file(file, root=HOME+'static/'+type)
+
 
 # Run ##########################################################################
 app.run(host=HOST, port=PORT, debug=DEBUG, reloader=DEBUG)

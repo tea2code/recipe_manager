@@ -53,3 +53,12 @@ class Url:
         path_parts = ['recipe',
                       '{}-{}'.format(recipe.id, recipe.title.lower())]
         return Url.from_path(path_parts, absolute)
+
+    @staticmethod
+    def search(search_text, absolute=None):
+        """ Generates a URL for search. Returns relative URL string. If
+        absolute is set to the domain the returned URL will be absolute. """
+        url = '/search?q={}'.format(urllib.parse.quote(search_text))
+        if absolute:
+            url = absolute + url
+        return url
