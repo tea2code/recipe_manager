@@ -59,7 +59,11 @@
                 <ul>
                     % for image in recipe.images:
                         % img_url = Url.from_img(image.path)
-                        <li><img src="{{img_url}}" alt="{{image.path}}" /></li>
+                        <li>
+                            <a class="fancybox" href="{{img_url}}" data-fancybox-group="images">
+                                <img src="{{img_url}}" alt="{{image.path}}" />
+                            </a>
+                        </li>
                     % end
                 </ul>
             % end

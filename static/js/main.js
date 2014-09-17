@@ -9,6 +9,9 @@ $(document).ready(function() {
     // Chosen.
     $('#manage-recipe #categories').chosen();
     $('#manage-recipe #tags').chosen();
+    
+    // Fancybox.
+    $('.fancybox').fancybox();
 
     // Add Images.
     $('#manage-recipe #add-image').click(function(event)
