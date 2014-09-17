@@ -66,7 +66,7 @@ def init_search():
     indexer.fill_index(writer, recipes)
     indexer.close_index()
 
-if RENEW_INDEX:
+if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
     init_search()
 
 
