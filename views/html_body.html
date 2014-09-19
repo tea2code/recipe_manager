@@ -2,6 +2,8 @@
 <html>
 % from helper import browser
 % from helper.url import Url
+% from helper.translator import Translator
+% _ = Translator.instance(language)
 <head>
     <meta charset="utf-8">
 
@@ -48,13 +50,13 @@
 
                 <div class="unit w-2-3">
                     <ul id="action-nav">
-                        <li><a href="{{Url.from_path(['search'])}}">Search</a></li>
-                        <li><a href="{{Url.from_path(['manage', 'recipe'])}}">New Recipe</a></li>
+                        <li><a href="{{Url.from_path(['search'])}}">{{_('Search')}}</a></li>
+                        <li><a href="{{Url.from_path(['manage', 'recipe'])}}">{{_('New Recipe')}}</a></li>
                         % if defined('edit_recipe') and edit_recipe:
-                            <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">Edit Recipe</a></li>
+                            <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">{{_('Edit Recipe')}}</a></li>
                         % end
-                        <li><a href="{{Url.from_path(['manage', 'categories'])}}">Manage Categories</a></li>
-                        <li><a href="{{Url.from_path(['manage', 'tags'])}}">Manage Tags</a></li>
+                        <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Manage Categories')}}</a></li>
+                        <li><a href="{{Url.from_path(['manage', 'tags'])}}">{{_('Manage Tags')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -89,9 +91,20 @@
         </div>
 
         <div id="footer" class="grid">
-            <div class="unit w-1-1">
+            <div class="unit w-1-2">
+                <select id="language-selection">
+                    % for locale, name in languages.items():
+                        <option value="{{locale}}"
+                                {{'selected="selected"' if (locale == language) else ''}}>
+                            {{name}}
+                        </option>
+                    % end
+                </select>
+            </div>
+
+            <div class="unit w-1-2 right-align">
                 <a href="https://github.com/tea2code/recipe_manager">
-                    &copy 2014 tea2code
+                    &copy; 2014 tea2code
                 </a>
             </div>
         </div>
@@ -99,6 +112,7 @@
 
     <!-- jQuery -->
     <script src="{{Url.from_js('jquery.min.js')}}"></script>
+    <script src="{{Url.from_js('jquery.cookie.js')}}"></script>
     <script src="{{Url.from_js('chosen.jquery.min.js')}}"></script>
     <script src="{{Url.from_js('jquery.autocomplete.min.js')}}"></script>
     <script src="{{Url.from_js('jquery.fancybox.pack.js')}}"></script>

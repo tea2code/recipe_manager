@@ -1,11 +1,14 @@
 % from helper.url import Url
+% from helper.translator import Translator
+% _ = Translator.instance(language)
+
 <div class="grid">
     <div class="unit w-4-5">
-        <p>{{'The database contains {} recipes.'.format(num_recipes)}}</p>
+        <p>{{_('The database contains {} recipes.').format(num_recipes)}}</p>
         % if recipes:
             % include recipe_list recipes=recipes
         % else:
-            <p>All recipes have at least one category.</p>
+            <p>{{_('All recipes have at least one category.')}}</p>
         % end
     </div>
 
@@ -34,4 +37,4 @@
     </div>
 </div>
 
-% rebase html_body id='index', title=None, categories=categories
+% rebase html_body id='index', title=None, categories=categories, languages=languages

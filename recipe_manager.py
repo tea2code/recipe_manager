@@ -4,6 +4,7 @@
 import bottle
 import bottle_sqlite as sqlite
 import configparser
+import collections
 import os
 import random
 import sqlite3
@@ -13,6 +14,7 @@ from action import tag_manager
 from entity import category
 from entity import recipe
 from entity import tag
+from helper import translator
 from migration import migration_manager
 from search import indexer as indexer_class
 from search import searcher as searcher_class
@@ -26,9 +28,11 @@ DEBUG = config.getboolean('Default', 'DEBUG')
 HOME = config.get('Default', 'HOME')
 HOST = config.get('Default', 'HOST')
 INDEX_PATH = config.get('Default', 'INDEX_PATH')
+LANGUAGE = config.get('Default', 'LANGUAGE')
 PORT = config.getint('Default', 'PORT')
 RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES')
 RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX')
+TRANSLATION_PATH = config.get('Default', 'TRANSLATION_PATH')
 
 if os.path.exists('user.config'):
     config.read('user.config')
@@ -37,9 +41,11 @@ if os.path.exists('user.config'):
     HOME = config.get('Default', 'HOME', fallback=HOME)
     HOST = config.get('Default', 'HOST', fallback=HOST)
     INDEX_PATH = config.get('Default', 'INDEX_PATH', fallback=INDEX_PATH)
+    LANGUAGE = config.get('Default', 'LANGUAGE', fallback=LANGUAGE)
     PORT = config.getint('Default', 'PORT', fallback=PORT)
     RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES', fallback=RANDOM_RECIPES)
     RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX', fallback=RENEW_INDEX)
+    TRANSLATION_PATH = config.get('Default', 'TRANSLATION_PATH', fallback=TRANSLATION_PATH)
 
 
 # Initialization ###############################################################
@@ -53,8 +59,15 @@ app.install(sqlPlugin)
 migration = migration_manager.MigrationManager(HOME, DB_FILE)
 migration.migrate()
 
+# Translation
+LANGUAGES = collections.OrderedDict()
+LANGUAGES['de_DE'] = 'Deutsch'
+LANGUAGES['en_US'] = 'English'
+for locale in LANGUAGES:
+    translator.Translator.init(locale, TRANSLATION_PATH)
+
 # Searching
-def init_search():
+if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
     indexer = indexer_class.Indexer(HOME+INDEX_PATH)
     indexer.remove_index()
     scheme = indexer.scheme()
@@ -66,31 +79,33 @@ def init_search():
     indexer.fill_index(writer, recipes)
     indexer.close_index()
 
-if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
-    init_search()
-
 
 # Routes #######################################################################
 # Index
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     num_recipes = recipe.Recipe.count_all(db)
     recipes = recipe.Recipe.find_category(db, None)
     randoms = recipe.Recipe.find_random(db, RANDOM_RECIPES)
     categories = category.Category.find_all(db)
     return dict(categories=categories, recipes=recipes, randoms=randoms,
-                num_recipes=num_recipes)
+                num_recipes=num_recipes, language=language, languages=LANGUAGES)
 
 
 # Category
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')
 def category_list(db, id):
     """ Category list page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     cat = category.Category.find_pk(db, id)
     recipes = recipe.Recipe.find_category(db, cat)
     categories = category.Category.find_all(db)
-    return dict(categories=categories, category=cat, recipes=recipes)
+    return dict(categories=categories, category=cat, recipes=recipes,
+                language=language, languages=LANGUAGES)
 
 
 # Manage: Category
@@ -98,10 +113,13 @@ def category_list(db, id):
 @app.post('/manage/categories', template='manage_categories')
 def manage_categories(db):
     """ Category managing page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     manager = category_manager.CategoryManager(db)
-    categories = manager.action()
+    categories = manager.action(language)
     hints = manager.hints
-    return dict(categories=categories, hints=hints)
+    return dict(categories=categories, hints=hints, language=language,
+                languages=LANGUAGES)
 
 
 # Manage: Recipe
@@ -111,12 +129,15 @@ def manage_categories(db):
 @app.post('/manage/recipe/<id:int>', template='manage_recipe')
 def manage_recipe(db, id=None):
     """ Recipe managing page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     categories = category.Category.find_all(db)
     manager = recipe_manager.RecipeManager(db)
-    rec = manager.action(id)
+    rec = manager.action(language, id)
     hints = manager.hints
     tags = tag.Tag.find_all(db)
-    return dict(categories=categories, recipe=rec, hints=hints, tags=tags)
+    return dict(categories=categories, recipe=rec, hints=hints, tags=tags,
+                language=language, languages=LANGUAGES)
 
 
 # Manage: Tag
@@ -124,20 +145,26 @@ def manage_recipe(db, id=None):
 @app.post('/manage/tags', template='manage_tags')
 def manage_tag(db):
     """ Tag managing page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     categories = category.Category.find_all(db)
     manager = tag_manager.TagManager(db)
-    tags = manager.action()
+    tags = manager.action(language)
     hints = manager.hints
-    return dict(categories=categories, tags=tags, hints=hints)
+    return dict(categories=categories, tags=tags, hints=hints,
+                language=language, languages=LANGUAGES)
 
 
 # Recipe
 @app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
 def view_recipe(db, id):
     """ Recipe view page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     rec = recipe.Recipe.find_pk(db, id)
     categories = category.Category.find_all(db)
-    return dict(categories=categories, recipe=rec)
+    return dict(categories=categories, recipe=rec, language=language,
+                languages=LANGUAGES)
 
 
 # Search
@@ -145,6 +172,8 @@ def view_recipe(db, id):
 @app.post('/search', template='search')
 def search(db):
     """ Search page. """
+    language = translator.Translator.current_language(LANGUAGE)
+
     query = bottle.request.forms.getunicode('q') or \
             bottle.request.query.getunicode('q') or ''
     button = bottle.request.forms.getunicode('submit') or \
@@ -158,7 +187,8 @@ def search(db):
             recipes = [random.choice(recipes)]
     categories = category.Category.find_all(db)
     tags = tag.Tag.find_all(db)
-    return dict(categories=categories, recipes=recipes, query=query, tags=tags)
+    return dict(categories=categories, recipes=recipes, query=query, tags=tags,
+                language=language, languages=LANGUAGES)
 
 
 # Statics ######################################################################

@@ -4,6 +4,8 @@
 from action import base_manager
 from entity import category
 from helper import hint
+from helper import translator
+
 
 class CategoryManager(base_manager.BaseManager):
     """ Handle category related actions.
@@ -17,17 +19,19 @@ class CategoryManager(base_manager.BaseManager):
         self.db = db
         self.hints = []
 
-    def action(self):
+    def action(self, language):
         """ Handle action for given class name. Returns found entities. """
+        _ = translator.Translator.instance(language)
+
         # Handle actions.
         action = self.get_form('action') or 'show'
 
         if action == 'new':
             name = self.get_form('name')
-            if self.__name_ok(name):
+            if self.__name_ok(name, language):
                 cat = category.Category(name=name)
                 cat.save(self.db)
-                hint_text = 'New category "{}" has been created.'.format(name)
+                hint_text = _('New category "{}" has been created.').format(name)
                 self.hints.append(hint.Hint(hint_text))
 
         elif action == 'edit':
@@ -39,26 +43,28 @@ class CategoryManager(base_manager.BaseManager):
 
             if is_delete:
                 entity.delete(self.db)
-                hint_text = 'Category "{}" has been removed.'.format(name)
+                hint_text = _('Category "{}" has been removed.').format(name)
                 self.hints.append(hint.Hint(hint_text))
             else:
-                if self.__name_ok(name):
+                if self.__name_ok(name, language):
                     entity.save(self.db)
-                    hint_text = 'Category "{}" has been updated.'.format(name)
+                    hint_text = _('Category "{}" has been updated.').format(name)
                     self.hints.append(hint.Hint(hint_text))
 
         # Load content.
         return category.Category.find_all(self.db)
 
-    def __name_ok(self, name):
+    def __name_ok(self, name, language):
         """ Validates the name. Returns True if ok. """
+        _ = translator.Translator.instance(language)
+
         if not name:
-            hint_text = 'Name must not be empty.'.format(name)
+            hint_text = _('Name must not be empty.').format(name)
             self.hints.append(hint.Hint(hint_text))
             return False
 
         exists = category.Category.name_exists(self.db, name)
         if exists:
-            hint_text = 'Category "{}" already exists.'.format(name)
+            hint_text = _('Category "{}" already exists.').format(name)
             self.hints.append(hint.Hint(hint_text))
         return not exists

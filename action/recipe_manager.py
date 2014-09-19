@@ -11,6 +11,7 @@ from entity import synonym as synonym_entity
 from entity import tag as tag_entity
 from entity import url as url_entity
 from helper import hint
+from helper import translator
 
 import os
 
@@ -46,17 +47,20 @@ class RecipeManager(base_manager.BaseManager):
         self.db = db
         self.hints = []
 
-    def action(self, id=None):
+    def action(self, language, id=None):
         """ Handle actions. If id is given it is assumed that an existing
          recipe is edited. Returns recipe to show. """
+        _ = translator.Translator.instance(language)
+
         is_new = id is None
         is_edit = self.get_form('edit') is not None
         is_delete = self.get_form('delete') is not None
 
         # Actions
+        result = None
         if is_edit:
             categories = self.__read_categories()
-            images = self.__read_images()
+            images = self.__read_images(language)
             synonyms = self.__read_synonyms()
             tags = self.__read_tags()
             urls = self.__read_urls()
@@ -80,7 +84,7 @@ class RecipeManager(base_manager.BaseManager):
             result.urls = urls
 
             if not title:
-                hint_text = 'Title must not be empty.'.format(title)
+                hint_text = _('Title must not be empty.').format(title)
                 self.hints.append(hint.Hint(hint_text))
             else:
                 result.save(self.db)
@@ -109,7 +113,7 @@ class RecipeManager(base_manager.BaseManager):
         else:
             result = recipe_entity.Recipe.find_pk(self.db, id)
 
-        self.__show_hints()
+        self.__show_hints(language)
         return result
 
     def __read_categories(self):
@@ -120,8 +124,10 @@ class RecipeManager(base_manager.BaseManager):
             categories.append(category)
         return categories
 
-    def __read_images(self):
+    def __read_images(self, language):
         """ Read images and return them. """
+        _ = translator.Translator.instance(language)
+
         if not os.path.exists(self.STATIC_PATH+self.IMAGE_PATH):
                 os.mkdir(self.STATIC_PATH+self.IMAGE_PATH)
 
@@ -144,7 +150,7 @@ class RecipeManager(base_manager.BaseManager):
             # Check file extension.
             name, ext = os.path.splitext(image_upload.filename)
             if ext.lower() not in ('.png','.jpg','.jpeg', '.gif'):
-                text = 'Extension "{}" is not an allowed image type.'\
+                text = _('Extension "{}" is not an allowed image type.')\
                     .format(ext)
                 self.hints.append(hint.Hint(text))
                 image_counter += 1
@@ -209,20 +215,22 @@ class RecipeManager(base_manager.BaseManager):
             url_url = self.get_form('url-url-'+str(url_counter))
         return urls
 
-    def __show_hints(self):
+    def __show_hints(self, language):
         """ Show hints if cookies are set. """
+        _ = translator.Translator.instance(language)
+
         hint_cookie = self.get_cookie(self.HINT_COOKIE)
         name_cookie = self.get_cookie(self.HINT_NAME)
         if hint_cookie and name_cookie:
             if hint_cookie == self.HINT_NEW:
-                hint_text = 'New recipe "{}" has been created.'
+                hint_text = _('New recipe "{}" has been created.')
             elif hint_cookie == self.HINT_EDIT:
-                hint_text = 'Recipe "{}" has been updated.'
+                hint_text = _('Recipe "{}" has been updated.')
             elif hint_cookie == self.HINT_NEW_EXISTS:
-                hint_text = 'New recipe "{}" has been created. ' \
-                            'A recipe with the same title already exists.'
+                hint_text = _('New recipe "{}" has been created. '
+                              'A recipe with the same title already exists.')
             else:
-                hint_text = 'Recipe "{}" has been removed.'
+                hint_text = _('Recipe "{}" has been removed.')
             hint_text = hint_text.format(name_cookie)
             self.hints.append(hint.Hint(hint_text))
             self.delete_cookie(self.HINT_COOKIE)

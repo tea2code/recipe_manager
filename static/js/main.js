@@ -12,16 +12,22 @@ $(document).ready(function() {
     
     // Fancybox.
     $('.fancybox').fancybox();
+    
+    // Language Selection.
+    $('#language-selection').change(function(event)
+    {
+        $.cookie('language', $(this).val(), { expires: 365, path: '/' });
+        location.reload();
+    });
 
     // Add Images.
     $('#manage-recipe #add-image').click(function(event)
     {
         var image_count = parseInt($('#new-image-counter').val());
         $('#new-image-counter').val(image_count + 1);
-        var input = '<div class="input-row">' +
-                    '    <label for="new-image-'+image_count+'">New Image '+(image_count+1)+':</label>' +
-                    '    <input type="file" id="new-image-'+image_count+'" accept="image/gif, image/jpeg, image/png" name="new-image-'+image_count+'" />' +
-                    '</div>';
+        var input = $('#template-add-image').html()
+                    .replace(/{image_count}/g, image_count)
+                    .replace(/{image_count\+1}/g, (image_count + 1));
         $('#manage-recipe #images').append(input);
         event.preventDefault();
     });
@@ -39,10 +45,9 @@ $(document).ready(function() {
     {
         var synonym_count = parseInt($('#synonym-counter').val());
         $('#synonym-counter').val(synonym_count + 1);
-        var input = '<div class="input-row">' +
-                    '    <label for="synonym-'+synonym_count+'">Synonym '+(synonym_count+1)+':</label>' +
-                    '    <input type="text" id="synonym-'+synonym_count+'" name="synonym-'+synonym_count+'" />' +
-                    '</div>';
+        var input = $('#template-add-synonym').html()
+                    .replace(/{synonym_count}/g, synonym_count)
+                    .replace(/{synonym_count\+1}/g, (synonym_count + 1));
         $('#manage-recipe #synonyms').append(input);
         event.preventDefault();
     });
@@ -52,14 +57,9 @@ $(document).ready(function() {
     {
         var url_count = parseInt($('#url-counter').val());
         $('#url-counter').val(url_count + 1);
-        var input = '<div class="input-row">' +
-                    '    <label for="url-name-'+url_count+'">Name of Link '+(url_count+1)+':</label>' +
-                    '    <input type="text" id="url-name-'+url_count+'" name="url-name-'+url_count+'" />' +
-                    '</div>' +
-                    '<div class="input-row">' +
-                    '    <label for="url-url-'+url_count+'">Link '+(url_count+1)+':</label>' +
-                    '    <input type="text" id="url-url-'+url_count+'" name="url-url-'+url_count+'" />' +
-                    '</div>';
+        var input = $('#template-add-url').html()
+                    .replace(/{url_count}/g, url_count)
+                    .replace(/{url_count\+1}/g, (url_count + 1));
         $('#manage-recipe #urls').append(input);
         event.preventDefault();
     });

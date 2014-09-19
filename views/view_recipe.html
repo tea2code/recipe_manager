@@ -1,10 +1,12 @@
 % from helper.url import Url
+% from helper.translator import Translator
+% _ = Translator.instance(language)
 
 <div class="grid">
     <div class="unit w-1-1">
         <h2>{{recipe.title}}</h2>
         % if recipe.synonyms:
-            <h3>Synonyms: {{', '.join(synonym.name for synonym in recipe.synonyms)}}</h3>
+            <h3>{{_('Synonyms: {}').format(', '.join(synonym.name for synonym in recipe.synonyms))}}</h3>
         % end
     </div>
 </div>
@@ -26,28 +28,28 @@
     <div class="unit w-2-3">
         % if recipe.serving_size:
             <div>
-                <h3>Serving Size:</h3>
+                <h3>{{_('Serving Size:')}}</h3>
                 <p>{{recipe.serving_size}}</p>
             </div>
         % end
 
         % if recipe.ingredients:
             <div>
-                <h3>Ingredients:</h3>
+                <h3>{{_('Ingredients:')}}</h3>
                 {{!t(recipe.ingredients)}}
             </div>
         % end
 
         % if recipe.description:
             <div>
-                <h3>Preparation:</h3>
+                <h3>{{_('Preparation:')}}</h3>
                 {{!t(recipe.description)}}
             </div>
         % end
 
         % if recipe.info:
             <div>
-                <h3>Info:</h3>
+                <h3>{{_('Info:')}}</h3>
                 {{!t(recipe.info)}}
             </div>
         % end
@@ -79,11 +81,11 @@
             % elif recipe.rating is 3:
             %   rating = '★★★'
             % end
-            <h3>Rating:</h3>
+            <h3>{{_('Rating:')}}</h3>
             <p>{{rating}}</p>
         </div>
         <div>
-            <h3>Links:</h3>
+            <h3>{{_('Links:')}}</h3>
             % if recipe.urls:
                 <ul>
                     % for url in recipe.urls:
@@ -97,7 +99,7 @@
             % end
         </div>
         <div>
-            <h3>Category:</h3>
+            <h3>{{_('Category:')}}</h3>
             <p>
                 % last_i = len(recipe.categories) - 1
                 % for i, category in enumerate(recipe.categories):
@@ -107,7 +109,7 @@
             </p>
         </div>
         <div>
-            <h3>Tags:</h3>
+            <h3>{{_('Tags:')}}</h3>
             <p>
                 % last_i = len(recipe.tags) - 1
                 % for i, tag in enumerate(recipe.tags):
@@ -119,4 +121,4 @@
     </div>
 </div>
 
-% rebase html_body id='recipe', title=recipe.title, edit_recipe=True, categories=categories, recipe=recipe
+% rebase html_body id='recipe', title=recipe.title, edit_recipe=True, categories=categories, recipe=recipe, languages=languages

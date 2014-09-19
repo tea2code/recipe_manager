@@ -1,16 +1,19 @@
 % from helper.url import Url
-<h2>Manage: Tags</h2>
+% from helper.translator import Translator
+% _ = Translator.instance(language)
+
+<h2>{{_('Manage: Tags')}}</h2>
 
 <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
     <fieldset>
-        <legend>New Tag</legend>
+        <legend>{{_('New Tag')}}</legend>
         <div class="input-row">
-            <label for="new-name">Name (required):</label>
+            <label for="new-name">{{_('Name (required):')}}</label>
             <input type="text" id="new-name" name="name" />
         </div>
         <div>
             <input type="hidden" name="action" value="new" />
-            <button type="submit">Create Tag</button>
+            <button type="submit">{{_('Create Tag')}}</button>
         </div>
     </fieldset>
 </form>
@@ -20,32 +23,32 @@
         <legend class="tag-group-legend">{{tag.name}}</legend>
         <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
             <div class="input-row">
-                <label for="edit-name-{{tag.id}}">Name:</label>
+                <label for="edit-name-{{tag.id}}">{{_('Name:')}}</label>
                 <input type="text" id="edit-name-{{tag.id}}" name="name" value="{{tag.name}}" />
                 <input type="hidden" name="id" value="{{tag.id}}" />
                 <input type="hidden" name="action" value="edit" />
-                <button type="submit" name="edit">Edit</button>
-                <button type="submit" name="delete">Delete</button>
+                <button type="submit" name="edit">{{_('Edit')}}</button>
+                <button type="submit" name="delete">{{_('Delete')}}</button>
             </div>
         </form>
 
         <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
             <fieldset>
-                <legend>New Synonym</legend>
+                <legend>{{_('New Synonym')}}</legend>
                 <div class="input-row">
-                    <label for="new-name-{{tag.id}}">Name:</label>
+                    <label for="new-name-{{tag.id}}">{{_('Name:')}}</label>
                     <input type="text" id="new-name-{{tag.id}}" name="name" />
                 </div>
                 <div>
                     <input type="hidden" name="id" value="{{tag.id}}" />
                     <input type="hidden" name="action" value="new-synonym" />
-                    <button type="submit">Create Synonym</button>
+                    <button type="submit">{{_('Create Synonym')}}</button>
                 </div>
             </fieldset>
         </form>
 
         <fieldset>
-            <legend>Edit Synonym</legend>
+            <legend>{{_('Edit Synonym')}}</legend>
             % length = len(tag.synonyms)
             % for i in range(length):
                 % synonym = tag.synonyms[i]
@@ -53,12 +56,12 @@
                 % c = cls if (i < length - 1) else ''
                 <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
                     <div{{!c}}>
-                        <label for="edit-name-{{synonym.id}}">Name:</label>
+                        <label for="edit-name-{{synonym.id}}">{{_('Name:')}}</label>
                         <input type="text" id="edit-name-{{synonym.id}}" name="name" value="{{synonym.name}}" />
                         <input type="hidden" name="id" value="{{synonym.id}}" />
                         <input type="hidden" name="action" value="edit" />
-                        <button type="submit" name="edit">Edit</button>
-                        <button type="submit" name="delete">Delete</button>
+                        <button type="submit" name="edit">{{_('Edit')}}</button>
+                        <button type="submit" name="delete">{{_('Delete')}}</button>
                     </div>
                 </form>
             % end
@@ -66,4 +69,4 @@
     </fieldset>
 % end
 
-% rebase html_body id='manage-tags', title='Tags', hints=hints, categories=categories
+% rebase html_body id='manage-tags', title=_('Tags'), hints=hints, categories=categories, languages=languages

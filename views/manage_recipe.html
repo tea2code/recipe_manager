@@ -1,9 +1,12 @@
 % from helper.url import Url
+% from helper.translator import Translator
+% _ = Translator.instance(language)
+
 <h2>
     % if recipe.id:
         <a href="/recipe/{{str(recipe.id)}}-{{str(recipe.title.lower())}}">{{recipe.title}}</a>
     % else:
-        New Recipe
+        {{_('New Recipe')}}
     % end
 </h2>
 
@@ -11,10 +14,10 @@
 % url = Url.from_path(['manage', 'recipe', str(recipe.id)]) if recipe.id else Url.from_path(['manage', 'recipe'])
 <form action="{{url}}" method="post" enctype="multipart/form-data">
     <fieldset>
-        <legend>{{'Edit' if recipe.id else 'New'}} Recipe</legend>
+        <legend>{{_('Edit Recipe') if recipe.id else _('New Recipe')}}</legend>
 
         <div class="input-row">
-            <label for="rating">Rating:</label>
+            <label for="rating">{{_('Rating:')}}</label>
             <select id="rating" name="rating">
                 <option value="-1"> </option>
                 <option value="0" {{!selected if recipe.rating is 0 else ''}}>☆</option>
@@ -25,7 +28,7 @@
         </div>
 
         <div class="input-row">
-            <label for="categories">Category:</label>
+            <label for="categories">{{_('Category:')}}</label>
             <select id="categories" name="categories" multiple="multiple">
                 <option value="-1"> </option>
                 % category_ids = [category.id for category in recipe.categories]
@@ -39,7 +42,7 @@
         </div>
 
         <div class="input-row">
-            <label for="title">Title (required):</label>
+            <label for="title">{{_('Title (required):')}}</label>
             <input type="text" id="title" name="title" value="{{recipe.title}}" />
         </div>
 
@@ -47,14 +50,14 @@
         <div id="synonyms">
             % for synonym in recipe.synonyms:
                 <div class="input-row">
-                    <label for="synonym-{{synonym_counter}}">Synonym {{synonym_counter + 1}}:</label>
+                    <label for="synonym-{{synonym_counter}}">{{_('Synonym {}:').format(synonym_counter + 1)}}</label>
                     <input type="text" id="synonym-{{synonym_counter}}" name="synonym-{{synonym_counter}}" value="{{synonym.name}}" />
                 </div>
                 % synonym_counter += 1
             % end
             % if not recipe.synonyms:
                 <div class="input-row">
-                    <label for="synonym-0">Synonym 1:</label>
+                    <label for="synonym-0">{{_('Synonym {}:').format(1)}}</label>
                     <input type="text" id="synonym-0" name="synonym-0" value="" />
                 </div>
                 % synonym_counter += 1
@@ -62,31 +65,31 @@
         </div>
         <div class="input-row">
             <input type="hidden" id="synonym-counter" name="synonym-counter" value="{{synonym_counter}}" />
-            <button id="add-synonym">Add Synonym</button>
+            <button id="add-synonym">{{_('Add Synonym')}}</button>
         </div>
 
         <div class="input-row">
-            <label for="serving-size">Serving Size:</label>
+            <label for="serving-size">{{_('Serving Size:')}}</label>
             <input type="text" id="serving-size" name="serving-size" value="{{recipe.serving_size}}" />
         </div>
 
         <div class="input-row">
-            <label for="ingredients">Ingredients:</label>
+            <label for="ingredients">{{_('Ingredients:')}}</label>
             <textarea id="ingredients" name="ingredients">{{recipe.ingredients}}</textarea>
         </div>
 
         <div class="input-row">
-            <label for="description">Preparation:</label>
+            <label for="description">{{_('Preparation:')}}</label>
             <textarea id="description" name="description">{{recipe.description}}</textarea>
         </div class="input-row">
 
         <div class="input-row">
-            <label for="info">Info:</label>
+            <label for="info">{{_('Info:')}}</label>
             <textarea id="info" name="info">{{recipe.info}}</textarea>
         </div>
 
         <div class="input-row">
-            <label for="tags">Tags:</label>
+            <label for="tags">{{_('Tags:')}}</label>
             <select id="tags" name="tags" multiple="multiple">
                 <option> </option>
                 % tag_ids = [tag.id for tag in recipe.tags]
@@ -111,22 +114,22 @@
         <div id="urls">
             % for url in recipe.urls:
                 <div class="input-row">
-                    <label for="url-name-{{url_counter}}">Name of Link {{url_counter + 1}}:</label>
+                    <label for="url-name-{{url_counter}}">{{_('Name of Link {}:').format(url_counter + 1)}}</label>
                     <input type="text" id="url-name-{{url_counter}}" name="url-name-{{url_counter}}" value="{{url.name}}" />
                 </div>
                 <div>
-                    <label for="url-url-{{url_counter}}">Link {{url_counter + 1}}:</label>
+                    <label for="url-url-{{url_counter}}">{{_('Link {}:').format(url_counter + 1)}}</label>
                     <input type="text" id="url-url-{{url_counter}}" name="url-url-{{url_counter}}" value="{{url.url}}" />
                 </div>
                 % url_counter += 1
             % end
             % if not recipe.urls:
                 <div class="input-row">
-                    <label for="url-name-0">Name of Link 1:</label>
+                    <label for="url-name-0">{{_('Name of Link {}:').format(1)}}</label>
                     <input type="text" id="url-name-0" name="url-name-0" value="" />
                 </div>
                 <div class="input-row">
-                    <label for="url-url-0">Link 1:</label>
+                    <label for="url-url-0">{{_('Link {}:').format(1)}}</label>
                     <input type="text" id="url-url-0" name="url-url-0" value="" />
                 </div>
                 % url_counter += 1
@@ -134,38 +137,65 @@
         </div>
         <div class="input-row">
             <input type="hidden" id="url-counter" name="url-counter" value="{{url_counter}}" />
-            <button id="add-url">Add Link</button>
+            <button id="add-url">{{_('Add Link')}}</button>
         </div>
 
         % image_counter = 0
         <div id="images" class="input-row">
             % for image in recipe.images:
                 <div id="image-{{image_counter}}" class="input-row">
-                    <label>Image {{image_counter + 1}}:</label>
+                    <label>{{_('Image {}:').format(image_counter + 1)}}</label>
                     <img src="{{image.path}}" alt="{{image.path}}" />
                     <input type="hidden" name="image-{{image_counter}}" value="{{image.path}}" />
-                    <button class="delete-image" data-rel="image-{{image_counter}}">Remove Image</button>
+                    <button class="delete-image" data-rel="image-{{image_counter}}">{{_('Remove Image')}}</button>
                 </div>
                 % image_counter += 1
             % end
             <div class="input-row">
-                <label for="new-image-0">New Image 1:</label>
+                <label for="new-image-0">{{_('New Image {}:').format(1)}}</label>
                 <input type="file" id="new-image-0" accept="image/gif, image/jpeg, image/png" name="new-image-0" />
             </div>
         </div>
         <div class="input-row">
             <input type="hidden" id="image-counter" name="image-counter" value="{{image_counter}}" />
             <input type="hidden" id="new-image-counter" name="new-image-counter" value="1" />
-            <button id="add-image">Add Image</button>
+            <button id="add-image">{{_('Add Image')}}</button>
         </div>
 
         <div>
-            <button type="submit" name="edit">{{'Edit' if recipe.id else 'Create'}} Recipe</button>
+            <button type="submit" name="edit">{{_('Edit Recipe') if recipe.id else _('Create Recipe')}}</button>
             % if recipe.id:
-                <button type="submit" name="delete">Delete Recipe</button>
+                <button type="submit" name="delete">{{_('Delete Recipe')}}</button>
             % end
         </div>
     </fieldset>
 </form>
 
-% rebase html_body id='manage-recipe', title='Recipe', categories=categories, hints=hints
+<div class="hidden">
+    <div id="template-add-image">
+        <div class="input-row">
+            <label for="new-image-{image_count}">{{_('New Image {image_count+1}:')}}</label>
+            <input type="file" id="new-image-{image_count}" accept="image/gif, image/jpeg, image/png" name="new-image-{image_count}" />
+        </div>
+    </div>
+
+    <div id="template-add-synonym">
+        <div class="input-row">
+            <label for="synonym-{synonym_count}">{{_('Synonym {synonym_count+1}:')}}</label>
+            <input type="text" id="synonym-{synonym_count}" name="synonym-{synonym_count}" />
+        </div>
+    </div>
+
+    <div id="template-add-url">
+        <div class="input-row">
+            <label for="url-name-{url_count}">{{_('Name of Link {url_count+1}:')}}</label>
+            <input type="text" id="url-name-{url_count}" name="url-name-{url_count}" />
+        </div>
+        <div class="input-row">
+            <label for="url-url-{url_count}">{{_('Link {url_count+1}:')}}</label>
+            <input type="text" id="url-url-{url_count}" name="url-url-{url_count}" />
+        </div>
+    </div>
+</div>
+
+% rebase html_body id='manage-recipe', title=_('Recipe'), categories=categories, hints=hints, languages=languages

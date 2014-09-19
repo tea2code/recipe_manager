@@ -1,49 +1,54 @@
 % from helper.url import Url
-<h2>Search</h2>
+% from helper.translator import Translator
+% _ = Translator.instance(language)
+
+<h2>{{_('Search')}}</h2>
 
 <form action="{{Url.from_path(['search'])}}" method="get">
     <fieldset>
         <div class="input-row">
-            <label for="search-text">Query:</label>
+            <label for="search-text">{{_('Query:')}}</label>
             <input type="text" id="search-text" name="q"
                    autofocus="autofocus" value="{{query}}" />
         </div>
         <div class="input-row grid">
-            <div class="unit w-label">Fields:</div>
+            <div class="unit w-label">{{_('Fields:')}}</div>
             <div class="unit w-input">
-                category, description, info, ingredients,
-                tags, title, titletags (default), rated (Example: "tags:coffee")
+                {{_('category, description, info, ingredients, '
+                    'tags, title, titletags (default), rated (Example: "tags:coffee")')}}
             </div>
         </div>
         <div class="input-row">
-            <div class="unit w-label">Boolean:</div>
+            <div class="unit w-label">{{_('Boolean:')}}</div>
             <div class="unit w-input">
-                AND (default), OR, NOT (Example: "coffee AND cream NOT milk")
+                {{_('AND (default), OR, NOT (Example: "coffee AND cream NOT milk")')}}
             </div>
         </div>
         <div class="input-row">
-            <div class="unit w-label">Inexact Terms:</div>
+            <div class="unit w-label">{{_('Inexact Terms:')}}</div>
             <div class="unit w-input">
-                ?, * (Example: "coconut*")
+                {{_('?, * (Example: "coconut*")')}}
             </div>
         </div>
         <div class="input-row">
-            <div class="unit w-label">Boosting Query Elements:</div>
+            <div class="unit w-label">{{_('Boosting Query Elements:')}}</div>
             <div class="unit w-input">
-                ^ (Example: "coffee^2 cream")
+                {{_('^ (Example: "coffee^2 cream")')}}
             </div>
         </div>
         <div>
-            <button type="submit" name="submit" value="search">Search</button>
-            <button type="submit" name="submit" value="lucky">Get Lucky</button>
+            <button type="submit" name="submit" value="search">{{_('Search')}}</button>
+            <button type="submit" name="submit" value="lucky">{{_('Get Lucky')}}</button>
         </div>
     </fieldset>
 </form>
 
 % if recipes:
-    <p>{{'Found {} matching recipes.'.format(len(recipes))}}</p>
+    <p>{{_('Found {} matching recipes.').format(len(recipes))}}</p>
 % end
+
+% title = _('Search')
 
 % include recipe_list recipes=recipes
 
-% rebase html_body id='search', title='Search', categories=categories, tags=tags
+% rebase html_body id='search', title=title, categories=categories, tags=tags, languages=languages

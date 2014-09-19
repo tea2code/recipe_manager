@@ -1,22 +1,25 @@
 % from helper.url import Url
-<h2>Manage: Categories</h2>
+% from helper.translator import Translator
+% _ = Translator.instance(language)
+
+<h2>{{_('Manage: Categories')}}</h2>
 
 <form action="{{Url.from_path(['manage', 'categories'])}}" method="post">
     <fieldset>
-        <legend>New Category</legend>
+        <legend>{{_('New Category')}}</legend>
         <div>
-            <label for="new-name">Name (required):</label>
+            <label for="new-name">{{_('Name (required):')}}</label>
             <input type="text" id="new-name" name="name" autofocus="autofocus" />
         </div>
         <div>
             <input type="hidden" name="action" value="new" />
-            <button type="submit">Create Category</button>
+            <button type="submit">{{_('Create Category')}}</button>
         </div>
     </fieldset>
 </form>
 
 <fieldset>
-    <legend>Edit Categories</legend>
+    <legend>{{_('Edit Categories')}}</legend>
     % length = len(categories)
     % for i in range(length):
         % category = categories[i]
@@ -24,15 +27,15 @@
         % c = cls if (i < length - 1) else ''
         <form action="{{Url.from_path(['manage', 'categories'])}}" method="post">
             <div{{!c}}>
-                <label for="edit-name-{{category.id}}">Name:</label>
+                <label for="edit-name-{{category.id}}">{{_('Name:')}}</label>
                 <input type="text" id="edit-name-{{category.id}}" name="name" value="{{category.name}}" />
                 <input type="hidden" name="id" value="{{category.id}}" />
                 <input type="hidden" name="action" value="edit" />
-                <button type="submit" name="edit">Edit</button>
-                <button type="submit" name="delete">Delete</button>
+                <button type="submit" name="edit">{{_('Edit')}}</button>
+                <button type="submit" name="delete">{{_('Delete')}}</button>
             </div>
         </form>
     % end
 </fieldset>
 
-% rebase html_body id='manage-categories', title='Categories', categories=categories, hints=hints
+% rebase html_body id='manage-categories', title=_('Categories'), categories=categories, hints=hints, languages=languages
