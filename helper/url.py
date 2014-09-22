@@ -46,6 +46,7 @@ class Url:
         url = '/' + url
         if filter_chars:
             url = re.sub(r'(\s)+', '-', url)
+            url = re.sub(r'-+', '-', url)
 
         if absolute:
             url = absolute + url
