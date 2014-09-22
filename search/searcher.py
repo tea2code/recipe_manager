@@ -26,9 +26,8 @@ class Searcher:
         recipes = []
         with self._indexer.searcher() as searcher:
             results = searcher.search(query, limit=None)
-            if not results:
-                return []
-            for hit in results:
-                recipe = recipe_entity.Recipe.find_pk(db, hit['id'])
-                recipes.append(recipe)
+            if results:
+                for hit in results:
+                    recipe = recipe_entity.Recipe.find_pk(db, hit['id'])
+                    recipes.append(recipe)
         return recipes

@@ -67,8 +67,8 @@ for locale in LANGUAGES:
     translator.Translator.init(locale, TRANSLATION_PATH)
 
 # Searching
+indexer = indexer_class.Indexer(HOME+INDEX_PATH)
 if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
-    indexer = indexer_class.Indexer(HOME+INDEX_PATH)
     indexer.remove_index()
     scheme = indexer.scheme()
     writer = indexer.open_index(scheme)
@@ -86,11 +86,11 @@ if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
 def index(db):
     """ Index page. """
     language = translator.Translator.current_language(LANGUAGE)
+    categories = category.Category.find_all(db)
 
     num_recipes = recipe.Recipe.count_all(db)
     recipes = recipe.Recipe.find_category(db, None)
     randoms = recipe.Recipe.find_random(db, RANDOM_RECIPES)
-    categories = category.Category.find_all(db)
     return dict(categories=categories, recipes=recipes, randoms=randoms,
                 num_recipes=num_recipes, language=language, languages=LANGUAGES)
 
@@ -100,10 +100,10 @@ def index(db):
 def category_list(db, id):
     """ Category list page. """
     language = translator.Translator.current_language(LANGUAGE)
+    categories = category.Category.find_all(db)
 
     cat = category.Category.find_pk(db, id)
     recipes = recipe.Recipe.find_category(db, cat)
-    categories = category.Category.find_all(db)
     return dict(categories=categories, category=cat, recipes=recipes,
                 language=language, languages=LANGUAGES)
 
@@ -130,10 +130,10 @@ def manage_categories(db):
 def manage_recipe(db, id=None):
     """ Recipe managing page. """
     language = translator.Translator.current_language(LANGUAGE)
-
     categories = category.Category.find_all(db)
+
     manager = recipe_manager.RecipeManager(db)
-    rec = manager.action(language, id)
+    rec = manager.action(language, indexer, id)
     hints = manager.hints
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipe=rec, hints=hints, tags=tags,
@@ -146,8 +146,8 @@ def manage_recipe(db, id=None):
 def manage_tag(db):
     """ Tag managing page. """
     language = translator.Translator.current_language(LANGUAGE)
-
     categories = category.Category.find_all(db)
+
     manager = tag_manager.TagManager(db)
     tags = manager.action(language)
     hints = manager.hints
@@ -160,9 +160,9 @@ def manage_tag(db):
 def view_recipe(db, id):
     """ Recipe view page. """
     language = translator.Translator.current_language(LANGUAGE)
+    categories = category.Category.find_all(db)
 
     rec = recipe.Recipe.find_pk(db, id)
-    categories = category.Category.find_all(db)
     return dict(categories=categories, recipe=rec, language=language,
                 languages=LANGUAGES)
 
@@ -173,6 +173,7 @@ def view_recipe(db, id):
 def search(db):
     """ Search page. """
     language = translator.Translator.current_language(LANGUAGE)
+    categories = category.Category.find_all(db)
 
     query = bottle.request.forms.getunicode('q') or \
             bottle.request.query.getunicode('q') or ''
@@ -180,12 +181,10 @@ def search(db):
              bottle.request.query.getunicode('submit') or ''
     recipes = []
     if query:
-        indexer = indexer_class.Indexer(HOME+INDEX_PATH)
         searcher = searcher_class.Searcher(indexer)
         recipes = searcher.search(db, query)
         if button == 'lucky':
             recipes = [random.choice(recipes)]
-    categories = category.Category.find_all(db)
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipes=recipes, query=query, tags=tags,
                 language=language, languages=LANGUAGES)

@@ -7,6 +7,7 @@ from whoosh import index
 import os
 import shutil
 
+
 class Indexer:
     """ Class handles creating the search index.
 
@@ -23,8 +24,10 @@ class Indexer:
         """ Closes the index. """
         self._index.close()
 
-    def fill_index(self, writer, recipes):
-        """ Fill index with recipes. """
+    @staticmethod
+    def fill_index(writer, recipes):
+        """ Fill index with recipes. If a recipe already exists it is
+        updated. """
         for recipe in recipes:
             categories = ' '.join(c.name for c in recipe.categories)
             synonyms = ' '.join(s.name for s in recipe.synonyms)
@@ -33,15 +36,15 @@ class Indexer:
                 tags += tag.name + ' '
                 for synonym in tag.synonyms:
                     tags += synonym.name + ' '
-            writer.add_document(category=categories,
-                                description=recipe.description,
-                                id=recipe.id,
-                                info=recipe.info,
-                                ingredients=recipe.ingredients,
-                                tags=tags,
-                                title=recipe.title+' '+synonyms,
-                                titletags=tags+recipe.title+' '+synonyms,
-                                rated=(recipe.rating is not -1))
+            writer.update_document(category=categories,
+                                   description=recipe.description,
+                                   id=str(recipe.id),
+                                   info=recipe.info,
+                                   ingredients=recipe.ingredients,
+                                   tags=tags,
+                                   title=recipe.title+' '+synonyms,
+                                   titletags=tags+recipe.title+' '+synonyms,
+                                   rated=(recipe.rating is not -1))
         writer.commit()
 
     def open_index(self, schema):
@@ -52,16 +55,24 @@ class Indexer:
         self._index = index.open_dir(self.index_path)
         return self._index.writer()
 
+    @staticmethod
+    def remove_from_index(writer, recipes):
+        """ Remove recipes from index. """
+        for recipe in recipes:
+            writer.delete_by_term("id", str(recipe.id))
+        writer.commit()
+
     def remove_index(self):
         """ Removes an index. """
         if os.path.exists(self.index_path):
             shutil.rmtree(self.index_path)
 
-    def scheme(self):
+    @staticmethod
+    def scheme():
         """ Returns the scheme. """
         schema = fields.Schema(category=fields.TEXT,
                                description=fields.TEXT,
-                               id=fields.STORED,
+                               id=fields.ID(stored=True, unique=True),
                                info=fields.TEXT,
                                ingredients=fields.TEXT,
                                tags=fields.TEXT,

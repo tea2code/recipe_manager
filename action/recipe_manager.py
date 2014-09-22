@@ -47,7 +47,7 @@ class RecipeManager(base_manager.BaseManager):
         self.db = db
         self.hints = []
 
-    def action(self, language, id=None):
+    def action(self, language, indexer, id=None):
         """ Handle actions. If id is given it is assumed that an existing
          recipe is edited. Returns recipe to show. """
         _ = translator.Translator.instance(language)
@@ -89,6 +89,12 @@ class RecipeManager(base_manager.BaseManager):
             else:
                 result.save(self.db)
 
+                # Update search index.
+                scheme = indexer.scheme()
+                writer = indexer.open_index(scheme)
+                indexer.fill_index(writer, [result])
+                indexer.close_index()
+
                 if exists:
                     type = self.HINT_NEW_EXISTS
                 elif is_new:
@@ -101,6 +107,13 @@ class RecipeManager(base_manager.BaseManager):
 
         elif is_delete:
             recipe = recipe_entity.Recipe.find_pk(self.db, id)
+
+            # Update search index.
+            scheme = indexer.scheme()
+            writer = indexer.open_index(scheme)
+            indexer.remove_from_index(writer, [recipe])
+            indexer.close_index()
+
             recipe.delete(self.db)
 
             self.set_cookie(self.HINT_COOKIE, self.HINT_DELETE)
