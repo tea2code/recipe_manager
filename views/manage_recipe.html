@@ -4,7 +4,8 @@
 
 <h2>
     % if recipe.id:
-        <a href="/recipe/{{str(recipe.id)}}-{{str(recipe.title.lower())}}">{{recipe.title}}</a>
+        % url = Url.from_recipe(recipe)
+        <a href="{{url}}">{{recipe.title}}</a>
     % else:
         {{_('New Recipe')}}
     % end
