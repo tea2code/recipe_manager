@@ -9,6 +9,7 @@ from entity import url as url_entity
 
 import os
 
+
 class Recipe:
     """ Represents a recipe.
 
