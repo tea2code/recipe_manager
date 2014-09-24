@@ -11,6 +11,7 @@ import sqlite3
 from action import category_manager
 from action import recipe_manager
 from action import tag_manager
+from action import user_manager
 from entity import category
 from entity import recipe
 from entity import tag
@@ -86,12 +87,21 @@ if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
     indexer.close_index()
 
 
+# Little Helper ################################################################
+def validate_user_and_language(db, enable_users):
+    """ Validate the user and get the current language. """
+    if enable_users:
+        um = user_manager.UserManager(db)
+        um.validate_login()
+    return translator.Translator.current_language(LANGUAGE)
+
+
 # Routes #######################################################################
 # Index
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     num_recipes = recipe.Recipe.count_all(db)
@@ -105,7 +115,7 @@ def index(db):
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')
 def category_list(db, id):
     """ Category list page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     cat = category.Category.find_pk(db, id)
@@ -114,12 +124,21 @@ def category_list(db, id):
                 language=language, languages=LANGUAGES)
 
 
+# Login
+@app.get('/login', template='login')
+@app.post('/login', template='login')
+def login(db):
+    """ Login page. """
+    language = validate_user_and_language(db, False)
+    return dict(language=language, languages=LANGUAGES)
+
+
 # Manage: Category
 @app.get('/manage/categories', template='manage_categories')
 @app.post('/manage/categories', template='manage_categories')
 def manage_categories(db):
     """ Category managing page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
 
     manager = category_manager.CategoryManager(db)
     categories = manager.action(language)
@@ -135,7 +154,7 @@ def manage_categories(db):
 @app.post('/manage/recipe/<id:int>', template='manage_recipe')
 def manage_recipe(db, id=None):
     """ Recipe managing page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     manager = recipe_manager.RecipeManager(db)
@@ -151,7 +170,7 @@ def manage_recipe(db, id=None):
 @app.post('/manage/tags', template='manage_tags')
 def manage_tag(db):
     """ Tag managing page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     manager = tag_manager.TagManager(db)
@@ -165,7 +184,7 @@ def manage_tag(db):
 @app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
 def view_recipe(db, id):
     """ Recipe view page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     rec = recipe.Recipe.find_pk(db, id)
@@ -178,7 +197,7 @@ def view_recipe(db, id):
 @app.post('/search', template='search')
 def search(db):
     """ Search page. """
-    language = translator.Translator.current_language(LANGUAGE)
+    language = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     query = bottle.request.forms.getunicode('q') or \

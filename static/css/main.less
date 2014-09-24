@@ -56,10 +56,10 @@ a:hover {
 /* Forms **********************************************************************/
 fieldset {
     margin-bottom: 20px;
-}
-
-fieldset fieldset {
-    margin-bottom: 10px;
+    
+    fieldset {
+        margin-bottom: 10px;
+    }
 }
 
 form img {
@@ -116,18 +116,20 @@ textarea {
     padding: 0;
 }
 
-#recipe-list .title {
-    font-weight: bold;
-}
+#recipe-list  {
+    .title {
+        font-weight: bold;
+    }
 
-#recipe-list img {
-    max-height: 60px;
-    max-width: 100%;
-}
+    img {
+        max-height: 60px;
+        max-width: 100%;
+    }
 
-#recipe-list li {
-    border-bottom: 1px solid @color;
-    margin: 3px 0;
+    li {
+        border-bottom: 1px solid @color;
+        margin: 3px 0;
+    }
 }
 
 #randoms img,

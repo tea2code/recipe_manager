@@ -38,24 +38,28 @@
                     <h1><a href="{{Url.from_path([])}}">NomNomNom</a></h1>
                 </div>
 
-                <div class="unit w-2-3">
-                    <ul id="action-nav">
-                        <li><a href="{{Url.from_path(['search'])}}">{{_('Search')}}</a></li>
-                        <li><a href="{{Url.from_path(['manage', 'recipe'])}}">{{_('New Recipe')}}</a></li>
-                        % if defined('edit_recipe') and edit_recipe:
-                            <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">{{_('Edit Recipe')}}</a></li>
-                        % end
-                        <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Manage Categories')}}</a></li>
-                        <li><a href="{{Url.from_path(['manage', 'tags'])}}">{{_('Manage Tags')}}</a></li>
-                    </ul>
-                </div>
+                % if not defined('login') or not login:
+                    <div class="unit w-2-3">
+                        <ul id="action-nav">
+                            <li><a href="{{Url.from_path(['search'])}}">{{_('Search')}}</a></li>
+                            <li><a href="{{Url.from_path(['manage', 'recipe'])}}">{{_('New Recipe')}}</a></li>
+                            % if defined('edit_recipe') and edit_recipe:
+                                <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">{{_('Edit Recipe')}}</a></li>
+                            % end
+                            <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Manage Categories')}}</a></li>
+                            <li><a href="{{Url.from_path(['manage', 'tags'])}}">{{_('Manage Tags')}}</a></li>
+                        </ul>
+                    </div>
+                % end
             </div>
 
             <div class="grid">
                 <div class="unit w-1-1">
                     <ul id="category-nav">
-                        % for category in categories:
-                            <li><a href="{{Url.from_category(category)}}">{{category.name}}</a></li>
+                        % if defined('categories'):
+                            % for category in categories:
+                                <li><a href="{{Url.from_category(category)}}">{{category.name}}</a></li>
+                            % end
                         % end
                     </ul>
                 </div>

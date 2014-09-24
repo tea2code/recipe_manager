@@ -10,13 +10,15 @@ class User:
     name -- The name of the user (string).
     pw_hash -- The password hash (string).
     salt -- The password salt (string).
+    session -- The session (string).
     """
 
-    def __init__(self, id=None, name=None, pw_hash=None, salt=None):
+    def __init__(self, id=None, name=None, pw_hash=None, salt=None, session=None):
         self.id = id
         self.name = name
         self.pw_hash = pw_hash
         self.salt = salt
+        self.session = session
 
     def __str__(self):
         template = 'User({0}, {1})'
@@ -35,7 +37,7 @@ class User:
     def find_all(db):
         """ Find all entities in database. Returns list of found
         entities ordered by name ascending."""
-        query = 'SELECT id, name, pw_hash, salt ' \
+        query = 'SELECT id, name, pw_hash, salt, session ' \
                 'FROM users ' \
                 'ORDER BY name COLLATE NOCASE ASC'
         cursor = db.cursor()
@@ -49,7 +51,7 @@ class User:
     def find_name(db, name):
         """ Find entity name in database. Returns found
         entity or None. """
-        query = 'SELECT id, name, pw_hash, salt ' \
+        query = 'SELECT id, name, pw_hash, salt, session ' \
                 'FROM users ' \
                 'WHERE name = ?'
         params = [name]
@@ -59,7 +61,7 @@ class User:
     def find_pk(db, id):
         """ Find entity by primary key aka row id in database. Returns found
         entity or None. """
-        query = 'SELECT id, name, pw_hash, salt ' \
+        query = 'SELECT id, name, pw_hash, salt, session ' \
                 'FROM users ' \
                 'WHERE id = ?'
         params = [id]
@@ -68,7 +70,8 @@ class User:
     @staticmethod
     def from_row(db, row):
         """ Create entity from given row. """
-        recipe = User(id=row[0], name=row[1], pw_hash=row[2], salt=row[3])
+        recipe = User(id=row[0], name=row[1], pw_hash=row[2], salt=row[3],
+                      session=row[4])
         return recipe
 
     def is_new(self):
@@ -80,12 +83,12 @@ class User:
         cursor = db.cursor()
 
         # Entity
-        query = 'INSERT INTO users (name, pw_hash, salt) ' \
+        query = 'INSERT INTO users (name, pw_hash, salt, session) ' \
                 'VALUES (?, ?, ?)'
-        params = [self.name, self.pw_hash, self.salt]
+        params = [self.name, self.pw_hash, self.salt, self.session]
         if not self.is_new():
             query = 'UPDATE users ' \
-                    'SET name = ?, pw_hash = ?, salt = ? ' \
+                    'SET name = ?, pw_hash = ?, salt = ?, session = ? ' \
                     'WHERE id = ?'
             params.append(self.id)
         cursor.execute(query, params)
