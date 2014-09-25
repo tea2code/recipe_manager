@@ -53,6 +53,10 @@ Mobile browsers are supported. On very small screens the layout will change to a
 
 A default configuration (host, port...) exists but it's also possible to create a user configuration and override existing values. The files are "default.config" (the default configuration) which you shouldn't change and "user.config". If not already existing create the file "user.config" (for example by copying "default.config") and change the values as you wish.
 
+## Translation
+
+Translations are created using the Python/Linux gettext module. Plural support is currently not used. If you want to create a new translation use a tool like [Poedit](http://poedit.net/) and send them to me.
+
 ## Dependencies
 
 For execution:
