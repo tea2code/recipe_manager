@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import datetime
 import hashlib
 import random
 from action import base_manager
@@ -68,8 +69,9 @@ class UserManager(base_manager.BaseManager):
                 session_number = str(random.randint(0, 10000000000000000000000))
                 session = self.__generate_pw_hash(session_number, user.salt,
                                                   pw_hash_iterations)
-                self.set_cookie(self.USER_NAME_COOKIE, user.name)
-                self.set_cookie(self.SESSION_COOKIE, session)
+                expires = datetime.datetime.now() + datetime.timedelta(days=365)
+                self.set_cookie(self.USER_NAME_COOKIE, user.name, expires=expires)
+                self.set_cookie(self.SESSION_COOKIE, session, expires=expires)
                 user.session = session
                 user.save(self.db)
                 redirect(redirect_url)

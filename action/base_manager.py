@@ -26,7 +26,7 @@ class BaseManager:
         request.forms.recode_unicode = False
         return request.forms.getunicode(name)
 
-    def set_cookie(self, name, value, httponly=True):
+    def set_cookie(self, name, value, httponly=True, expires=None):
         """ Set cookie. """
         response.set_cookie(name, value, httponly=httponly,
-                            path=self.COOKIE_PATH)
+                            path=self.COOKIE_PATH, expires=None)
