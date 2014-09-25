@@ -28,5 +28,9 @@ class BaseManager:
 
     def set_cookie(self, name, value, httponly=True, expires=None):
         """ Set cookie. """
-        response.set_cookie(name, value, httponly=httponly,
-                            path=self.COOKIE_PATH, expires=None)
+        if not expires:
+            response.set_cookie(name, value, httponly=httponly,
+                                path=self.COOKIE_PATH)
+        else:
+            response.set_cookie(name, value, httponly=httponly,
+                                path=self.COOKIE_PATH, expires=expires)
