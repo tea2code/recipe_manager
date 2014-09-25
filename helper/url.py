@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import unicodedata
 import urllib
 
 
@@ -42,11 +43,10 @@ class Url:
         """ Generates a URL from a list of path parts. Returns relative
         URL string. If absolute is set to the domain the returned URL will
         be absolute. If filter_chars is true special characters are replaced. """
+        if filter_chars:
+            path_parts = [Url.slugify(part) for part in path_parts]
         url = '/'.join(path_parts)
         url = '/' + url
-        if filter_chars:
-            url = re.sub(r'(\s)+', '-', url)
-            url = re.sub(r'-+', '-', url)
 
         if absolute:
             url = absolute + url
@@ -68,3 +68,16 @@ class Url:
         if absolute:
             url = absolute + url
         return url
+
+    @staticmethod
+    def slugify(text):
+        """ Normalizes string, converts to lowercase, removes non-alpha
+        characters and converts spaces to hyphens.
+        See http://stackoverflow.com/a/7871982/1931663
+        """
+        text = text.replace('ß', 'ss')
+        text = unicodedata.normalize('NFKD', text).\
+            encode('ascii', 'ignore').\
+            decode('ascii')
+        text = re.sub('[^\w\s-]', '', text).strip().lower()
+        return re.sub('[-\s]+', '-', text)
