@@ -92,7 +92,7 @@ def validate_user_and_language(db, enable_users):
     """ Validate the user and get the current language. """
     if enable_users:
         um = user_manager.UserManager(db)
-        um.validate_login()
+        um.validate_login(PW_HASH_ITERATIONS, ADMIN_USER)
     return translator.Translator.current_language(LANGUAGE)
 
 
@@ -130,7 +130,10 @@ def category_list(db, id):
 def login(db):
     """ Login page. """
     language = validate_user_and_language(db, False)
-    return dict(language=language, languages=LANGUAGES)
+
+    manager = user_manager.UserManager(db)
+    hints = manager.action(language, PW_HASH_ITERATIONS, ADMIN_USER)
+    return dict(hints=hints, language=language, languages=LANGUAGES)
 
 
 # Manage: Category

@@ -12,8 +12,10 @@ from entity import tag as tag_entity
 from entity import url as url_entity
 from helper import hint
 from helper import translator
+from helper import url
 
 import os
+
 
 class RecipeManager(base_manager.BaseManager):
     """ Handle recipe related actions.
@@ -103,7 +105,7 @@ class RecipeManager(base_manager.BaseManager):
                     type = self.HINT_EDIT
                 self.set_cookie(self.HINT_COOKIE, type)
                 self.set_cookie(self.HINT_NAME, result.title)
-                redirect('/manage/recipe/'+str(result.id))
+                redirect(url.Url.from_path(['manage', 'recipe', str(result.id)]))
 
         elif is_delete:
             recipe = recipe_entity.Recipe.find_pk(self.db, id)
@@ -118,7 +120,7 @@ class RecipeManager(base_manager.BaseManager):
 
             self.set_cookie(self.HINT_COOKIE, self.HINT_DELETE)
             self.set_cookie(self.HINT_NAME, recipe.title)
-            redirect('/manage/recipe')
+            redirect(url.Url.from_path(['manage', 'recipe']))
 
         elif is_new:
             result = recipe_entity.Recipe()

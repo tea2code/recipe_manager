@@ -1,6 +1,24 @@
+% from helper.url import Url
 % from helper.translator import Translator
 % _ = Translator.instance(language)
 
-<h1>Login</h1>
+<h2>{{_('Login')}}</h2>
+
+<form action="{{Url.from_path(['login'])}}" method="post">
+    <fieldset>
+        <div class="input-row">
+            <label for="name">{{_('Name:')}}</label>
+            <input type="text" id="name" name="name" autofocus="autofocus" />
+        </div>
+        <div class="input-row">
+            <label for="password">{{_('Password:')}}</label>
+            <input type="password" id="password" name="password" />
+        </div>
+        <div class="input-row">
+            <input type="hidden" name="action" value="login" />
+            <button type="submit">{{_('Login')}}</button>
+        </div>
+    </fieldset>
+</form>
 
 % rebase html_body id='login', title='Login', languages=languages, login=True

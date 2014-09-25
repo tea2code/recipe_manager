@@ -24,6 +24,15 @@ class User:
         template = 'User({0}, {1})'
         return template.format(self.id, self.name)
 
+    @staticmethod
+    def count_all(db):
+        """ Returns number of all users in database. """
+        query = 'SELECT COUNT(*) ' \
+                'FROM users'
+        cursor = db.cursor()
+        cursor.execute(query)
+        return cursor.fetchone()[0]
+
     def delete(self, db):
         """ Delete entity from database. """
         cursor = db.cursor()
