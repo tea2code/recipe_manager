@@ -118,7 +118,7 @@ tags_001 = [
     ['Haselnuss', 'Hazelnut'],
     ['Kokosnuss', 'Coconut'],
     ['Kokosnussmilch', 'Kokosmilch', 'Coconut Milk', 'Creme De Coconut', 'Cream Of Coconut'],
-    ['Kürbiskerne', 'Pumpkin Seed'],
+    ['Kürbiskerne', 'Pumpkin Seed', 'Pepita'],
     ['Leinsamen', 'Flax Seed'],
     ['Maismehl', 'Cornmeal'],
     ['Mandeln', 'Almond'],
