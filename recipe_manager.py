@@ -108,7 +108,8 @@ def index(db):
     recipes = recipe.Recipe.find_category(db, None)
     randoms = recipe.Recipe.find_random(db, RANDOM_RECIPES)
     return dict(categories=categories, recipes=recipes, randoms=randoms,
-                num_recipes=num_recipes, language=language, languages=LANGUAGES)
+                num_recipes=num_recipes, language=language, languages=LANGUAGES,
+                logout=ENABLE_USERS)
 
 
 # Category
@@ -121,7 +122,7 @@ def category_list(db, id):
     cat = category.Category.find_pk(db, id)
     recipes = recipe.Recipe.find_category(db, cat)
     return dict(categories=categories, category=cat, recipes=recipes,
-                language=language, languages=LANGUAGES)
+                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
 
 
 # Login
@@ -136,6 +137,15 @@ def login(db):
     return dict(hints=hints, language=language, languages=LANGUAGES)
 
 
+# Logout
+@app.get('/logout')
+@app.post('/logout')
+def login(db):
+    """ Login page. """
+    manager = user_manager.UserManager(db)
+    manager.logout()
+
+
 # Manage: Category
 @app.get('/manage/categories', template='manage_categories')
 @app.post('/manage/categories', template='manage_categories')
@@ -147,7 +157,7 @@ def manage_categories(db):
     categories = manager.action(language)
     hints = manager.hints
     return dict(categories=categories, hints=hints, language=language,
-                languages=LANGUAGES)
+                languages=LANGUAGES, logout=ENABLE_USERS)
 
 
 # Manage: Recipe
@@ -165,7 +175,7 @@ def manage_recipe(db, id=None):
     hints = manager.hints
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipe=rec, hints=hints, tags=tags,
-                language=language, languages=LANGUAGES)
+                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
 
 
 # Manage: Tag
@@ -180,7 +190,7 @@ def manage_tag(db):
     tags = manager.action(language)
     hints = manager.hints
     return dict(categories=categories, tags=tags, hints=hints,
-                language=language, languages=LANGUAGES)
+                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
 
 
 # Recipe
@@ -192,7 +202,7 @@ def view_recipe(db, id):
 
     rec = recipe.Recipe.find_pk(db, id)
     return dict(categories=categories, recipe=rec, language=language,
-                languages=LANGUAGES)
+                languages=LANGUAGES, logout=ENABLE_USERS)
 
 
 # Search
@@ -215,7 +225,7 @@ def search(db):
             recipes = [random.choice(recipes)]
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipes=recipes, query=query, tags=tags,
-                language=language, languages=LANGUAGES)
+                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
 
 
 # Statics ######################################################################

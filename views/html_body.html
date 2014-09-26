@@ -86,14 +86,23 @@
 
         <div id="footer" class="grid">
             <div class="unit w-1-2">
-                <select id="language-selection">
-                    % for locale, name in languages.items():
-                        <option value="{{locale}}"
-                                {{'selected="selected"' if (locale == language) else ''}}>
-                            {{name}}
-                        </option>
+                <ul>
+                    <li>
+                        <select id="language-selection">
+                            % for locale, name in languages.items():
+                                <option value="{{locale}}"
+                                        {{'selected="selected"' if (locale == language) else ''}}>
+                                    {{name}}
+                                </option>
+                            % end
+                        </select>
+                    </li>
+                    % if defined('logout') and logout:
+                        <li>
+                            <a href="{{Url.from_path(['logout'])}}">{{_('Logout')}}</a>
+                        </li>
                     % end
-                </select>
+                </ul>
             </div>
 
             <div class="unit w-1-2 right-align">

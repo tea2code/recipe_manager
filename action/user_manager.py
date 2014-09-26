@@ -86,6 +86,16 @@ class UserManager(base_manager.BaseManager):
                 self._current_user = user_entity.User.find_name(self.db, user_name)
         return self._current_user
 
+    def logout(self):
+        """ Log user out. """
+        user = self.current_user()
+        if user:
+            user.session = None
+            user.save(self.db)
+        self.delete_cookie(self.USER_NAME_COOKIE)
+        self.delete_cookie(self.SESSION_COOKIE)
+        redirect(url.Url.from_path(['']))
+
     def validate_login(self, pw_hash_iterations, admin_user):
         """ Validates if a user is logged in. """
         session = self.get_cookie(self.SESSION_COOKIE)
