@@ -31,17 +31,19 @@
                     <h1><a href="{{Url.from_path([])}}">NomNomNom</a></h1>
                 </div>
 
-                % if not defined('login') or not login:
+                % if not get('login'):
                     <div class="unit w-2-3">
                         <ul id="action-nav">
                             <li><a href="{{Url.from_path(['search'])}}">{{_('Search')}}</a></li>
                             <li><a href="{{Url.from_path(['manage', 'recipe'])}}">{{_('New Recipe')}}</a></li>
-                            % if defined('edit_recipe') and edit_recipe:
+                            % if get('edit_recipe'):
                                 <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">{{_('Edit Recipe')}}</a></li>
                             % end
                             <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Categories')}}</a></li>
                             <li><a href="{{Url.from_path(['manage', 'tags'])}}">{{_('Tags')}}</a></li>
-                            % if defined('logout') and logout:
+                            % if get('enable_users'):
+                                % manage_users = _('Users') if get('is_admin') else _('Profile')
+                                <li><a href="{{Url.from_path(['manage', 'users'])}}">{{manage_users}}</a></li>
                                 <li><a href="{{Url.from_path(['logout'])}}">{{_('Logout')}}</a></li>
                             % end
                         </ul>
@@ -61,7 +63,7 @@
                 </div>
             </div>
 
-            % if defined('hints') and hints:
+            % if get('hints'):
                 <div id="hints" class="grid">
                     <div class="unit w-1-1">
                         <ul>
@@ -76,7 +78,7 @@
 
         <div class="grid">
             <div id="{{id}}" class="unit w-1-1">
-                % include
+                {{!base}}
             </div>
         </div>
 

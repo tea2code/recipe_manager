@@ -46,8 +46,6 @@
     <p>{{_('Found {} matching recipes.').format(len(recipes))}}</p>
 % end
 
-% title = _('Search')
+% include('recipe_list')
 
-% include recipe_list recipes=recipes
-
-% rebase html_body id='search', title=title, categories=categories, tags=tags, languages=languages, logout=logout
+% rebase('html_body', id='search', title=_('Search'))
