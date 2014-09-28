@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-09-28 10:32+0100\n"
-"PO-Revision-Date: 2014-09-28 10:34+0100\n"
+"POT-Creation-Date: 2014-09-28 12:35+0100\n"
+"PO-Revision-Date: 2014-09-28 12:35+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: de_DE\n"
@@ -115,7 +115,7 @@ msgstr "Neues Rezept"
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:40
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:18
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:167
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:169
 msgid "Edit Recipe"
 msgstr "Rezept bearbeiten"
 
@@ -129,7 +129,7 @@ msgstr "Kategorien"
 msgid "Tags"
 msgstr "Tags"
 
-#: F:\Programmieren\recipe_manager\views/html_body.html:95
+#: F:\Programmieren\recipe_manager\views/html_body.html:45
 msgid "Logout"
 msgstr "Logout"
 
@@ -265,35 +265,40 @@ msgstr "Bild löschen"
 msgid "New Image {}:"
 msgstr "Neues Bild {}:"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:163
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:158
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:182
+msgid "Select"
+msgstr "Auswählen"
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:165
 msgid "Add Image"
 msgstr "Bild hinzufügen"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:167
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:169
 msgid "Create Recipe"
 msgstr "Rezept erstellen"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:169
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:171
 msgid "Delete Recipe"
 msgstr "Rezept löschen"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:178
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:180
 msgid "New Image {image_count+1}:"
 msgstr "Neues Bild {image_count+1}:"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:185
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:189
 msgid "Synonym {synonym_count+1}:"
 msgstr "Synonym {synonym_count+1}:"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:192
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:196
 msgid "Name of Link {url_count+1}:"
 msgstr "Linkname {url_count+1}:"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:196
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:200
 msgid "Link {url_count+1}:"
 msgstr "Link {url_count+1}:"
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:202
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:206
 msgid "Recipe"
 msgstr "Rezept"
 
