@@ -21,9 +21,8 @@
                     % if random.images:
                         % img_url = Url.from_img(random.images[0].path)
                         <div>
-                            <a href="{{url}}">
-                                <img src="{{img_url}}"
-                                     alt="{{random.images[0].path}}" />
+                            <a class="fancybox" href="{{img_url}}" data-fancybox-group="random-images" data-fancybox-title="{{random.title}}">
+                                <img src="{{img_url}}" alt="{{random.images[0].path}}" />
                             </a>
                         </div>
                     % end
