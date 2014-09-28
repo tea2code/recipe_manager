@@ -65,6 +65,10 @@ For execution:
 - [SQLite Plugin for Bottle](http://bottlepy.org/docs/dev/plugins/sqlite.html)
 - [Whoosh](https://pypi.python.org/pypi/Whoosh/)
 
+Optional if you want to use [CherryPy](http://www.cherrypy.org/) (Multi-threaded) instead of wsgiref (Single-threaded) as an webserver:
+
+- [CherryPy](https://pypi.python.org/pypi/CherryPy)
+
 For compiling:
 
 - [cx_Freeze](http://cx-freeze.sourceforge.net/)

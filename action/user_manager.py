@@ -34,7 +34,38 @@ class UserManager(base_manager.BaseManager):
         self._current_user = None
 
     def action(self, language, pw_hash_iterations, admin_user):
-        """ Handle actions. Returns hints or redirects. """
+        """ Handle actions. Returns users or redirects. """
+        _ = translator.Translator.instance(language)
+
+        users = []
+        action = self.get_form('action')
+        is_admin = (self.current_user().name == admin_user)
+        if action == 'new' and is_admin:
+            user_name = self.get_form('name')
+            password = self.get_form('password')
+            if not user_name or not password:
+                hint_text = _('Please provide your user name and password.')
+                self.hints.append(hint.Hint(hint_text))
+                return users
+            users = []
+        elif action == 'edit' and is_admin:
+            is_delete = self.get_form('delete') is not None
+            users = []
+        elif action == 'edit-profile':
+            users = []
+
+        return users
+
+    def current_user(self):
+        """ Returns the current user or None. """
+        if not self._current_user:
+            user_name = self.get_cookie(self.USER_NAME_COOKIE)
+            if user_name:
+                self._current_user = user_entity.User.find_name(self.db, user_name)
+        return self._current_user
+
+    def login(self, language, pw_hash_iterations, admin_user):
+        """ Handle login. Returns hints or redirects. """
         _ = translator.Translator.instance(language)
 
         if self.get_form('action') == 'login':
@@ -78,18 +109,10 @@ class UserManager(base_manager.BaseManager):
 
         return self.hints
 
-    def current_user(self):
-        """ Returns the current user or None. """
-        if not self._current_user:
-            user_name = self.get_cookie(self.USER_NAME_COOKIE)
-            if user_name:
-                self._current_user = user_entity.User.find_name(self.db, user_name)
-        return self._current_user
-
     def logout(self):
         """ Log user out. """
         user = self.current_user()
-        if user:
+        if user and user.id:
             user.session = None
             user.save(self.db)
         self.delete_cookie(self.USER_NAME_COOKIE)
@@ -103,7 +126,11 @@ class UserManager(base_manager.BaseManager):
         if not user or not user.session or user.session != session:
             user_count = user_entity.User.count_all(self.db)
             admin_hash = self.__admin_hash(admin_user, pw_hash_iterations)
-            if user_count or (session != admin_hash):
+            is_admin = (session == admin_hash)
+            if is_admin:
+                # Create fake user. Dangerous! Always check "user and user.id".
+                self._current_user = user_entity.User(name=admin_user)
+            if user_count or not is_admin:
                 redirect(url.Url.from_path(['login']))
 
     def __admin_hash(self, admin_user, iterations):

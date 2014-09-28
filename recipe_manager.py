@@ -90,10 +90,14 @@ if RENEW_INDEX or not os.path.exists(HOME+INDEX_PATH):
 # Little Helper ################################################################
 def validate_user_and_language(db, enable_users):
     """ Validate the user and get the current language. """
+    is_admin = False
     if enable_users:
-        um = user_manager.UserManager(db)
-        um.validate_login(PW_HASH_ITERATIONS, ADMIN_USER)
-    return translator.Translator.current_language(LANGUAGE)
+        manager = user_manager.UserManager(db)
+        manager.validate_login(PW_HASH_ITERATIONS, ADMIN_USER)
+        is_admin = (manager.current_user() and
+                    manager.current_user().name == ADMIN_USER)
+    language = translator.Translator.current_language(LANGUAGE)
+    return language, is_admin
 
 
 # Routes #######################################################################
@@ -101,7 +105,7 @@ def validate_user_and_language(db, enable_users):
 @app.get('/', template='index')
 def index(db):
     """ Index page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     num_recipes = recipe.Recipe.count_all(db)
@@ -109,20 +113,21 @@ def index(db):
     randoms = recipe.Recipe.find_random(db, RANDOM_RECIPES)
     return dict(categories=categories, recipes=recipes, randoms=randoms,
                 num_recipes=num_recipes, language=language, languages=LANGUAGES,
-                logout=ENABLE_USERS)
+                enable_users=ENABLE_USERS, is_admin=is_admin)
 
 
 # Category
 @app.get('/category/<id:int>-<:re:.+>', template='category_list')
 def category_list(db, id):
     """ Category list page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     cat = category.Category.find_pk(db, id)
     recipes = recipe.Recipe.find_category(db, cat)
     return dict(categories=categories, category=cat, recipes=recipes,
-                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
+                language=language, languages=LANGUAGES, enable_users=ENABLE_USERS,
+                is_admin=is_admin)
 
 
 # Login
@@ -130,17 +135,18 @@ def category_list(db, id):
 @app.post('/login', template='login')
 def login(db):
     """ Login page. """
-    language = validate_user_and_language(db, False)
+    language, is_admin = validate_user_and_language(db, False)
 
     manager = user_manager.UserManager(db)
-    hints = manager.action(language, PW_HASH_ITERATIONS, ADMIN_USER)
-    return dict(hints=hints, language=language, languages=LANGUAGES)
+    hints = manager.login(language, PW_HASH_ITERATIONS, ADMIN_USER)
+    return dict(hints=hints, language=language, languages=LANGUAGES,
+                is_admin=is_admin)
 
 
 # Logout
 @app.get('/logout')
 @app.post('/logout')
-def login(db):
+def logout(db):
     """ Login page. """
     manager = user_manager.UserManager(db)
     manager.logout()
@@ -151,13 +157,13 @@ def login(db):
 @app.post('/manage/categories', template='manage_categories')
 def manage_categories(db):
     """ Category managing page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
 
     manager = category_manager.CategoryManager(db)
     categories = manager.action(language)
     hints = manager.hints
     return dict(categories=categories, hints=hints, language=language,
-                languages=LANGUAGES, logout=ENABLE_USERS)
+                languages=LANGUAGES, enable_users=ENABLE_USERS, is_admin=is_admin)
 
 
 # Manage: Recipe
@@ -167,7 +173,7 @@ def manage_categories(db):
 @app.post('/manage/recipe/<id:int>', template='manage_recipe')
 def manage_recipe(db, id=None):
     """ Recipe managing page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     manager = recipe_manager.RecipeManager(db)
@@ -175,7 +181,8 @@ def manage_recipe(db, id=None):
     hints = manager.hints
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipe=rec, hints=hints, tags=tags,
-                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
+                language=language, languages=LANGUAGES, enable_users=ENABLE_USERS,
+                is_admin=is_admin)
 
 
 # Manage: Tag
@@ -183,26 +190,43 @@ def manage_recipe(db, id=None):
 @app.post('/manage/tags', template='manage_tags')
 def manage_tag(db):
     """ Tag managing page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     manager = tag_manager.TagManager(db)
     tags = manager.action(language)
     hints = manager.hints
     return dict(categories=categories, tags=tags, hints=hints,
-                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
+                language=language, languages=LANGUAGES, enable_users=ENABLE_USERS,
+                is_admin=is_admin)
+
+
+# Manage: Users
+@app.get('/manage/users', template='manage_users')
+@app.post('/manage/users', template='manage_users')
+def manage_users(db):
+    """ User managing page or personal profile. """
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
+    categories = category.Category.find_all(db)
+
+    manager = user_manager.UserManager(db)
+    users = manager.action(language, PW_HASH_ITERATIONS, ADMIN_USER)
+    hints = manager.hints
+    return dict(categories=categories, hints=hints, users=users,
+                is_admin=is_admin, language=language, languages=LANGUAGES,
+                enable_users=ENABLE_USERS)
 
 
 # Recipe
 @app.get('/recipe/<id:int>-<:re:.+>', template='view_recipe')
 def view_recipe(db, id):
     """ Recipe view page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     rec = recipe.Recipe.find_pk(db, id)
     return dict(categories=categories, recipe=rec, language=language,
-                languages=LANGUAGES, logout=ENABLE_USERS)
+                languages=LANGUAGES, enable_users=ENABLE_USERS, is_admin=is_admin)
 
 
 # Search
@@ -210,7 +234,7 @@ def view_recipe(db, id):
 @app.post('/search', template='search')
 def search(db):
     """ Search page. """
-    language = validate_user_and_language(db, ENABLE_USERS)
+    language, is_admin = validate_user_and_language(db, ENABLE_USERS)
     categories = category.Category.find_all(db)
 
     query = bottle.request.forms.getunicode('q') or \
@@ -225,7 +249,8 @@ def search(db):
             recipes = [random.choice(recipes)]
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipes=recipes, query=query, tags=tags,
-                language=language, languages=LANGUAGES, logout=ENABLE_USERS)
+                language=language, languages=LANGUAGES, enable_users=ENABLE_USERS,
+                is_admin=is_admin)
 
 
 # Statics ######################################################################
@@ -238,4 +263,9 @@ def statics(file, type='img'):
 
 
 # Run ##########################################################################
-app.run(host=HOST, port=PORT, debug=DEBUG, reloader=DEBUG)
+try:
+    import cherrypy
+    server = 'cherrypy'
+except ImportError:
+    server = 'wsgiref'
+app.run(server=server, host=HOST, port=PORT, debug=DEBUG, reloader=DEBUG)

@@ -1,0 +1,70 @@
+% from helper.url import Url
+% from helper.translator import Translator
+% _ = Translator.instance(language)
+
+% manage_users = _('Users') if is_admin else _('Profile')
+<h2>{{manage_users}}</h2>
+
+% if is_admin:
+    <form action="{{Url.from_path(['manage', 'users'])}}" method="post">
+        <fieldset>
+            <legend>{{_('New User')}}</legend>
+            <div class="input-row">
+                <label for="new-name">{{_('Name (required):')}}</label>
+                <input type="text" id="new-name" name="name" autofocus="autofocus" />
+            </div>
+            <div class="input-row">
+                <label for="new-password">{{_('Password (required):')}}</label>
+                <input type="text" id="new-password" name="password" />
+            </div>
+            <div class="input-row">
+                <label for="new-password-confirm">{{_('Confirm Password (required):')}}</label>
+                <input type="text" id="new-password-confirm" name="password" />
+            </div>
+            <div>
+                <input type="hidden" name="action" value="new" />
+                <button type="submit">{{_('Create User')}}</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <fieldset>
+        <legend>{{_('Edit Users')}}</legend>
+        % length = len(users)
+        % for i in range(length):
+            % user = users[i]
+            % cls = ' class="input-row"'
+            % c = cls if (i < length - 1) else ''
+            <form action="{{Url.from_path(['manage', 'users'])}}" method="post">
+                <div{{!c}}>
+                    <label for="edit-password-{{user.id}}">{{_('Password for {}:').format(user.name)}}</label>
+                    <input type="text" id="edit-password-{{user.id}}" name="password" />
+                    <input type="hidden" name="id" value="{{user.id}}" />
+                    <input type="hidden" name="action" value="edit" />
+                    <button type="submit" name="edit">{{_('Edit')}}</button>
+                    <button type="submit" name="delete">{{_('Delete')}}</button>
+                </div>
+            </form>
+        % end
+    </fieldset>
+% else:
+    <fieldset>
+        <legend>{{_('Password')}}</legend>
+            <form action="{{Url.from_path(['manage', 'users'])}}" method="post">
+                <div class="input-row">
+                    <label for="new-password-profile">{{_('New Password (required):')}}</label>
+                    <input type="text" id="new-password-profile" name="password" />
+                </div>
+                <div class="input-row">
+                    <label for="new-password-confirm-profile">{{_('Confirm Password (required):')}}</label>
+                    <input type="text" id="new-password-confirm-profile" name="password" />
+                </div>
+                <div>
+                    <input type="hidden" name="action" value="edit-profile" />
+                    <button type="submit">{{_('Save')}}</button>
+                </div>
+            </form>
+    </fieldset>
+% end
+
+% rebase('html_body', id='manage-users', title=manage_users)
