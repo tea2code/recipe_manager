@@ -19,6 +19,18 @@ $(document).ready(function() {
         $.cookie('language', $(this).val(), { expires: 365, path: '/' });
         location.reload();
     });
+    
+    // Custom file input.
+    $('form').on('click', '.upload-button', function(event) 
+    { 
+        $('#' + $(this).data('upload')).trigger('click'); 
+        event.preventDefault();        
+    });
+    
+    $('form').on('change', '.upload-input', function(event)
+    {
+        $('#fake-' + $(this).attr('id')).val($(this).val());
+    });
 
     // Add Images.
     $('#manage-recipe #add-image').click(function(event)

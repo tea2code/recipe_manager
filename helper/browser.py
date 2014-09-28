@@ -15,7 +15,7 @@ class Browser:
 
     RE_BOT = re.compile(r'(spider|crawl|slurp|bot)', re.I)
     RE_DESKTOP = re.compile(r'(windows|linux|os\s+[x9]|solaris|bsd)', re.I)
-    RE_MOBILE = re.compile(r'(iphone|ipod|blackberry|android|palm|windows\s+ce)', re.I)
+    RE_MOBILE = re.compile(r'(Mobi)', re.I)
 
     @classmethod
     def is_bot(cls):
@@ -26,8 +26,7 @@ class Browser:
     def is_desktop(cls):
         """ Checks if a user agent corresponds to a desktop browser. """
         is_desktop = bool(cls.RE_DESKTOP.search(cls.user_agent()))
-        return not cls.is_mobile(cls.user_agent()) and \
-               (is_desktop or cls.is_bot(cls.user_agent()))
+        return not cls.is_mobile() and (is_desktop or cls.is_bot())
 
     @classmethod
     def is_mobile(cls):

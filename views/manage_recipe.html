@@ -154,7 +154,9 @@
             % end
             <div class="input-row">
                 <label for="new-image-0">{{_('New Image {}:').format(1)}}</label>
-                <input type="file" id="new-image-0" accept="image/gif, image/jpeg, image/png" name="new-image-0" />
+                <input type="text" id="fake-new-image-0" />
+                <button class="upload-button" data-upload="new-image-0">{{_('Select')}}</button>
+                <input type="file" id="new-image-0" class="upload-input" accept="image/*" name="new-image-0" />
             </div>
         </div>
         <div class="input-row">
@@ -174,9 +176,11 @@
 
 <div class="hidden">
     <div id="template-add-image">
-        <div class="input-row">
+        <div class="input-row file-upload">
             <label for="new-image-{image_count}">{{_('New Image {image_count+1}:')}}</label>
-            <input type="file" id="new-image-{image_count}" accept="image/gif, image/jpeg, image/png" name="new-image-{image_count}" />
+            <input type="text" id="fake-new-image-{image_count}" />
+            <button class="upload-button" data-upload="new-image-{image_count}">{{_('Select')}}</button>
+            <input type="file" id="new-image-{image_count}" class="upload-input" accept="image/*" name="new-image-{image_count}" />
         </div>
     </div>
 
