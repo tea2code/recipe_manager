@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-09-19 17:28+0100\n"
-"PO-Revision-Date: 2014-09-19 17:28+0100\n"
+"POT-Creation-Date: 2014-09-28 10:34+0100\n"
+"PO-Revision-Date: 2014-09-28 10:34+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: en_US\n"
@@ -38,29 +38,29 @@ msgstr ""
 msgid "Category \"{}\" already exists."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:87
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:89
 msgid "Title must not be empty."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:153
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:168
 msgid "Extension \"{}\" is not an allowed image type."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:226
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:241
 msgid "New recipe \"{}\" has been created."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:228
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:243
 msgid "Recipe \"{}\" has been updated."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:230
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:245
 msgid ""
 "New recipe \"{}\" has been created. A recipe with the same title already "
 "exists."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:233
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:248
 msgid "Recipe \"{}\" has been removed."
 msgstr ""
 
@@ -84,35 +84,49 @@ msgstr ""
 msgid "Tag \"{}\" already exists."
 msgstr ""
 
+#: F:\Programmieren\recipe_manager\action/user_manager.py:44
+msgid "Please provide your user name and password."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:49
+msgid "Given user name or password is wrong. Please try again."
+msgstr ""
+
 #: F:\Programmieren\recipe_manager\views/category_list.html:6
 msgid "This category contains {} recipes."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/html_body.html:53
+#: F:\Programmieren\recipe_manager\views/html_body.html:37
 #: F:\Programmieren\recipe_manager\views/search.html:5
 #: F:\Programmieren\recipe_manager\views/search.html:39
 #: F:\Programmieren\recipe_manager\views/search.html:49
 msgid "Search"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/html_body.html:54
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:9
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:17
+#: F:\Programmieren\recipe_manager\views/html_body.html:38
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:10
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:18
 msgid "New Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/html_body.html:56
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:17
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:166
+#: F:\Programmieren\recipe_manager\views/html_body.html:40
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:18
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:167
 msgid "Edit Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/html_body.html:58
-msgid "Manage Categories"
+#: F:\Programmieren\recipe_manager\views/html_body.html:42
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:41
+msgid "Categories"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/html_body.html:59
-msgid "Manage Tags"
+#: F:\Programmieren\recipe_manager\views/html_body.html:43
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:72
+msgid "Tags"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:95
+msgid "Logout"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/index.html:7
@@ -123,8 +137,25 @@ msgstr ""
 msgid "All recipes have at least one category."
 msgstr ""
 
+#: F:\Programmieren\recipe_manager\views/login.html:5
+#: F:\Programmieren\recipe_manager\views/login.html:19
+msgid "Login"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/login.html:10
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:30
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:26
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:39
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:59
+msgid "Name:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/login.html:14
+msgid "Password:"
+msgstr ""
+
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:5
-msgid "Manage: Categories"
+msgid "Manage Categories"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:9
@@ -144,13 +175,6 @@ msgstr ""
 msgid "Edit Categories"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_categories.html:30
-#: F:\Programmieren\recipe_manager\views/manage_tags.html:26
-#: F:\Programmieren\recipe_manager\views/manage_tags.html:39
-#: F:\Programmieren\recipe_manager\views/manage_tags.html:59
-msgid "Name:"
-msgstr ""
-
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:34
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:30
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:63
@@ -163,118 +187,114 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_categories.html:41
-msgid "Categories"
-msgstr ""
-
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:20
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:21
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:84
 msgid "Rating:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:31
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:32
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:102
 msgid "Category:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:45
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:46
 msgid "Title (required):"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:53
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:60
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:54
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:61
 msgid "Synonym {}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:68
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:69
 msgid "Add Synonym"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:72
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:73
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:31
 msgid "Serving Size:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:77
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:78
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:38
 msgid "Ingredients:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:82
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:83
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:45
 msgid "Preparation:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:87
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:88
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:52
 msgid "Info:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:92
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:93
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:112
 msgid "Tags:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:117
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:128
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:118
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:129
 msgid "Name of Link {}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:121
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:132
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:122
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:133
 msgid "Link {}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:140
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:141
 msgid "Add Link"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:147
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:148
 msgid "Image {}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:150
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:151
 msgid "Remove Image"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:155
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:156
 msgid "New Image {}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:162
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:163
 msgid "Add Image"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:166
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:167
 msgid "Create Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:168
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:169
 msgid "Delete Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:177
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:178
 msgid "New Image {image_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:184
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:185
 msgid "Synonym {synonym_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:191
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:192
 msgid "Name of Link {url_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:195
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:196
 msgid "Link {url_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:201
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:202
 msgid "Recipe"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:5
-msgid "Manage: Tags"
+msgid "Manage Tags"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:9
@@ -295,10 +315,6 @@ msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:51
 msgid "Edit Synonym"
-msgstr ""
-
-#: F:\Programmieren\recipe_manager\views/manage_tags.html:72
-msgid "Tags"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/search.html:10

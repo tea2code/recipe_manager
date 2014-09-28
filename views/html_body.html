@@ -16,13 +16,6 @@
     <link rel="apple-touch-icon" href="{{Url.from_img('img/apple-touch-icon.png')}}">
     <link rel="icon" href="{{Url.from_img('img/favicon.png')}}">
     <!--[if IE]><link rel="shortcut icon" href="{{Url.from_img('img/favicon.ico')}}"><![endif]-->
-    
-    <!-- Framework, Widgets... -->
-    <link rel="stylesheet" href="{{Url.from_css('normalize.css')}}">
-    <link rel="stylesheet" href="{{Url.from_css('gridism.css')}}">
-    <link rel="stylesheet" href="{{Url.from_css('chosen.min.css')}}">
-    <link rel="stylesheet" href="{{Url.from_css('jquery.fancybox.css')}}">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
 
     <!-- Custom -->
     <link rel="stylesheet" href="{{Url.from_css('main.css')}}">
@@ -46,8 +39,8 @@
                             % if defined('edit_recipe') and edit_recipe:
                                 <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">{{_('Edit Recipe')}}</a></li>
                             % end
-                            <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Manage Categories')}}</a></li>
-                            <li><a href="{{Url.from_path(['manage', 'tags'])}}">{{_('Manage Tags')}}</a></li>
+                            <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Categories')}}</a></li>
+                            <li><a href="{{Url.from_path(['manage', 'tags'])}}">{{_('Tags')}}</a></li>
                         </ul>
                     </div>
                 % end
