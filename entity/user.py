@@ -93,7 +93,7 @@ class User:
 
         # Entity
         query = 'INSERT INTO users (name, pw_hash, salt, session) ' \
-                'VALUES (?, ?, ?)'
+                'VALUES (?, ?, ?, ?)'
         params = [self.name, self.pw_hash, self.salt, self.session]
         if not self.is_new():
             query = 'UPDATE users ' \

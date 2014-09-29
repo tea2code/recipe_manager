@@ -57,6 +57,7 @@ tags_001 = [
     ['Fladen', 'Flatbreads', 'Pita'],
     ['Gnocchi'],
     ['Kekse', 'Cracker'],
+    ['Lasagneplatten', 'Lasagna Sheets', 'Lasagna Noodles'],
     ['Löffelbiskuits', 'Sponge Finger'],
     ['Marmelade', 'Konfitüre', 'Jam'],
     ['Miso'],

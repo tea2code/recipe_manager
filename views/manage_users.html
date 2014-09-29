@@ -15,11 +15,11 @@
             </div>
             <div class="input-row">
                 <label for="new-password">{{_('Password (required):')}}</label>
-                <input type="text" id="new-password" name="password" />
+                <input type="password" id="new-password" name="password" />
             </div>
             <div class="input-row">
                 <label for="new-password-confirm">{{_('Confirm Password (required):')}}</label>
-                <input type="text" id="new-password-confirm" name="password" />
+                <input type="password" id="new-password-confirm" name="password-confirm" />
             </div>
             <div>
                 <input type="hidden" name="action" value="new" />
@@ -38,7 +38,8 @@
             <form action="{{Url.from_path(['manage', 'users'])}}" method="post">
                 <div{{!c}}>
                     <label for="edit-password-{{user.id}}">{{_('Password for {}:').format(user.name)}}</label>
-                    <input type="text" id="edit-password-{{user.id}}" name="password" />
+                    <input type="password" id="edit-password-{{user.id}}" class="short-input" name="password" />
+                    <input type="password" class="short-input" name="password-confirm" />
                     <input type="hidden" name="id" value="{{user.id}}" />
                     <input type="hidden" name="action" value="edit" />
                     <button type="submit" name="edit">{{_('Edit')}}</button>
@@ -53,11 +54,11 @@
             <form action="{{Url.from_path(['manage', 'users'])}}" method="post">
                 <div class="input-row">
                     <label for="new-password-profile">{{_('New Password (required):')}}</label>
-                    <input type="text" id="new-password-profile" name="password" />
+                    <input type="password" id="new-password-profile" name="password" />
                 </div>
                 <div class="input-row">
                     <label for="new-password-confirm-profile">{{_('Confirm Password (required):')}}</label>
-                    <input type="text" id="new-password-confirm-profile" name="password" />
+                    <input type="password" id="new-password-confirm-profile" name="password-confirm" />
                 </div>
                 <div>
                     <input type="hidden" name="action" value="edit-profile" />

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-09-28 12:35+0100\n"
-"PO-Revision-Date: 2014-09-28 12:35+0100\n"
+"POT-Creation-Date: 2014-09-29 20:57+0100\n"
+"PO-Revision-Date: 2014-09-29 20:57+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: de_DE\n"
@@ -86,15 +86,50 @@ msgstr "Tag \"{}\" wurde aktualisiert."
 msgid "Tag \"{}\" already exists."
 msgstr "Tag \"{}\" existiert bereits."
 
-#: F:\Programmieren\recipe_manager\action/user_manager.py:44
+#: F:\Programmieren\recipe_manager\action/user_manager.py:64
 msgid "Please provide your user name and password."
 msgstr "Bitte gib deinen Benutzernamen und dein Passwort an."
 
-#: F:\Programmieren\recipe_manager\action/user_manager.py:49
+#: F:\Programmieren\recipe_manager\action/user_manager.py:69
 msgid "Given user name or password is wrong. Please try again."
 msgstr ""
 "Der gegebene Benutzername oder das Passwort ist falsch. Bitte versuch es "
 "erneut."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:135
+msgid "Please provide user name and password."
+msgstr "Bitte gib Benutzername und Passwort an."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:138
+#: F:\Programmieren\recipe_manager\action/user_manager.py:167
+#: F:\Programmieren\recipe_manager\action/user_manager.py:192
+msgid "Both passwords are not the same."
+msgstr "Die beiden Passwörter sind nicht gleich."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:141
+msgid "User name is already taken."
+msgstr "Benutzername ist bereits in Verwendung."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:149
+msgid "User \"{}\" has been created."
+msgstr "Benutzer \"{}\" wurde erstellt."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:157
+msgid "User \"{}\" has been deleted."
+msgstr "Benutzer \"{}\" wurde gelöscht."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:164
+#: F:\Programmieren\recipe_manager\action/user_manager.py:189
+msgid "Please provide the password."
+msgstr "Bitte gib das Passwort an."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:175
+msgid "User \"{}\" has been updated."
+msgstr "Benutzer \"{}\" wurde aktualisiert."
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:201
+msgid "Your profile has been updated. Please login again."
+msgstr "Dein Profil wurde aktualisiert. Bitte melde dich erneut an."
 
 #: F:\Programmieren\recipe_manager\views/category_list.html:6
 msgid "This category contains {} recipes."
@@ -103,7 +138,7 @@ msgstr "Diese Kategorie enthält {} Rezepte."
 #: F:\Programmieren\recipe_manager\views/html_body.html:37
 #: F:\Programmieren\recipe_manager\views/search.html:5
 #: F:\Programmieren\recipe_manager\views/search.html:39
-#: F:\Programmieren\recipe_manager\views/search.html:49
+#: F:\Programmieren\recipe_manager\views/search.html:51
 msgid "Search"
 msgstr "Suche"
 
@@ -130,8 +165,18 @@ msgid "Tags"
 msgstr "Tags"
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:45
+#: F:\Programmieren\recipe_manager\views/manage_users.html:5
+msgid "Users"
+msgstr "Benutzer"
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:45
+#: F:\Programmieren\recipe_manager\views/manage_users.html:5
+msgid "Profile"
+msgstr "Profil"
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:47
 msgid "Logout"
-msgstr "Logout"
+msgstr "Abmelden"
 
 #: F:\Programmieren\recipe_manager\views/index.html:7
 msgid "The database contains {} recipes."
@@ -144,7 +189,7 @@ msgstr "Alle Rezepte haben zumindest eine Kategorie."
 #: F:\Programmieren\recipe_manager\views/login.html:5
 #: F:\Programmieren\recipe_manager\views/login.html:19
 msgid "Login"
-msgstr "Login"
+msgstr "Anmelden"
 
 #: F:\Programmieren\recipe_manager\views/login.html:10
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:30
@@ -168,6 +213,7 @@ msgstr "Neue Kategorie"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:11
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:11
+#: F:\Programmieren\recipe_manager\views/manage_users.html:13
 msgid "Name (required):"
 msgstr "Name (notwendig):"
 
@@ -182,12 +228,14 @@ msgstr "Kategorien bearbeiten"
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:34
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:30
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:63
+#: F:\Programmieren\recipe_manager\views/manage_users.html:45
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:35
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:31
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:64
+#: F:\Programmieren\recipe_manager\views/manage_users.html:46
 msgid "Delete"
 msgstr "Löschen"
 
@@ -325,6 +373,43 @@ msgstr "Synonym erstellen"
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:51
 msgid "Edit Synonym"
 msgstr "Synonym bearbeiten"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:11
+msgid "New User"
+msgstr "Neuer Benutzer"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:17
+msgid "Password (required):"
+msgstr "Passwort (notwendig):"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:21
+#: F:\Programmieren\recipe_manager\views/manage_users.html:60
+msgid "Confirm Password (required):"
+msgstr "Passwort bestätigen (notwendig):"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:26
+msgid "Create User"
+msgstr "Benutzer erstellen"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:32
+msgid "Edit Users"
+msgstr "Benutzer bearbeiten"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:40
+msgid "Password for {}:"
+msgstr "Passwort für {}:"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:53
+msgid "Password"
+msgstr "Passwort"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:56
+msgid "New Password (required):"
+msgstr "Neues Passwort (notwendig):"
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:65
+msgid "Save"
+msgstr "Speichern"
 
 #: F:\Programmieren\recipe_manager\views/search.html:10
 msgid "Query:"

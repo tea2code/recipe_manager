@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-09-28 12:35+0100\n"
-"PO-Revision-Date: 2014-09-28 12:35+0100\n"
+"POT-Creation-Date: 2014-09-29 20:57+0100\n"
+"PO-Revision-Date: 2014-09-29 20:57+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: en_US\n"
@@ -84,12 +84,47 @@ msgstr ""
 msgid "Tag \"{}\" already exists."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/user_manager.py:44
+#: F:\Programmieren\recipe_manager\action/user_manager.py:64
 msgid "Please provide your user name and password."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/user_manager.py:49
+#: F:\Programmieren\recipe_manager\action/user_manager.py:69
 msgid "Given user name or password is wrong. Please try again."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:135
+msgid "Please provide user name and password."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:138
+#: F:\Programmieren\recipe_manager\action/user_manager.py:167
+#: F:\Programmieren\recipe_manager\action/user_manager.py:192
+msgid "Both passwords are not the same."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:141
+msgid "User name is already taken."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:149
+msgid "User \"{}\" has been created."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:157
+msgid "User \"{}\" has been deleted."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:164
+#: F:\Programmieren\recipe_manager\action/user_manager.py:189
+msgid "Please provide the password."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:175
+msgid "User \"{}\" has been updated."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:201
+msgid "Your profile has been updated. Please login again."
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/category_list.html:6
@@ -99,7 +134,7 @@ msgstr ""
 #: F:\Programmieren\recipe_manager\views/html_body.html:37
 #: F:\Programmieren\recipe_manager\views/search.html:5
 #: F:\Programmieren\recipe_manager\views/search.html:39
-#: F:\Programmieren\recipe_manager\views/search.html:49
+#: F:\Programmieren\recipe_manager\views/search.html:51
 msgid "Search"
 msgstr ""
 
@@ -126,6 +161,16 @@ msgid "Tags"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:45
+#: F:\Programmieren\recipe_manager\views/manage_users.html:5
+msgid "Users"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:45
+#: F:\Programmieren\recipe_manager\views/manage_users.html:5
+msgid "Profile"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:47
 msgid "Logout"
 msgstr ""
 
@@ -164,6 +209,7 @@ msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:11
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:11
+#: F:\Programmieren\recipe_manager\views/manage_users.html:13
 msgid "Name (required):"
 msgstr ""
 
@@ -178,12 +224,14 @@ msgstr ""
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:34
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:30
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:63
+#: F:\Programmieren\recipe_manager\views/manage_users.html:45
 msgid "Edit"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:35
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:31
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:64
+#: F:\Programmieren\recipe_manager\views/manage_users.html:46
 msgid "Delete"
 msgstr ""
 
@@ -320,6 +368,43 @@ msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:51
 msgid "Edit Synonym"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:11
+msgid "New User"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:17
+msgid "Password (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:21
+#: F:\Programmieren\recipe_manager\views/manage_users.html:60
+msgid "Confirm Password (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:26
+msgid "Create User"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:32
+msgid "Edit Users"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:40
+msgid "Password for {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:53
+msgid "Password"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:56
+msgid "New Password (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:65
+msgid "Save"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/search.html:10

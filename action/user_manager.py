@@ -4,6 +4,7 @@
 import datetime
 import hashlib
 import random
+import uuid
 from action import base_manager
 from bottle import redirect
 from entity import user as user_entity
@@ -35,25 +36,13 @@ class UserManager(base_manager.BaseManager):
 
     def action(self, language, pw_hash_iterations, admin_user):
         """ Handle actions. Returns users or redirects. """
-        _ = translator.Translator.instance(language)
-
-        users = []
-        action = self.get_form('action')
+        # Validate user and initialize admin user if necessary.
+        self.validate_login(pw_hash_iterations, admin_user)
         is_admin = (self.current_user().name == admin_user)
-        if action == 'new' and is_admin:
-            user_name = self.get_form('name')
-            password = self.get_form('password')
-            if not user_name or not password:
-                hint_text = _('Please provide your user name and password.')
-                self.hints.append(hint.Hint(hint_text))
-                return users
-            users = []
-        elif action == 'edit' and is_admin:
-            is_delete = self.get_form('delete') is not None
-            users = []
-        elif action == 'edit-profile':
-            users = []
-
+        if is_admin:
+            users = self.__action_admin(language, pw_hash_iterations)
+        else:
+            users = self.__action_user(language, pw_hash_iterations)
         return users
 
     def current_user(self):
@@ -97,8 +86,8 @@ class UserManager(base_manager.BaseManager):
                 self.hints.append(hint.Hint(hint_text))
                 return self.hints
             else:
-                session_number = str(random.randint(0, 10000000000000000000000))
-                session = self.__generate_pw_hash(session_number, user.salt,
+                session_salt = self.__generate_salt()
+                session = self.__generate_pw_hash(session_salt, user.salt,
                                                   pw_hash_iterations)
                 expires = datetime.datetime.now() + datetime.timedelta(days=365)
                 self.set_cookie(self.USER_NAME_COOKIE, user.name, expires=expires)
@@ -133,6 +122,87 @@ class UserManager(base_manager.BaseManager):
             if user_count or not is_admin:
                 redirect(url.Url.from_path(['login']))
 
+    def __action_admin(self, language, pw_hash_iterations):
+        """ Handle admin actions. Returns users or redirects. """
+        _ = translator.Translator.instance(language)
+
+        action = self.get_form('action')
+        if action == 'new':
+            user_name = self.get_form('name')
+            password = self.get_form('password')
+            password_confirm = self.get_form('password-confirm')
+            if not user_name or not password:
+                hint_text = _('Please provide user name and password.')
+                self.hints.append(hint.Hint(hint_text))
+            elif password != password_confirm:
+                hint_text = _('Both passwords are not the same.')
+                self.hints.append(hint.Hint(hint_text))
+            elif user_entity.User.find_name(self.db, user_name):
+                hint_text = _('User name is already taken.')
+                self.hints.append(hint.Hint(hint_text))
+            else:
+                user = user_entity.User(name=user_name)
+                user.salt = self.__generate_salt()
+                user.pw_hash = self.__generate_pw_hash(password, user.salt,
+                                                  pw_hash_iterations)
+                user.save(self.db)
+                hint_text = _('User "{}" has been created.').format(user_name)
+                self.hints.append(hint.Hint(hint_text))
+
+        elif action == 'edit':
+            id = self.get_form('id')
+            user = user_entity.User.find_pk(self.db, id)
+            is_delete = self.get_form('delete') is not None
+            if is_delete:
+                hint_text = _('User "{}" has been deleted.').format(user.name)
+                user.delete(self.db)
+                self.hints.append(hint.Hint(hint_text))
+            else:
+                password = self.get_form('password')
+                password_confirm = self.get_form('password-confirm')
+                if not password:
+                    hint_text = _('Please provide the password.')
+                    self.hints.append(hint.Hint(hint_text))
+                elif password != password_confirm:
+                    hint_text = _('Both passwords are not the same.')
+                    self.hints.append(hint.Hint(hint_text))
+                else:
+                    user.salt = self.__generate_salt()
+                    user.pw_hash = self.__generate_pw_hash(password, user.salt,
+                                                           pw_hash_iterations)
+                    user.session = None
+                    user.save(self.db)
+                    hint_text = _('User "{}" has been updated.').format(user.name)
+                    self.hints.append(hint.Hint(hint_text))
+
+        return user_entity.User.find_all(self.db)
+
+    def __action_user(self, language, pw_hash_iterations):
+        """ Handle user actions. Returns users or redirects. """
+        _ = translator.Translator.instance(language)
+
+        action = self.get_form('action')
+        if action == 'edit-profile':
+            password = self.get_form('password')
+            password_confirm = self.get_form('password-confirm')
+            if not password:
+                hint_text = _('Please provide the password.')
+                self.hints.append(hint.Hint(hint_text))
+            elif password != password_confirm:
+                hint_text = _('Both passwords are not the same.')
+                self.hints.append(hint.Hint(hint_text))
+            else:
+                user = self.current_user()
+                user.salt = self.__generate_salt()
+                user.pw_hash = self.__generate_pw_hash(password, user.salt,
+                                                       pw_hash_iterations)
+                user.session = None
+                user.save(self.db)
+                hint_text = _('Your profile has been updated. Please login '
+                              'again.')
+                self.hints.append(hint.Hint(hint_text))
+        return []
+
     def __admin_hash(self, admin_user, iterations):
         """ Calculate admin hash for first login. """
         return self.__generate_pw_hash(admin_user, admin_user,
@@ -144,3 +214,7 @@ class UserManager(base_manager.BaseManager):
         for x in range(0, iterations):
             pw_hash = hashlib.sha512(bytes(pw_hash, 'utf-8')).hexdigest()
         return pw_hash
+
+    def __generate_salt(self):
+        """ Generates a random salt. """
+        return uuid.uuid4().hex
