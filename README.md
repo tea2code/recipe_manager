@@ -53,6 +53,17 @@ Mobile browsers are supported. On very small screens the layout will change to a
 
 A default configuration (host, port...) exists but it's also possible to create a user configuration and override existing values. The files are "default.config" (the default configuration) which you shouldn't change and "user.config". If not already existing create the file "user.config" (for example by copying "default.config") and change the values as you wish.
 
+## Users
+
+By default this recipe manager runs as a single user instance. Meaning everybody can access it. Using the configuration it is possible to enable an basic user and login mechanism. Following keys are relevant:
+
+- ADMIN_USER: Defines the name of the admin user.
+- ENABLE_USERS: If true user support is active.
+
+First it is necessary to enable user support. Then set the initial admin user. After this the admin can loggin with his name and any password (it is recommended to do this immediatly). The admin user can then create a user for himself (use the same admin name or change it in the config afterwards). After logging in a second time user support is setup. Additional users can be created. The admin user can create, update and delete users while individual users can only update their own settings (currently only choosing a new password). 
+
+If a user is logged in he is set as the initial author of an recipe. Also while recipes are shared by default the author can deactivate this.
+
 ## Translation
 
 Translations are created using the Python/Linux gettext module. Plural support is currently not used. If you want to create a new translation use a tool like [Poedit](http://poedit.net/) and send them to me.
