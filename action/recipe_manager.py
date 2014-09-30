@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from action import base_manager
+from action import user_manager
 from bottle import redirect
 from bottle import request
 from entity import category as category_entity
@@ -73,6 +74,10 @@ class RecipeManager(base_manager.BaseManager):
             result = recipe_entity.Recipe()
             if not is_new:
                 result = recipe_entity.Recipe.find_pk(self.db, id)
+
+            manager = user_manager.UserManager(self.db)
+            result.author = manager.current_user()
+
             result.categories = categories
             result.description = self.get_form('description')
             result.images = images

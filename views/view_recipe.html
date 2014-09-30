@@ -118,6 +118,14 @@
                 % end
             </p>
         </div>
+        <div>
+            % if recipe.author:
+                <h3>{{_('Author:')}}</h3>
+                <p>
+                    {{recipe.author.name}}
+                </p>
+            % end
+        </div>
     </div>
 </div>
 

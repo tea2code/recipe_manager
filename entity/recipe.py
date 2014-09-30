@@ -6,6 +6,7 @@ from entity import image as image_entity
 from entity import synonym as synonym_entity
 from entity import tag as tag_entity
 from entity import url as url_entity
+from entity import user as user_entity
 
 import os
 
@@ -14,6 +15,7 @@ class Recipe:
     """ Represents a recipe.
 
     Member:
+    author -- The author if set (user).
     categories -- List of category of this recipe (list category).
     description -- The cooking description (string).
     id -- The row id or None if not yet committed (int).
@@ -22,6 +24,7 @@ class Recipe:
     ingredients -- The ingredients (string).
     rating -- The rating (int).
     serving_size -- A short description of the serving size (string).
+    shared -- Indicates if a recipe is shared (bool).
     synonyms -- List of synonyms for the title (list synonym).
     tags -- List of tags (list tag).
     title -- The title (string).
@@ -30,7 +33,9 @@ class Recipe:
 
     def __init__(self, categories=[], description='', id=None, info='',
                  ingredients='', rating=None, serving_size='', title='',
-                 tags=[], urls=[], synonyms=[], images=[]):
+                 tags=[], urls=[], synonyms=[], images=[], author=None,
+                 shared=True):
+        self.author = author
         self.categories = categories
         self.description = description
         self.id = id
@@ -39,6 +44,7 @@ class Recipe:
         self.ingredients = ingredients
         self.rating = rating
         self.serving_size = serving_size
+        self.shared = shared
         self.synonyms = synonyms
         self.tags = tags
         self.title = title
@@ -86,7 +92,7 @@ class Recipe:
         """ Find all entities in database. Returns list of found
         entities ordered by name ascending."""
         query = 'SELECT description, id, info, ingredients, ' \
-                'rating, serving_size, title ' \
+                'rating, serving_size, title, user_id, shared ' \
                 'FROM recipes ' \
                 'ORDER BY title COLLATE NOCASE ASC'
         cursor = db.cursor()
@@ -102,14 +108,14 @@ class Recipe:
         if category is None. Returns list of found
         entities ordered by name ascending. """
         query = 'SELECT description, id, info, ingredients, ' \
-                'rating, serving_size, title ' \
+                'rating, serving_size, title, user_id, shared ' \
                 'FROM recipes ' \
                 'WHERE id NOT IN (SELECT recipe_id FROM recipe_has_category) ' \
                 'ORDER BY title COLLATE NOCASE ASC'
         params = []
         if category:
             query = 'SELECT r.description, r.id, r.info, r.ingredients, ' \
-                    'r.rating, r.serving_size, r.title ' \
+                    'r.rating, r.serving_size, r.title, r.user_id, r.shared ' \
                     'FROM recipes r, recipe_has_category rhc ' \
                     'WHERE rhc.recipe_id = r.id ' \
                     'AND rhc.category_id = ? ' \
@@ -127,7 +133,7 @@ class Recipe:
         """ Find entity by primary key aka row id in database. Returns found
         entity or None. """
         query = 'SELECT description, id, info, ingredients, rating, ' \
-                'serving_size, title ' \
+                'serving_size, title, user_id, shared ' \
                 'FROM recipes ' \
                 'WHERE id = ?'
         params = [id]
@@ -138,7 +144,7 @@ class Recipe:
         """ Find random entities in database. Returns list of found
         entities ordered by name ascending."""
         query = 'SELECT description, id, info, ingredients, ' \
-                'rating, serving_size, title ' \
+                'rating, serving_size, title, user_id, shared ' \
                 'FROM recipes ' \
                 'ORDER BY RANDOM() ' \
                 'LIMIT ?'
@@ -155,12 +161,14 @@ class Recipe:
         """ Create entity from given row. """
         recipe = Recipe(description=row[0], id=row[1], info=row[2],
                         ingredients=row[3], rating=row[4], serving_size=row[5],
-                        title=row[6])
+                        title=row[6], shared=row[8])
         recipe.categories = category_entity.Category.find_recipe(db, recipe)
         recipe.images = image_entity.Image.find_recipe(db, recipe)
         recipe.synonyms = synonym_entity.Synonym.find_recipe(db, recipe)
         recipe.tags = tag_entity.Tag.find_recipe(db, recipe)
         recipe.urls = url_entity.Url.find_recipe(db, recipe)
+        if row[7] is not None:
+            recipe.author = user_entity.User.find_pk(db, row[7])
         return recipe
 
     def is_new(self):
@@ -183,16 +191,22 @@ class Recipe:
 
         # Entity
         query = 'INSERT INTO recipes (description, info, ' \
-                'ingredients, rating, serving_size, title) ' \
-                'VALUES (?, ?, ?, ?, ?, ?)'
+                'ingredients, rating, serving_size, title, ' \
+                'shared, user_id) ' \
+                'VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         params = [self.description, self.info,
-                  self.ingredients, self.rating, self.serving_size, self.title]
+                  self.ingredients, self.rating, self.serving_size, self.title,
+                  self.shared]
         if not self.is_new():
             query = 'UPDATE recipes ' \
                     'SET description = ?, info = ?, ingredients = ?, ' \
-                    'rating = ?, serving_size = ?, title = ? ' \
+                    'rating = ?, serving_size = ?, title = ?, shared = ? ' \
                     'WHERE id = ?'
             params.append(self.id)
+        else:
+            # Only add author while inserting.
+            user_id = self.author.id if self.author else None
+            params.append(user_id)
         cursor.execute(query, params)
         if self.is_new():
             self.id = cursor.lastrowid
