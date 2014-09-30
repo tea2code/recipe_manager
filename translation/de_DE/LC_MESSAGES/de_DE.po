@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-09-29 20:57+0100\n"
-"PO-Revision-Date: 2014-09-29 20:57+0100\n"
+"POT-Creation-Date: 2014-09-30 21:26+0100\n"
+"PO-Revision-Date: 2014-09-30 21:26+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: de_DE\n"
@@ -38,23 +38,23 @@ msgstr "Der Name darf nicht leer sein."
 msgid "Category \"{}\" already exists."
 msgstr "Kategorie \"{}\" existiert bereits."
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:89
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:94
 msgid "Title must not be empty."
 msgstr "Der Titel darf nicht leer sein."
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:168
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:173
 msgid "Extension \"{}\" is not an allowed image type."
 msgstr "Dateiendung \"{}\" ist kein erlaubter Bildtyp."
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:241
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:246
 msgid "New recipe \"{}\" has been created."
 msgstr "Neues Rezept \"{}\" wurde erstellt."
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:243
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:248
 msgid "Recipe \"{}\" has been updated."
 msgstr "Rezept \"{}\" wurde aktualisiert."
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:245
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:250
 msgid ""
 "New recipe \"{}\" has been created. A recipe with the same title already "
 "exists."
@@ -62,7 +62,7 @@ msgstr ""
 "Neues Rezept \"{}\" wurde erstellt. Ein Rezept mit dem selben Titel "
 "existiert bereits."
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:248
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:253
 msgid "Recipe \"{}\" has been removed."
 msgstr "Rezept \"{}\" wurde gelöscht."
 
@@ -466,6 +466,10 @@ msgstr "Synonyme: {}"
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:88
 msgid "Links:"
 msgstr "Links:"
+
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:123
+msgid "Author:"
+msgstr "Autor:"
 
 #~ msgid "Manage: Categories"
 #~ msgstr "Verwalten: Kategorien"
