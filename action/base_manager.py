@@ -21,10 +21,13 @@ class BaseManager:
         """ Returns cookie value. """
         return request.get_cookie(name)
 
-    def get_form(self, name):
+    def get_form(self, name, strip_value=True):
         """ Returns form value for name. """
         request.forms.recode_unicode = False
-        return request.forms.getunicode(name)
+        value = request.forms.getunicode(name, '')
+        if strip_value:
+            value = value.strip()
+        return value
 
     def set_cookie(self, name, value, httponly=True, expires=None):
         """ Set cookie. """

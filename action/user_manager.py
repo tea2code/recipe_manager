@@ -59,7 +59,7 @@ class UserManager(base_manager.BaseManager):
 
         if self.get_form('action') == 'login':
             user_name = self.get_form('name')
-            password = self.get_form('password')
+            password = self.get_form('password', False)
             if not user_name or not password:
                 hint_text = _('Please provide your user name and password.')
                 self.hints.append(hint.Hint(hint_text))
@@ -129,8 +129,8 @@ class UserManager(base_manager.BaseManager):
         action = self.get_form('action')
         if action == 'new':
             user_name = self.get_form('name')
-            password = self.get_form('password')
-            password_confirm = self.get_form('password-confirm')
+            password = self.get_form('password', False)
+            password_confirm = self.get_form('password-confirm', False)
             if not user_name or not password:
                 hint_text = _('Please provide user name and password.')
                 self.hints.append(hint.Hint(hint_text))
@@ -158,8 +158,8 @@ class UserManager(base_manager.BaseManager):
                 user.delete(self.db)
                 self.hints.append(hint.Hint(hint_text))
             else:
-                password = self.get_form('password')
-                password_confirm = self.get_form('password-confirm')
+                password = self.get_form('password', False)
+                password_confirm = self.get_form('password-confirm', False)
                 if not password:
                     hint_text = _('Please provide the password.')
                     self.hints.append(hint.Hint(hint_text))
@@ -183,8 +183,8 @@ class UserManager(base_manager.BaseManager):
 
         action = self.get_form('action')
         if action == 'edit-profile':
-            password = self.get_form('password')
-            password_confirm = self.get_form('password-confirm')
+            password = self.get_form('password', False)
+            password_confirm = self.get_form('password-confirm', False)
             if not password:
                 hint_text = _('Please provide the password.')
                 self.hints.append(hint.Hint(hint_text))
