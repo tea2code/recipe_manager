@@ -2,7 +2,9 @@
 @color: #333;
 @font: 'Open Sans', sans-serif;
 @font-size: 95%;
-@header-size: 32px;
+@header-size: 32;
+@input-height: 200;
+@input-width: 200;
 
 /* Imports ********************************************************************/
 @import (inline) "normalize.css";
@@ -38,15 +40,15 @@ a:hover {
 
 /* Header/Navigation **********************************************************/
 #page-top {
-    height: @header-size;
-    line-height: @header-size;
+    height: unit(@header-size, px);
+    line-height: unit(@header-size, px);
     vertical-align: middle;
 }
 
 #header h1 {
     background: url(/img/apple-touch-icon.png) no-repeat;
-    background-size: @header-size auto;
-    padding-left: (@header-size + 15px);
+    background-size: unit(@header-size, px) auto;
+    padding-left: unit(@header-size + 15, px);
 }
 
 @media screen and (min-width: 568px) {
@@ -77,8 +79,8 @@ fieldset {
 }
 
 form img {
-    max-height: 200px;
-    max-width: 200px;
+    max-height: unit(@input-height, px);
+    max-width: unit(@input-width, px);
 }
 
 .input-row {
@@ -95,16 +97,31 @@ label,
     width: 25% !important;
 }
 
+select {
+    min-width: unit(@input-width / 2, px);
+}
+
+.input-width {
+    min-width: unit(@input-width, px);
+    width: 40% !important;
+}
+
 input,
 #tags_chosen,
 #categories_chosen,
 .w-input {
-    min-width: 200px;
-    width: 40% !important;
+    .input-width;
+}
+
+/* Prevent flickering */
+#manage-recipe #categories,
+#manage-recipe #tags {
+    height: 29px;
+    .input-width;
 }
 
 input.short-input {
-    min-width: 100px;
+    min-width: unit(@input-width / 2, px);
     width: 20% !important;
 }
 
@@ -112,13 +129,9 @@ input.short-input {
     width: 75% !important;
 }
 
-select {
-    min-width: 100px;
-}
-
 textarea {
-    height: 200px;
-    min-width: 200px;
+    height: unit(@input-height, px);
+    min-width: unit(@input-width, px);
     width: 60%;
 }
 
@@ -132,14 +145,14 @@ textarea {
 
 button {
     background: linear-gradient(to bottom, #fff, #eee, #ddd);
-    border: 1px solid #333;
+    border: 1px solid @color;
 	border-radius: 4px;
     margin-right: 10px;
 	padding: 3px 20px;
 }
 
 button:hover {
-    box-shadow:	0px 0px 3px #333;
+    box-shadow:	0px 0px 3px @color;
 }
 
 button:active {
