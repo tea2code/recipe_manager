@@ -24,8 +24,8 @@ class BaseManager:
     def get_form(self, name, strip_value=True):
         """ Returns form value for name. """
         request.forms.recode_unicode = False
-        value = request.forms.getunicode(name, '')
-        if strip_value:
+        value = request.forms.getunicode(name)
+        if strip_value and value:
             value = value.strip()
         return value
 
