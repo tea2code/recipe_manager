@@ -11,6 +11,7 @@
 @import (inline) "gridism.css";
 @import (inline) "chosen.min.css";
 @import (inline) "jquery.fancybox.css";
+@import (inline) "jquery.mCustomScrollbar.css";
 
 /* See http://fonts.googleapis.com/css?family=Open+Sans */
 @font-face {
@@ -160,6 +161,15 @@ button:active {
 }
 
 /* Rendered Content ***********************************************************/
+#randoms {
+    max-height: 100vh;
+}
+
+#images {
+    max-height: 70vh;
+}
+
+
 #randoms,
 #recipe-list,
 #images ul {
@@ -186,12 +196,15 @@ button:active {
 
 #randoms img,
 #recipe img {
-    max-height: 300px;
     max-width: 100%; 
 }
 
 #randoms li {
     margin-bottom: 30px;
+    text-align: center;
+}
+
+#images li {
     text-align: center;
 }
 

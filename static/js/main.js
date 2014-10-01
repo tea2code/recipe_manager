@@ -13,6 +13,11 @@ $(document).ready(function() {
     // Fancybox.
     $('.fancybox').fancybox();
     
+    // Custom content scroller.
+    $('#images,#randoms').mCustomScrollbar({
+        theme:'dark-thin'
+    });
+    
     // Language Selection.
     $('#language-selection').change(function(event)
     {
