@@ -10,12 +10,12 @@ class Browser:
     Constants:
     RE_BOT -- Regular expression to identify bots (string)
     RE_DESKTOP -- Regular expression to identify desktop browsers (string)
-    RE_MOBILE -- Regular expression to identify bots. See https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent#Mobile.2C_Tablet_or_Desktop (string)
+    RE_MOBILE -- Regular expression to identify bots (string)
     """
 
     RE_BOT = re.compile(r'(spider|crawl|slurp|bot)', re.I)
     RE_DESKTOP = re.compile(r'(windows|linux|os\s+[x9]|solaris|bsd)', re.I)
-    RE_MOBILE = re.compile(r'(Mobi)', re.I)
+    RE_MOBILE = re.compile(r'(iphone|ipod|blackberry|android|palm|windows\s+ce)', re.I)
 
     @classmethod
     def is_bot(cls):
