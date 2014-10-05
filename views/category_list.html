@@ -1,10 +1,22 @@
 % from helper.translator import Translator
 % _ = Translator.instance(language)
 
-<h2>{{category.name}}</h2>
+% if not category:
+    % title = _("Not found")
 
-<p>{{_('This category contains {} recipes.').format(len(recipes))}}</p>
+    <div class="grid">
+        <div class="unit w-1-1">
+            <p>{{_('No category found.')}}</p>
+        </div>
+    </div>
+% else:
+    % title = category.name
 
-% include('recipe_list')
+    <h2 class="anchor">{{category.name}}</h2>
 
-% rebase('html_body', id='category', title=category.name)
+    <p>{{_('This category contains {} recipes.').format(len(recipes))}}</p>
+
+    % include('recipe_list')
+% end
+
+% rebase('html_body', id='category', title=title)

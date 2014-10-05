@@ -2,131 +2,143 @@
 % from helper.translator import Translator
 % _ = Translator.instance(language)
 
-<div class="grid">
-    <div class="unit w-1-1">
-        <h2>{{recipe.title}}</h2>
-        % if recipe.synonyms:
-            <h3>{{_('Synonyms: {}').format(', '.join(synonym.name for synonym in recipe.synonyms))}}</h3>
-        % end
-    </div>
-</div>
+% if not recipe:
+    % title = _("Not found")
 
-% #import markdown
-% #def t(text):
-% #  text = markdown.markdown(text,
-% #                           extensions=['tables'],
-% #                           output_format='html5',
-% #                           safe_mode='escape')
-% #  return text
-% from helper import html_escape
-% def t(text):
-%   text = html_escape.HtmlEscape.html_escape_nl2br(text)
-%   return text
+    <div class="grid">
+        <div class="unit w-1-1">
+            <p>{{_('No recipe found.')}}</p>
+        </div>
+    </div>
+% else:
+    % title = recipe.title
+
+    <div class="grid">
+        <div class="unit w-1-1">
+            <h2 class="anchor">{{recipe.title}}</h2>
+            % if recipe.synonyms:
+                <h3>{{_('Synonyms: {}').format(', '.join(synonym.name for synonym in recipe.synonyms))}}</h3>
+            % end
+        </div>
+    </div>
+
+    % #import markdown
+    % #def t(text):
+    % #  text = markdown.markdown(text,
+    % #                           extensions=['tables'],
+    % #                           output_format='html5',
+    % #                           safe_mode='escape')
+    % #  return text
+    % from helper import html_escape
+    % def t(text):
+    %   text = html_escape.HtmlEscape.html_escape_nl2br(text)
+    %   return text
+    % end
+
+    <div class="grid">
+        <div class="unit w-2-3">
+            % if recipe.serving_size:
+                <div>
+                    <h3>{{_('Serving Size:')}}</h3>
+                    <p>{{recipe.serving_size}}</p>
+                </div>
+            % end
+
+            % if recipe.ingredients:
+                <div>
+                    <h3>{{_('Ingredients:')}}</h3>
+                    {{!t(recipe.ingredients)}}
+                </div>
+            % end
+
+            % if recipe.description:
+                <div>
+                    <h3>{{_('Preparation:')}}</h3>
+                    {{!t(recipe.description)}}
+                </div>
+            % end
+
+            % if recipe.info:
+                <div>
+                    <h3>{{_('Info:')}}</h3>
+                    {{!t(recipe.info)}}
+                </div>
+            % end
+        </div>
+
+        <div class="unit w-1-3">
+            <div id="images">
+                % if recipe.images:
+                    <ul>
+                        % for image in recipe.images:
+                            % img_url = Url.from_img(image.path)
+                            <li>
+                                <a class="fancybox" href="{{img_url}}" data-fancybox-group="images">
+                                    <img src="{{img_url}}" alt="{{image.path}}" />
+                                </a>
+                            </li>
+                        % end
+                    </ul>
+                % end
+            </div>
+            <div>
+                % rating = '-'
+                % if recipe.rating is 0:
+                %   rating = '☆'
+                % elif recipe.rating is 1:
+                %   rating = '★'
+                % elif recipe.rating is 2:
+                %   rating = '★★'
+                % elif recipe.rating is 3:
+                %   rating = '★★★'
+                % end
+                <h3>{{_('Rating:')}}</h3>
+                <p>{{rating}}</p>
+            </div>
+            <div>
+                <h3>{{_('Links:')}}</h3>
+                % if recipe.urls:
+                    <ul>
+                        % for url in recipe.urls:
+                            % name = url.name if url.name else url.url[:25]
+                            % if not url.name and len(url.url) > 25:
+                            %    name += '...'
+                            % end
+                            <li><a href="{{url.url}}">{{name}}</a></li>
+                        % end
+                    </ul>
+                % end
+            </div>
+            <div>
+                <h3>{{_('Category:')}}</h3>
+                <p>
+                    % last_i = len(recipe.categories) - 1
+                    % for i, category in enumerate(recipe.categories):
+                        % category_url = Url.from_category(category)
+                        <a href="{{category_url}}">{{category.name}}</a>{{', ' if i < last_i else ''}}
+                    % end
+                </p>
+            </div>
+            <div>
+                <h3>{{_('Tags:')}}</h3>
+                <p>
+                    % last_i = len(recipe.tags) - 1
+                    % for i, tag in enumerate(recipe.tags):
+                        % search_url = Url.search(tag.name)
+                        <a href="{{search_url}}">{{tag.name}}</a>{{', ' if i < last_i else ''}}
+                    % end
+                </p>
+            </div>
+            <div>
+                % if recipe.author:
+                    <h3>{{_('Author:')}}</h3>
+                    <p>
+                        {{recipe.author.name}}
+                    </p>
+                % end
+            </div>
+        </div>
+    </div>
 % end
 
-<div class="grid">
-    <div class="unit w-2-3">
-        % if recipe.serving_size:
-            <div>
-                <h3>{{_('Serving Size:')}}</h3>
-                <p>{{recipe.serving_size}}</p>
-            </div>
-        % end
-
-        % if recipe.ingredients:
-            <div>
-                <h3>{{_('Ingredients:')}}</h3>
-                {{!t(recipe.ingredients)}}
-            </div>
-        % end
-
-        % if recipe.description:
-            <div>
-                <h3>{{_('Preparation:')}}</h3>
-                {{!t(recipe.description)}}
-            </div>
-        % end
-
-        % if recipe.info:
-            <div>
-                <h3>{{_('Info:')}}</h3>
-                {{!t(recipe.info)}}
-            </div>
-        % end
-    </div>
-
-    <div class="unit w-1-3">
-        <div id="images">
-            % if recipe.images:
-                <ul>
-                    % for image in recipe.images:
-                        % img_url = Url.from_img(image.path)
-                        <li>
-                            <a class="fancybox" href="{{img_url}}" data-fancybox-group="images">
-                                <img src="{{img_url}}" alt="{{image.path}}" />
-                            </a>
-                        </li>
-                    % end
-                </ul>
-            % end
-        </div>
-        <div>
-            % rating = '-'
-            % if recipe.rating is 0:
-            %   rating = '☆'
-            % elif recipe.rating is 1:
-            %   rating = '★'
-            % elif recipe.rating is 2:
-            %   rating = '★★'
-            % elif recipe.rating is 3:
-            %   rating = '★★★'
-            % end
-            <h3>{{_('Rating:')}}</h3>
-            <p>{{rating}}</p>
-        </div>
-        <div>
-            <h3>{{_('Links:')}}</h3>
-            % if recipe.urls:
-                <ul>
-                    % for url in recipe.urls:
-                        % name = url.name if url.name else url.url[:25]
-                        % if not url.name and len(url.url) > 25:
-                        %    name += '...'
-                        % end
-                        <li><a href="{{url.url}}">{{name}}</a></li>
-                    % end
-                </ul>
-            % end
-        </div>
-        <div>
-            <h3>{{_('Category:')}}</h3>
-            <p>
-                % last_i = len(recipe.categories) - 1
-                % for i, category in enumerate(recipe.categories):
-                    % category_url = Url.from_category(category)
-                    <a href="{{category_url}}">{{category.name}}</a>{{', ' if i < last_i else ''}}
-                % end
-            </p>
-        </div>
-        <div>
-            <h3>{{_('Tags:')}}</h3>
-            <p>
-                % last_i = len(recipe.tags) - 1
-                % for i, tag in enumerate(recipe.tags):
-                    % search_url = Url.search(tag.name)
-                    <a href="{{search_url}}">{{tag.name}}</a>{{', ' if i < last_i else ''}}
-                % end
-            </p>
-        </div>
-        <div>
-            % if recipe.author:
-                <h3>{{_('Author:')}}</h3>
-                <p>
-                    {{recipe.author.name}}
-                </p>
-            % end
-        </div>
-    </div>
-</div>
-
-% rebase('html_body', id='recipe', title=recipe.title, edit_recipe=True)
+% rebase('html_body', id='recipe', title=title, edit_recipe=True)

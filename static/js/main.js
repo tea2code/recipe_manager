@@ -1,22 +1,21 @@
 $(document).ready(function() {
-    // Tag Groups.
-    $('.tag-group').children(':not(.tag-group-legend)').hide();
-    $('.tag-group-legend').click(function() 
+    // Scroll to recipe title.
+    if ($(".anchor").length > 0)
     {
-        $(this).siblings().toggle();
-    });
+        $(document).scrollTop($(".anchor").first().offset().top);  
+    }
 
     // Chosen.
     $('#manage-recipe #categories').chosen();
     $('#manage-recipe #tags').chosen();
     
-    // Fancybox.
-    $('.fancybox').fancybox();
-    
     // Custom content scroller.
     $('#images,#randoms').mCustomScrollbar({
         theme:'dark-thin'
     });
+    
+    // Fancybox.
+    $('.fancybox').fancybox();
     
     // Language Selection.
     $('#language-selection').change(function(event)
@@ -79,5 +78,12 @@ $(document).ready(function() {
                     .replace(/{url_count\+1}/g, (url_count + 1));
         $('#manage-recipe #urls').append(input);
         event.preventDefault();
+    });
+    
+    // Tag Groups.
+    $('.tag-group').children(':not(.tag-group-legend)').hide();
+    $('.tag-group-legend').click(function() 
+    {
+        $(this).siblings().toggle();
     });
 });

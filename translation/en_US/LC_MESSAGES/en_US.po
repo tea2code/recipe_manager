@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-09-30 21:26+0100\n"
-"PO-Revision-Date: 2014-09-30 21:26+0100\n"
+"POT-Creation-Date: 2014-10-05 09:56+0100\n"
+"PO-Revision-Date: 2014-10-05 09:56+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: en_US\n"
@@ -127,7 +127,16 @@ msgstr ""
 msgid "Your profile has been updated. Please login again."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/category_list.html:6
+#: F:\Programmieren\recipe_manager\views/category_list.html:5
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:6
+msgid "Not found"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/category_list.html:9
+msgid "No category found."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/category_list.html:17
 msgid "This category contains {} recipes."
 msgstr ""
 
@@ -236,12 +245,12 @@ msgid "Delete"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:21
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:84
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:95
 msgid "Rating:"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:32
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:102
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:113
 msgid "Category:"
 msgstr ""
 
@@ -259,27 +268,27 @@ msgid "Add Synonym"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:73
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:31
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:42
 msgid "Serving Size:"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:78
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:38
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:49
 msgid "Ingredients:"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:83
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:45
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:56
 msgid "Preparation:"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:88
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:52
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:63
 msgid "Info:"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:93
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:112
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:123
 msgid "Tags:"
 msgstr ""
 
@@ -453,14 +462,18 @@ msgstr ""
 msgid "Found {} matching recipes."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:9
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:10
+msgid "No recipe found."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:20
 msgid "Synonyms: {}"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:88
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:99
 msgid "Links:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/view_recipe.html:123
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:134
 msgid "Author:"
 msgstr ""

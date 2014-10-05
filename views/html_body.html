@@ -36,7 +36,7 @@
                         <ul id="action-nav">
                             <li><a href="{{Url.from_path(['search'])}}">{{_('Search')}}</a></li>
                             <li><a href="{{Url.from_path(['manage', 'recipe'])}}">{{_('New Recipe')}}</a></li>
-                            % if get('edit_recipe'):
+                            % if get('edit_recipe') and recipe:
                                 <li><a href="{{Url.from_path(['manage', 'recipe', str(recipe.id)])}}">{{_('Edit Recipe')}}</a></li>
                             % end
                             <li><a href="{{Url.from_path(['manage', 'categories'])}}">{{_('Categories')}}</a></li>
