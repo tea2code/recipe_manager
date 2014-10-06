@@ -37,19 +37,29 @@ class MigrationManager:
         db = sqlite3.connect(self.db_file)
 
         # Version 1 -> 2
-        if self.__is_version(db, 1):
+        current = 1
+        if self.__is_version(db, current):
             self.__create_tags(db, tag_lists.tags_001)
-            self.__update_version(db, 2)
+            current += 1
+            self.__update_version(db, current)
 
         # Version 2 -> 3
-        if self.__is_version(db, 2):
+        if self.__is_version(db, current):
             self.__tags_rename_vermouth(db)
-            self.__update_version(db, 3)
+            current += 1
+            self.__update_version(db, current)
 
         # Version 3 -> 4
-        if self.__is_version(db, 3):
+        if self.__is_version(db, current):
             self.__tags_rename_brackets(db)
-            self.__update_version(db, 4)
+            current += 1
+            self.__update_version(db, current)
+            
+        # Version 4 -> 5
+        #if self.__is_version(db, current):
+        #    self.__create_tags(db, tag_lists.tags_002)
+        #    current += 1
+        #    self.__update_version(db, current)
 
         # Finished
         db.close()
