@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 from action import base_manager
 from action import user_manager
 from bottle import redirect
@@ -14,8 +15,6 @@ from entity import url as url_entity
 from helper import hint
 from helper import translator
 from helper import url
-
-import os
 
 
 class RecipeManager(base_manager.BaseManager):
@@ -58,6 +57,7 @@ class RecipeManager(base_manager.BaseManager):
         is_new = id is None
         is_edit = self.get_form('edit') is not None
         is_delete = self.get_form('delete') is not None
+        is_import = self.get_form('import') is not None
 
         # Actions
         result = None
@@ -129,6 +129,8 @@ class RecipeManager(base_manager.BaseManager):
 
         elif is_new:
             result = recipe_entity.Recipe()
+
+        #elif is_import:
 
         else:
             result = recipe_entity.Recipe.find_pk(self.db, id)

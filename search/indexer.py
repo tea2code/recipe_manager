@@ -29,6 +29,7 @@ class Indexer:
         """ Fill index with recipes. If a recipe already exists it is
         updated. """
         for recipe in recipes:
+            author = recipe.author.name if recipe.author else ''
             categories = ' '.join(c.name for c in recipe.categories)
             synonyms = ' '.join(s.name for s in recipe.synonyms)
             tags = ''
@@ -44,7 +45,8 @@ class Indexer:
                                    tags=tags,
                                    title=recipe.title+' '+synonyms,
                                    titletags=tags+recipe.title+' '+synonyms,
-                                   rated=(recipe.rating is not -1))
+                                   rated=(recipe.rating is not -1),
+                                   author=author)
         writer.commit()
 
     def open_index(self, schema):
@@ -78,7 +80,8 @@ class Indexer:
                                tags=fields.TEXT,
                                title=fields.TEXT,
                                titletags=fields.TEXT,
-                               rated=fields.BOOLEAN)
+                               rated=fields.BOOLEAN,
+                               author=fields.TEXT)
         return schema
 
     def searcher(self):

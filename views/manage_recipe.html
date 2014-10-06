@@ -12,10 +12,11 @@
 </h2>
 
 % selected = 'selected="selected"'
-% url = Url.from_path(['manage', 'recipe', str(recipe.id)]) if recipe.id else Url.from_path(['manage', 'recipe'])
-<form action="{{url}}" method="post" enctype="multipart/form-data">
+% is_existing = recipe.id is not None
+% form_url = Url.from_path(['manage', 'recipe', str(recipe.id)]) if is_existing else Url.from_path(['manage', 'recipe'])
+<form action="{{form_url}}" method="post" enctype="multipart/form-data">
     <fieldset>
-        <legend>{{_('Edit Recipe') if recipe.id else _('New Recipe')}}</legend>
+        <legend>{{_('Edit Recipe') if is_existing else _('New Recipe')}}</legend>
 
         <div class="input-row">
             <label for="rating">{{_('Rating:')}}</label>
@@ -166,11 +167,33 @@
         </div>
 
         <div>
-            <button type="submit" name="edit">{{_('Edit Recipe') if recipe.id else _('Create Recipe')}}</button>
-            % if recipe.id:
+            <button type="submit" name="edit">{{_('Edit Recipe') if is_existing else _('Create Recipe')}}</button>
+            % if is_existing:
                 <button type="submit" name="delete">{{_('Delete Recipe')}}</button>
             % end
         </div>
+    </fieldset>
+</form>
+
+% form_url = Url.from_path(['export', 'recipe', str(recipe.id)]) if is_existing else form_url
+<form action="{{form_url}}" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>{{_('Export Recipe') if is_existing else _('Import Recipe')}}</legend>
+        % if is_existing:
+            <div>
+                <button type="submit" name="export">{{_('Export')}}</button>
+            </div>
+        % else:
+            <div class="input-row">
+                <label for="import-file">{{_('File:')}}</label>
+                <input type="text" id="fake-import-file" />
+                <button class="upload-button" data-upload="import-file">{{_('Select')}}</button>
+                <input type="file" id="import-file" class="upload-input" accept="application/zip" name="import-file" />
+            </div>
+            <div>
+                <button type="submit" name="import">{{_('Import')}}</button>
+            </div>
+        % end
     </fieldset>
 </form>
 

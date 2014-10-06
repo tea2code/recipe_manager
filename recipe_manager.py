@@ -20,6 +20,12 @@ from migration import migration_manager
 from search import indexer as indexer_class
 from search import searcher as searcher_class
 
+import io
+import json
+import zipfile
+from entity import recipe as recipe_entity
+from helper import url as url_helper
+
 
 # Configuration ################################################################
 config = configparser.ConfigParser()
@@ -101,6 +107,48 @@ def validate_user_and_language(db, enable_users):
 
 
 # Routes #######################################################################
+# Export: Recipe
+@app.post('/export/recipe/<id:int>')
+def export_recipe(db, id):
+    """  """
+    validate_user_and_language(db, ENABLE_USERS)
+
+    IMAGE_PATH = '/img/upload/'
+    ZIP_JSON = 'recipe.json'
+    recipe = recipe_entity.Recipe.find_pk(db, id)
+
+    # Convert recipe to json compatible object.
+    images = [image.path.replace(IMAGE_PATH, '')
+              for image in recipe.images]
+    urls = [{'name': url.name, 'url': url.url} for url in recipe.urls]
+    synonyms = [synonym.name for synonym in recipe.synonyms]
+    json_obj = {
+        'description': recipe.description,
+        'info': recipe.info,
+        'ingredients': recipe.ingredients,
+        'serving_size': recipe.serving_size,
+        'title': recipe.title,
+        'urls': urls,
+        'synonyms': synonyms,
+        'images': images
+    }
+
+    # Create json.
+    json_str = json.dumps(json_obj)
+
+    # Create zip.
+    with io.BytesIO() as zip_bytes:
+        with zipfile.ZipFile(zip_bytes, mode='w') as zip:
+            zip.writestr(ZIP_JSON, json_str)
+        result = zip_bytes.getvalue()
+
+    # Stream to browser.
+    name = url_helper.Url.slugify(recipe.title)
+    bottle.response.set_header('Content-Disposition',
+                               'attachment; filename={}.zip'.format(name))
+    bottle.response.set_header('Content-Type', 'application/zip')
+    return result
+
 # Index
 @app.get('/', template='index')
 def index(db):

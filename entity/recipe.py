@@ -190,7 +190,7 @@ class Recipe:
         query = 'INSERT INTO recipes (description, info, ' \
                 'ingredients, rating, serving_size, title, ' \
                 'user_id) ' \
-                'VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+                'VALUES (?, ?, ?, ?, ?, ?, ?)'
         params = [self.description, self.info,
                   self.ingredients, self.rating, self.serving_size, self.title]
         if not self.is_new():
