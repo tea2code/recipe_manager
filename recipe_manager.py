@@ -9,6 +9,7 @@ import os
 import random
 import sqlite3
 from action import category_manager
+from action import export_manager
 from action import recipe_manager
 from action import tag_manager
 from action import user_manager
@@ -19,12 +20,6 @@ from helper import translator
 from migration import migration_manager
 from search import indexer as indexer_class
 from search import searcher as searcher_class
-
-import io
-import json
-import zipfile
-from entity import recipe as recipe_entity
-from helper import url as url_helper
 
 
 # Configuration ################################################################
@@ -42,6 +37,7 @@ PORT = config.getint('Default', 'PORT')
 PW_HASH_ITERATIONS = config.getint('Default', 'PW_HASH_ITERATIONS')
 RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES')
 RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX')
+STATIC_PATH = config.get('Default', 'STATIC_PATH')
 TRANSLATION_PATH = config.get('Default', 'TRANSLATION_PATH')
 
 if os.path.exists('user.config'):
@@ -58,7 +54,11 @@ if os.path.exists('user.config'):
     PW_HASH_ITERATIONS = config.getint('Default', 'PW_HASH_ITERATIONS', fallback=PW_HASH_ITERATIONS)
     RANDOM_RECIPES = config.getint('Default', 'RANDOM_RECIPES', fallback=RANDOM_RECIPES)
     RENEW_INDEX = config.getboolean('Default', 'RENEW_INDEX', fallback=RENEW_INDEX)
+    STATIC_PATH = config.get('Default', 'STATIC_PATH', fallback=STATIC_PATH)
     TRANSLATION_PATH = config.get('Default', 'TRANSLATION_PATH', fallback=TRANSLATION_PATH)
+
+IMAGE_PATH = '/img/upload/'
+INDEX_PATH += '/'
 
 
 # Initialization ###############################################################
@@ -113,41 +113,8 @@ def export_recipe(db, id):
     """  """
     validate_user_and_language(db, ENABLE_USERS)
 
-    IMAGE_PATH = '/img/upload/'
-    ZIP_JSON = 'recipe.json'
-    recipe = recipe_entity.Recipe.find_pk(db, id)
-
-    # Convert recipe to json compatible object.
-    images = [image.path.replace(IMAGE_PATH, '')
-              for image in recipe.images]
-    urls = [{'name': url.name, 'url': url.url} for url in recipe.urls]
-    synonyms = [synonym.name for synonym in recipe.synonyms]
-    json_obj = {
-        'description': recipe.description,
-        'info': recipe.info,
-        'ingredients': recipe.ingredients,
-        'serving_size': recipe.serving_size,
-        'title': recipe.title,
-        'urls': urls,
-        'synonyms': synonyms,
-        'images': images
-    }
-
-    # Create json.
-    json_str = json.dumps(json_obj)
-
-    # Create zip.
-    with io.BytesIO() as zip_bytes:
-        with zipfile.ZipFile(zip_bytes, mode='w') as zip:
-            zip.writestr(ZIP_JSON, json_str)
-        result = zip_bytes.getvalue()
-
-    # Stream to browser.
-    name = url_helper.Url.slugify(recipe.title)
-    bottle.response.set_header('Content-Disposition',
-                               'attachment; filename={}.zip'.format(name))
-    bottle.response.set_header('Content-Type', 'application/zip')
-    return result
+    manager = export_manager.ExportManager(db)
+    return manager.action(HOME+STATIC_PATH, IMAGE_PATH, id)
 
 # Index
 @app.get('/', template='index')
@@ -225,7 +192,7 @@ def manage_recipe(db, id=None):
     categories = category.Category.find_all(db)
 
     manager = recipe_manager.RecipeManager(db)
-    rec = manager.action(language, indexer, id)
+    rec = manager.action(language, indexer, STATIC_PATH, IMAGE_PATH, id)
     hints = manager.hints
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipe=rec, hints=hints, tags=tags,
@@ -307,7 +274,7 @@ def search(db):
 @app.get('/<type:re:img/upload>/<file>')
 def statics(file, type='img'):
     """ Static content like css, images and javascript. """
-    return bottle.static_file(file, root=HOME+'static/'+type)
+    return bottle.static_file(file, root=HOME+STATIC_PATH+'/'+type)
 
 
 # Run ##########################################################################

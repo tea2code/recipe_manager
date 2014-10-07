@@ -27,8 +27,6 @@ class RecipeManager(base_manager.BaseManager):
     HINT_EXISTS -- Value of exists hint cookie (string).
     HINT_NAME -- Name of cookie which stores name of last changed recipe (string).
     HINT_NEW -- Value of new hint cookie (string).
-    IMAGE_PATH -- Path template for image uploads (string).
-    STATIC_PATH -- Path to statics folder (string).
 
     Member:
     db -- The database connection.
@@ -42,14 +40,12 @@ class RecipeManager(base_manager.BaseManager):
     HINT_NAME = 'last_name'
     HINT_NEW = 'new'
     HINT_NEW_EXISTS = 'new-exists'
-    IMAGE_PATH = '/img/upload/'
-    STATIC_PATH = 'static'
 
     def __init__(self, db):
         self.db = db
         self.hints = []
 
-    def action(self, language, indexer, id=None):
+    def action(self, language, indexer, static_path, image_path, id=None):
         """ Handle actions. If id is given it is assumed that an existing
          recipe is edited. Returns recipe to show. """
         _ = translator.Translator.instance(language)
@@ -63,7 +59,7 @@ class RecipeManager(base_manager.BaseManager):
         result = None
         if is_edit:
             categories = self.__read_categories()
-            images = self.__read_images(language)
+            images = self.__read_images(language, static_path, image_path)
             synonyms = self.__read_synonyms()
             tags = self.__read_tags()
             urls = self.__read_urls()
@@ -146,12 +142,12 @@ class RecipeManager(base_manager.BaseManager):
             categories.append(category)
         return categories
 
-    def __read_images(self, language):
+    def __read_images(self, language, static_path, image_root_path):
         """ Read images and return them. """
         _ = translator.Translator.instance(language)
 
-        if not os.path.exists(self.STATIC_PATH+self.IMAGE_PATH):
-                os.mkdir(self.STATIC_PATH+self.IMAGE_PATH)
+        if not os.path.exists(static_path+image_root_path):
+                os.mkdir(static_path+image_root_path)
 
         images = []
 
@@ -178,14 +174,14 @@ class RecipeManager(base_manager.BaseManager):
                 image_counter += 1
                 image_upload = request.files.get('new-image-'+str(image_counter))
                 continue
-            image_path = self.IMAGE_PATH
+            image_path = image_root_path
             image_path += name
             image_path += ext
             path_counter = 0
 
             # Create a unique name.
-            while os.path.exists(self.STATIC_PATH + image_path):
-                image_path = self.IMAGE_PATH
+            while os.path.exists(static_path + image_path):
+                image_path = image_root_path
                 image_path += name
                 image_path += str(path_counter)
                 image_path += ext
@@ -193,7 +189,7 @@ class RecipeManager(base_manager.BaseManager):
 
             # Save image and restart with next one.
             #image_upload.save(self.STATIC_PATH + image_path)
-            with open(self.STATIC_PATH + image_path, "wb") as out_file:
+            with open(static_path + image_path, "wb") as out_file:
                 out_file.write(image_upload.file.read())
             image = image_entity.Image(path=image_path)
             images.append(image)
