@@ -129,6 +129,7 @@ tags_001 = [
     ['Mohn', 'Poppy Seeds'],
     ['Müsli', 'Granola'],
     ['Nüsse', 'Nuss', 'Nuts'],
+    ['Pekannuss', 'Pecan'],
     ['Pinienkerne', 'Pine Nut', 'Pignolia'],
     ['Pistazien', 'Pistachio'],
     ['Polenta'],
