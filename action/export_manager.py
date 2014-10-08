@@ -13,19 +13,14 @@ from helper import url as url_helper
 class ExportManager(base_manager.BaseManager):
     """ Handles export actions.
 
-    Constants:
-    RECIPE_JSON -- Name of recipe json file (string).
-
     Member:
     db -- The database connection.
     """
 
-    RECIPE_JSON = 'recipe.json'
-
     def __init__(self, db):
         self.db = db
 
-    def action(self, static_path, image_path, id):
+    def action(self, static_path, image_path, id, recipe_json):
         """ Exports recipe with given id. Returns download stream. """
 
         recipe = recipe_entity.Recipe.find_pk(self.db, id)
@@ -52,7 +47,7 @@ class ExportManager(base_manager.BaseManager):
         # Create zip.
         with io.BytesIO() as zip_bytes:
             with zipfile.ZipFile(zip_bytes, mode='w') as zip:
-                zip.writestr(self.RECIPE_JSON, json_str)
+                zip.writestr(recipe_json, json_str)
                 for image in recipe.images:
                     index = image.path.rfind('/')
                     file_name = image.path[index:]

@@ -59,6 +59,7 @@ if os.path.exists('user.config'):
 
 IMAGE_PATH = '/img/upload/'
 INDEX_PATH += '/'
+RECIPE_JSON = 'recipe.json'
 
 
 # Initialization ###############################################################
@@ -114,7 +115,7 @@ def export_recipe(db, id):
     validate_user_and_language(db, ENABLE_USERS)
 
     manager = export_manager.ExportManager(db)
-    return manager.action(HOME+STATIC_PATH, IMAGE_PATH, id)
+    return manager.action(HOME+STATIC_PATH, IMAGE_PATH, id, RECIPE_JSON)
 
 # Index
 @app.get('/', template='index')
@@ -192,7 +193,8 @@ def manage_recipe(db, id=None):
     categories = category.Category.find_all(db)
 
     manager = recipe_manager.RecipeManager(db)
-    rec = manager.action(language, indexer, STATIC_PATH, IMAGE_PATH, id)
+    rec = manager.action(language, indexer, STATIC_PATH, IMAGE_PATH,
+                         RECIPE_JSON, id)
     hints = manager.hints
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipe=rec, hints=hints, tags=tags,
