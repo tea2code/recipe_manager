@@ -70,6 +70,10 @@ A default configuration (host, port...) exists but it's also possible to create 
 - STATIC_PATH: Path to static assets like css, javascript and images.
 - TRANSLATION_PATH: The translation file directory.
 
+## Export/Import of Recipe
+
+You can export existing recipes while editing them. The exported zip archive contains a json file with description... and all images of the particular recipe. This zip archive can be imported on the new recipe page. This will immediatly create the imported recipe. An exported recipe contains everything except the rating, categories, tags and the author. These values are individual to a particular instance of this recipe manager and are in most cases not shareable.
+
 ## Users
 
 By default this recipe manager runs as a single user instance. Meaning everybody can access it. Using the configuration it is possible to enable an basic user and login mechanism. Following keys are relevant:
