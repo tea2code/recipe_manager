@@ -259,11 +259,11 @@ def search(db):
             bottle.request.query.getunicode('q') or ''
     button = bottle.request.forms.getunicode('submit') or \
              bottle.request.query.getunicode('submit') or ''
-    recipes = []
+    recipes = None
     if query:
         searcher = searcher_class.Searcher(indexer)
         recipes = searcher.search(db, query)
-        if button == 'lucky':
+        if button == 'lucky' and recipes:
             recipes = [random.choice(recipes)]
     tags = tag.Tag.find_all(db)
     return dict(categories=categories, recipes=recipes, query=query, tags=tags,

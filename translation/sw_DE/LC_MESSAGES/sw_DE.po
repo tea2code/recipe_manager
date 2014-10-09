@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-10-09 19:47+0100\n"
-"PO-Revision-Date: 2014-10-09 20:15+0100\n"
+"POT-Creation-Date: 2014-10-09 23:17+0100\n"
+"PO-Revision-Date: 2014-10-09 23:17+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: de_DE\n"
@@ -150,7 +150,7 @@ msgstr "Diese Kadegorie enthäld {} Rezebde."
 #: F:\Programmieren\recipe_manager\views/html_body.html:37
 #: F:\Programmieren\recipe_manager\views/search.html:5
 #: F:\Programmieren\recipe_manager\views/search.html:39
-#: F:\Programmieren\recipe_manager\views/search.html:51
+#: F:\Programmieren\recipe_manager\views/search.html:55
 msgid "Search"
 msgstr "Suche"
 
@@ -488,9 +488,15 @@ msgstr "^ (Beischbiel: \"Kaffee^2 Sahne\")"
 msgid "Get Lucky"
 msgstr "Auf gud Glügg"
 
-#: F:\Programmieren\recipe_manager\views/search.html:46
+#: F:\Programmieren\recipe_manager\views/search.html:47
 msgid "Found {} matching recipes."
 msgstr "{} bassend Rezebde wurde funde."
+
+#: F:\Programmieren\recipe_manager\views/search.html:49
+msgid "No recipe found. Please try again with another query."
+msgstr ""
+"Es wurd koi bassends Rezebd funde. Bidde versuche s no mol mid oim andere "
+"Suchbegriff."
 
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:10
 msgid "No recipe found."

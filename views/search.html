@@ -42,8 +42,12 @@
     </fieldset>
 </form>
 
-% if recipes:
-    <p>{{_('Found {} matching recipes.').format(len(recipes))}}</p>
+% if recipes is not None:
+    % if recipes:
+        <p>{{_('Found {} matching recipes.').format(len(recipes))}}</p>
+    % else:
+        <p>{{_('No recipe found. Please try again with another query.')}}</p>
+    % end
 % end
 
 % include('recipe_list')
