@@ -53,6 +53,23 @@ Mobile browsers are supported. On very small screens the layout will change to a
 
 A default configuration (host, port...) exists but it's also possible to create a user configuration and override existing values. The files are "default.config" (the default configuration) which you shouldn't change and "user.config". If not already existing create the file "user.config" (for example by copying "default.config") and change the values as you wish.
 
+### Values
+
+- ADMIN_USER: *see Users*
+- DB_FILE: Name of the SQLite database file.
+- DEBUG: If true bottles debugging is activated.
+- ENABLE_USERS: *see Users*
+- HOME: The home directory.
+- HOST: The host address.
+- INDEX_PATH:The search index directory.
+- LANGUAGE: The default language.
+- PORT: The port.
+- PW_HASH_ITERATIONS: Number of iterations for password hashes if user support is active.
+- RANDOM_RECIPES: Number of random recipes on the index page.
+- RENEW_INDEX: If true the search index will be renewed every time the server is restarted.
+- STATIC_PATH: Path to static assets like css, javascript and images.
+- TRANSLATION_PATH: The translation file directory.
+
 ## Users
 
 By default this recipe manager runs as a single user instance. Meaning everybody can access it. Using the configuration it is possible to enable an basic user and login mechanism. Following keys are relevant:
