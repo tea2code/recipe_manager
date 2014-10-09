@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-10-06 18:51+0100\n"
-"PO-Revision-Date: 2014-10-06 18:51+0100\n"
+"POT-Creation-Date: 2014-10-09 19:48+0100\n"
+"PO-Revision-Date: 2014-10-09 19:48+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: en_US\n"
@@ -38,29 +38,33 @@ msgstr ""
 msgid "Category \"{}\" already exists."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:94
-msgid "Title must not be empty."
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:107
+msgid "Please select an import file."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:173
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:165
 msgid "Extension \"{}\" is not an allowed image type."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:246
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:185
+msgid "Title must not be empty."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:328
 msgid "New recipe \"{}\" has been created."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:248
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:330
 msgid "Recipe \"{}\" has been updated."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:250
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:332
 msgid ""
 "New recipe \"{}\" has been created. A recipe with the same title already "
 "exists."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:253
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:335
 msgid "Recipe \"{}\" has been removed."
 msgstr ""
 
@@ -319,8 +323,8 @@ msgid "New Image {}:"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:159
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:189
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:204
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:190
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:205
 msgid "Select"
 msgstr ""
 
@@ -336,43 +340,43 @@ msgstr ""
 msgid "Delete Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:180
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:181
 msgid "Export Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:180
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:181
 msgid "Import Recipe"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:183
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:184
 msgid "Export"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:187
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:188
 msgid "File:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:193
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:194
 msgid "Import"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:202
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:203
 msgid "New Image {image_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:211
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:212
 msgid "Synonym {synonym_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:218
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:219
 msgid "Name of Link {url_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:222
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:223
 msgid "Link {url_count+1}:"
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\views/manage_recipe.html:228
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:229
 msgid "Recipe"
 msgstr ""
 

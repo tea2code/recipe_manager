@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
 "POT-Creation-Date: 2014-10-09 19:47+0100\n"
-"PO-Revision-Date: 2014-10-09 19:48+0100\n"
+"PO-Revision-Date: 2014-10-09 20:15+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: de_DE\n"
@@ -19,134 +19,133 @@ msgstr ""
 
 #: F:\Programmieren\recipe_manager\action/category_manager.py:34
 msgid "New category \"{}\" has been created."
-msgstr "Neue Kategorie \"{}\" wurde erstellt."
+msgstr "Neie Kadegorie \"{}\" wurd erschdelld."
 
 #: F:\Programmieren\recipe_manager\action/category_manager.py:46
 msgid "Category \"{}\" has been removed."
-msgstr "Kategorie \"{}\" wurde gelöscht."
+msgstr "Kadegorie \"{}\" wurd glöschd."
 
 #: F:\Programmieren\recipe_manager\action/category_manager.py:51
 msgid "Category \"{}\" has been updated."
-msgstr "Kategorie \"{}\" wurde aktualisiert."
+msgstr "Kadegorie \"{}\" wurd akdualisierd."
 
 #: F:\Programmieren\recipe_manager\action/category_manager.py:62
 #: F:\Programmieren\recipe_manager\action/tag_manager.py:70
 msgid "Name must not be empty."
-msgstr "Der Name darf nicht leer sein."
+msgstr "Dr Nam darf nedd ler soi."
 
 #: F:\Programmieren\recipe_manager\action/category_manager.py:68
 msgid "Category \"{}\" already exists."
-msgstr "Kategorie \"{}\" existiert bereits."
+msgstr "Kadegorie \"{}\" exischdierd bereids."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:107
 msgid "Please select an import file."
-msgstr "Bitte wähle eine Datei zum Importieren aus."
+msgstr "Bidde wähle oi Dadei zum Imbordiere aus."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:165
 msgid "Extension \"{}\" is not an allowed image type."
-msgstr "Dateiendung \"{}\" ist kein erlaubter Bildtyp."
+msgstr "Dadeiendung \"{}\" isch koi erlaubdr Bilddyb."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:185
 msgid "Title must not be empty."
-msgstr "Der Titel darf nicht leer sein."
+msgstr "Dr Tidl darf nedd ler soi."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:328
 msgid "New recipe \"{}\" has been created."
-msgstr "Neues Rezept \"{}\" wurde erstellt."
+msgstr "Neis Rezebd \"{}\" wurd erschdelld."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:330
 msgid "Recipe \"{}\" has been updated."
-msgstr "Rezept \"{}\" wurde aktualisiert."
+msgstr "Rezebd \"{}\" wurd akdualisierd."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:332
 msgid ""
 "New recipe \"{}\" has been created. A recipe with the same title already "
 "exists."
 msgstr ""
-"Neues Rezept \"{}\" wurde erstellt. Ein Rezept mit dem selben Titel "
-"existiert bereits."
+"Neis Rezebd \"{}\" wurd erschdelld. Ein Rezebd mid dem selbe Tidl "
+"exischdierd bereids."
 
 #: F:\Programmieren\recipe_manager\action/recipe_manager.py:335
 msgid "Recipe \"{}\" has been removed."
-msgstr "Rezept \"{}\" wurde gelöscht."
+msgstr "Rezebd \"{}\" wurd glöschd."
 
 #: F:\Programmieren\recipe_manager\action/tag_manager.py:33
 msgid "New tag \"{}\" has been created."
-msgstr "Neues Tag \"{}\" wurde erstellt."
+msgstr "Neis Tag \"{}\" wurd erschdelld."
 
 #: F:\Programmieren\recipe_manager\action/tag_manager.py:42
 msgid "New synonym \"{}\" has been created."
-msgstr "Neues Synonym \"{}\" wurde erstellt."
+msgstr "Neis Synonym \"{}\" wurd erschdelld."
 
 #: F:\Programmieren\recipe_manager\action/tag_manager.py:54
 msgid "Tag \"{}\" has been removed."
-msgstr "Tag \"{}\" wurde gelöscht."
+msgstr "Tag \"{}\" wurd glöschd."
 
 #: F:\Programmieren\recipe_manager\action/tag_manager.py:59
 msgid "Tag \"{}\" has been updated."
-msgstr "Tag \"{}\" wurde aktualisiert."
+msgstr "Tag \"{}\" wurd akdualisierd."
 
 #: F:\Programmieren\recipe_manager\action/tag_manager.py:76
 msgid "Tag \"{}\" already exists."
-msgstr "Tag \"{}\" existiert bereits."
+msgstr "Tag \"{}\" exischdierd bereids."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:64
 msgid "Please provide your user name and password."
-msgstr "Bitte gib deinen Benutzernamen und dein Passwort an."
+msgstr "Bidde gib doin Benudzername und doi Password an."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:69
 msgid "Given user name or password is wrong. Please try again."
 msgstr ""
-"Der gegebene Benutzername oder das Passwort ist falsch. Bitte versuch es "
-"erneut."
+"Dr gebene Benudzernam odr des Password isch falsch. Bidde versuch s erneid."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:135
 msgid "Please provide user name and password."
-msgstr "Bitte gib Benutzername und Passwort an."
+msgstr "Bidde gib Benudzernam und Password an."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:138
 #: F:\Programmieren\recipe_manager\action/user_manager.py:167
 #: F:\Programmieren\recipe_manager\action/user_manager.py:192
 msgid "Both passwords are not the same."
-msgstr "Die beiden Passwörter sind nicht gleich."
+msgstr "Die beide Passwördr sind nedd gleich."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:141
 msgid "User name is already taken."
-msgstr "Benutzername ist bereits in Verwendung."
+msgstr "Benudzernam isch bereids in Verwendung."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:149
 msgid "User \"{}\" has been created."
-msgstr "Benutzer \"{}\" wurde erstellt."
+msgstr "Benudzr \"{}\" wurd erschdelld."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:157
 msgid "User \"{}\" has been deleted."
-msgstr "Benutzer \"{}\" wurde gelöscht."
+msgstr "Benudzr \"{}\" wurd glöschd."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:164
 #: F:\Programmieren\recipe_manager\action/user_manager.py:189
 msgid "Please provide the password."
-msgstr "Bitte gib das Passwort an."
+msgstr "Bidde gib des Password an."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:175
 msgid "User \"{}\" has been updated."
-msgstr "Benutzer \"{}\" wurde aktualisiert."
+msgstr "Benudzr \"{}\" wurd akdualisierd."
 
 #: F:\Programmieren\recipe_manager\action/user_manager.py:201
 msgid "Your profile has been updated. Please login again."
-msgstr "Dein Profil wurde aktualisiert. Bitte melde dich erneut an."
+msgstr "Doi Profil wurd akdualisierd. Bidde meld di erneid an."
 
 #: F:\Programmieren\recipe_manager\views/category_list.html:5
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:6
 msgid "Not found"
-msgstr "Kein Ergebniss"
+msgstr "Koi Ergebniss"
 
 #: F:\Programmieren\recipe_manager\views/category_list.html:9
 msgid "No category found."
-msgstr "Kategorie wurde nicht gefunden."
+msgstr "Kadegorie wurd nedd funde."
 
 #: F:\Programmieren\recipe_manager\views/category_list.html:17
 msgid "This category contains {} recipes."
-msgstr "Diese Kategorie enthält {} Rezepte."
+msgstr "Diese Kadegorie enthäld {} Rezebde."
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:37
 #: F:\Programmieren\recipe_manager\views/search.html:5
@@ -159,18 +158,18 @@ msgstr "Suche"
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:10
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:19
 msgid "New Recipe"
-msgstr "Neues Rezept"
+msgstr "Neis Rezebd"
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:40
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:19
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:170
 msgid "Edit Recipe"
-msgstr "Rezept bearbeiten"
+msgstr "Rezebd bearbeiden"
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:42
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:41
 msgid "Categories"
-msgstr "Kategorien"
+msgstr "Kadegorien"
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:43
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:72
@@ -180,7 +179,7 @@ msgstr "Tags"
 #: F:\Programmieren\recipe_manager\views/html_body.html:45
 #: F:\Programmieren\recipe_manager\views/manage_users.html:5
 msgid "Users"
-msgstr "Benutzer"
+msgstr "Benudzer"
 
 #: F:\Programmieren\recipe_manager\views/html_body.html:45
 #: F:\Programmieren\recipe_manager\views/manage_users.html:5
@@ -193,11 +192,11 @@ msgstr "Abmelden"
 
 #: F:\Programmieren\recipe_manager\views/index.html:7
 msgid "The database contains {} recipes."
-msgstr "Die Datenbank enthält {} Rezepte."
+msgstr "Die Dadenbank enthäld {} Rezebde."
 
 #: F:\Programmieren\recipe_manager\views/index.html:11
 msgid "All recipes have at least one category."
-msgstr "Alle Rezepte haben zumindest eine Kategorie."
+msgstr "Alle Rezebde hend zumindesch oi Kadegorie."
 
 #: F:\Programmieren\recipe_manager\views/login.html:5
 #: F:\Programmieren\recipe_manager\views/login.html:19
@@ -214,36 +213,36 @@ msgstr "Name:"
 
 #: F:\Programmieren\recipe_manager\views/login.html:14
 msgid "Password:"
-msgstr "Passwort:"
+msgstr "Password:"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:5
 msgid "Manage Categories"
-msgstr "Kategorien verwalten"
+msgstr "Kadegorie verwalden"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:9
 msgid "New Category"
-msgstr "Neue Kategorie"
+msgstr "Neie Kadegorie"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:11
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:11
 #: F:\Programmieren\recipe_manager\views/manage_users.html:13
 msgid "Name (required):"
-msgstr "Name (notwendig):"
+msgstr "Nam (nodwendich):"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:16
 msgid "Create Category"
-msgstr "Kategorie erstellen"
+msgstr "Kadegorie erschdellen"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:22
 msgid "Edit Categories"
-msgstr "Kategorien bearbeiten"
+msgstr "Kadegorie bearbeiden"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:34
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:30
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:63
 #: F:\Programmieren\recipe_manager\views/manage_users.html:45
 msgid "Edit"
-msgstr "Bearbeiten"
+msgstr "Bearbeiden"
 
 #: F:\Programmieren\recipe_manager\views/manage_categories.html:35
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:31
@@ -255,16 +254,16 @@ msgstr "Löschen"
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:22
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:95
 msgid "Rating:"
-msgstr "Bewertung:"
+msgstr "Bewerdung:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:33
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:113
 msgid "Category:"
-msgstr "Kategorie:"
+msgstr "Kadegorie:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:47
 msgid "Title (required):"
-msgstr "Titel (notwendig):"
+msgstr "Tidl (nodwendich):"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:55
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:62
@@ -273,22 +272,22 @@ msgstr "Synonym {}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:70
 msgid "Add Synonym"
-msgstr "Synonym hinzufügen"
+msgstr "Synonym hinzfügen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:74
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:42
 msgid "Serving Size:"
-msgstr "Portionen:"
+msgstr "Porzionen:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:79
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:49
 msgid "Ingredients:"
-msgstr "Zutaten:"
+msgstr "Zudaden:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:84
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:56
 msgid "Preparation:"
-msgstr "Zubereitung:"
+msgstr "Zubereidung:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:89
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:63
@@ -303,7 +302,7 @@ msgstr "Tags:"
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:119
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:130
 msgid "Name of Link {}:"
-msgstr "Linkname {}:"
+msgstr "Linknam {}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:123
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:134
@@ -312,7 +311,7 @@ msgstr "Link {}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:142
 msgid "Add Link"
-msgstr "Link hinzufügen"
+msgstr "Link hinzfügen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:149
 msgid "Image {}:"
@@ -324,7 +323,7 @@ msgstr "Bild löschen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:157
 msgid "New Image {}:"
-msgstr "Neues Bild {}:"
+msgstr "Neis Bild {}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:159
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:190
@@ -334,39 +333,39 @@ msgstr "Auswählen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:166
 msgid "Add Image"
-msgstr "Bild hinzufügen"
+msgstr "Bild hinzfügen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:170
 msgid "Create Recipe"
-msgstr "Rezept erstellen"
+msgstr "Rezebd erschdellen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:172
 msgid "Delete Recipe"
-msgstr "Rezept löschen"
+msgstr "Rezebd löschen"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:181
 msgid "Export Recipe"
-msgstr "Rezept exportieren"
+msgstr "Rezebd exbordieren"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:181
 msgid "Import Recipe"
-msgstr "Rezept importieren"
+msgstr "Rezebd imbordieren"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:184
 msgid "Export"
-msgstr "Export"
+msgstr "Exbord"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:188
 msgid "File:"
-msgstr "Datei:"
+msgstr "Dadei:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:194
 msgid "Import"
-msgstr "Import"
+msgstr "Imbord"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:203
 msgid "New Image {image_count+1}:"
-msgstr "Neues Bild {image_count+1}:"
+msgstr "Neis Bild {image_count+1}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:212
 msgid "Synonym {synonym_count+1}:"
@@ -382,68 +381,68 @@ msgstr "Link {url_count+1}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_recipe.html:229
 msgid "Recipe"
-msgstr "Rezept"
+msgstr "Rezebd"
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:5
 msgid "Manage Tags"
-msgstr "Tags verwalten"
+msgstr "Tags verwalden"
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:9
 msgid "New Tag"
-msgstr "Neues Tag"
+msgstr "Neis Tag"
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:16
 msgid "Create Tag"
-msgstr "Tag erstellen"
+msgstr "Tag erschdellen"
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:37
 msgid "New Synonym"
-msgstr "Neues Synonym"
+msgstr "Neis Synonym"
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:45
 msgid "Create Synonym"
-msgstr "Synonym erstellen"
+msgstr "Synonym erschdellen"
 
 #: F:\Programmieren\recipe_manager\views/manage_tags.html:51
 msgid "Edit Synonym"
-msgstr "Synonym bearbeiten"
+msgstr "Synonym bearbeiden"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:11
 msgid "New User"
-msgstr "Neuer Benutzer"
+msgstr "Neir Benudzer"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:17
 msgid "Password (required):"
-msgstr "Passwort (notwendig):"
+msgstr "Password (nodwendich):"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:21
 #: F:\Programmieren\recipe_manager\views/manage_users.html:60
 msgid "Confirm Password (required):"
-msgstr "Passwort bestätigen (notwendig):"
+msgstr "Password beschdädige (nodwendich):"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:26
 msgid "Create User"
-msgstr "Benutzer erstellen"
+msgstr "Benudzr erschdellen"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:32
 msgid "Edit Users"
-msgstr "Benutzer bearbeiten"
+msgstr "Benudzr bearbeiden"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:40
 msgid "Password for {}:"
-msgstr "Passwort für {}:"
+msgstr "Password für {}:"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:53
 msgid "Password"
-msgstr "Passwort"
+msgstr "Password"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:56
 msgid "New Password (required):"
-msgstr "Neues Passwort (notwendig):"
+msgstr "Neis Password (nodwendich):"
 
 #: F:\Programmieren\recipe_manager\views/manage_users.html:65
 msgid "Save"
-msgstr "Speichern"
+msgstr "Schbeichern"
 
 #: F:\Programmieren\recipe_manager\views/search.html:10
 msgid "Query:"
@@ -459,7 +458,7 @@ msgid ""
 "(default), rated (Example: \"tags:coffee\")"
 msgstr ""
 "author, category, description, info, ingredients, tags, title, titletags "
-"(Standard), rated (Beispiel: \"tags:Kaffee\")"
+"(Schdandard), rated (Beischbiel: \"tags:Kaffee\")"
 
 #: F:\Programmieren\recipe_manager\views/search.html:21
 msgid "Boolean:"
@@ -467,35 +466,35 @@ msgstr "Boolean:"
 
 #: F:\Programmieren\recipe_manager\views/search.html:23
 msgid "AND (default), OR, NOT (Example: \"coffee AND cream NOT milk\")"
-msgstr "AND (Standard), OR, NOT (Beispiel: \"Kaffee AND Sahne NOT Milch\")"
+msgstr "AND (Schdandard), OR, NOT (Beischbiel: \"Kaffee AND Sahne NOT Milch\")"
 
 #: F:\Programmieren\recipe_manager\views/search.html:27
 msgid "Inexact Terms:"
-msgstr "Unscharfer Suchbegriff:"
+msgstr "Unscharfr Suchbegriff:"
 
 #: F:\Programmieren\recipe_manager\views/search.html:29
 msgid "?, * (Example: \"coconut*\")"
-msgstr "?, * (Beispiel: \"Kokosnuss*\")"
+msgstr "?, * (Beischbiel: \"Kokosnuss*\")"
 
 #: F:\Programmieren\recipe_manager\views/search.html:33
 msgid "Boosting Query Elements:"
-msgstr "Suchbegriffe höher bewerten:"
+msgstr "Suchbegriff höhr bewerden:"
 
 #: F:\Programmieren\recipe_manager\views/search.html:35
 msgid "^ (Example: \"coffee^2 cream\")"
-msgstr "^ (Beispiel: \"Kaffee^2 Sahne\")"
+msgstr "^ (Beischbiel: \"Kaffee^2 Sahne\")"
 
 #: F:\Programmieren\recipe_manager\views/search.html:40
 msgid "Get Lucky"
-msgstr "Auf gut Glück"
+msgstr "Auf gud Glügg"
 
 #: F:\Programmieren\recipe_manager\views/search.html:46
 msgid "Found {} matching recipes."
-msgstr "{} passende Rezepte wurden gefunden."
+msgstr "{} bassend Rezebde wurde funde."
 
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:10
 msgid "No recipe found."
-msgstr "Rezept wurde nicht gefunden."
+msgstr "Rezebd wurd nedd funde."
 
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:20
 msgid "Synonyms: {}"
@@ -507,7 +506,7 @@ msgstr "Links:"
 
 #: F:\Programmieren\recipe_manager\views/view_recipe.html:134
 msgid "Author:"
-msgstr "Autor:"
+msgstr "Audor:"
 
 #~ msgid "Manage: Categories"
 #~ msgstr "Verwalten: Kategorien"
