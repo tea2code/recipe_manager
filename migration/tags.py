@@ -336,9 +336,9 @@ tags_001 = [
 ]
 
 tags_002 = [
-    #['Französisch', 'French'],
-    #['Deutsch', 'German'],
-    #['Englisch', 'English'],
+    
+    
+    
     #['Italienisch', 'Italian'],
     #['Japanisch', 'Japanese'],
     #['Mexikanisch', 'Mexican'],
@@ -348,6 +348,7 @@ tags_002 = [
     # Countries
     ['Afghanisch', 'Afghan'],
     ['Afrikanisch', 'Afrikanisch'],
+    ['Ägyptisch', 'Egyptian'],
     ['Albanisch', 'Albanian'],
     ['Algerisch', 'Algerian'],
     #['Amerikanisch', 'American'],
@@ -357,6 +358,7 @@ tags_002 = [
     ['Argentinisch', 'Argentinean'],
     ['Armenisch', 'Armenian'],
     #['Asiatisch', 'Asian'],
+    ['Äthiopisch', 'Ethiopian'],
     ['Australisch', 'Australian'],
     ['Aserbaidschanisch', 'Azerbaijanian'],
     ['Bahamaisch', 'Bahamian'],
@@ -380,6 +382,18 @@ tags_002 = [
     ['Chilenisch', 'Chilean'],
     ['Chinesisch', 'Chinese'],
     ['Costa-Ricanisch', 'Costa Rican'],
+    ['Dänisch', 'Danish'],
+    #['Deutsch', 'German'],
+    ['Dominikanisch', 'Dominican'],
+    ['Ecuadorianisch', 'Ecuadoran'],
+    #['Englisch', 'English'],
+    ['Eritreisch', 'Eritrean'],
+    ['Estländisch', 'Estnisch', 'Estonian'],
+    ['Fidschianisch', 'Fijian'],
+    ['Finnisch', 'Finnish'],
+    #['Französisch', 'French'],
+    ['', ''],
+    ['Gunineisch', 'Guinean'],
     ['', ''],
     ['Europäisch', 'European'],
     ['', ''],
@@ -395,6 +409,9 @@ tags_002 = [
     ['', ''],
     ['Österreichisch', 'Austrian'],
     ['', ''],
+    ['Salvadorianisch', 'Salvadorean', 'Salvadorean', 'Salvadoran'],
+    ['', ''],
+    ['Timoresisch', 'Timorese'],
     ['Tschadisch', 'Chadic'],
     ['Tschechisch', 'Czech'],
     ['', ''],
