@@ -133,6 +133,7 @@ tags_001 = [
     ['Pinienkerne', 'Pine Nut', 'Pignolia'],
     ['Pistazien', 'Pistachio'],
     ['Polenta'],
+    ['Popkorn', 'Popcorn'],
     ['Reis', 'Rice'],
     ['Sesam', 'Sesame'],
     ['Sonnenblumenkerne', 'Sunflower Seed'],
