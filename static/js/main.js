@@ -15,7 +15,17 @@ $(document).ready(function() {
     });
     
     // Fancybox.
-    $('.fancybox').fancybox();
+    $('.fancybox').fancybox(
+    {
+        afterLoad: function() 
+        {
+            var obj = $(this.element);
+            if (typeof obj.data('recipe') !== 'undefined')
+            {
+                this.title = '<a href="' + obj.data('recipe') + '">' + this.title + '</a>';
+            }
+        }
+    });
     
     // Language Selection.
     $('#language-selection').change(function(event)
