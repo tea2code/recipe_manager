@@ -87,7 +87,7 @@
                 <select id="language-selection">
                     % for locale, name in languages.items():
                         <option value="{{locale}}"
-                                {{'selected="selected"' if (locale == language) else ''}}>
+                                {{!'selected="selected"' if (locale == language) else ''}}>
                             {{name}}
                         </option>
                     % end
