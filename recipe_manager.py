@@ -76,8 +76,11 @@ migration.migrate()
 # Translation
 LANGUAGES = collections.OrderedDict()
 LANGUAGES['de_DE'] = 'Deutsch'
+LANGUAGES['de_CH'] = 'Deutsch (Schweiz)'
 LANGUAGES['en_US'] = 'English'
+LANGUAGES['fr_FR'] = 'Français'
 LANGUAGES['sw_DE'] = 'Schwäbisch'
+LANGUAGES['fi_FI'] = 'Suomi'
 for locale in LANGUAGES:
     translator.Translator.init(locale, TRANSLATION_PATH)
 

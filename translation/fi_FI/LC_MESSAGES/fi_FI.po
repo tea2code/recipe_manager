@@ -1,0 +1,508 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NomNomNom\n"
+"POT-Creation-Date: 2014-10-09 23:17+0100\n"
+"PO-Revision-Date: 2014-11-07 18:28+0100\n"
+"Last-Translator: tea2code <stefan4875@gmail.com>\n"
+"Language-Team: tea2code\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-SearchPath-0: F:\\Programmieren\\recipe_manager\\views\n"
+"X-Poedit-SearchPath-1: F:\\Programmieren\\recipe_manager\\action\n"
+
+#: F:\Programmieren\recipe_manager\action/category_manager.py:34
+msgid "New category \"{}\" has been created."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/category_manager.py:46
+msgid "Category \"{}\" has been removed."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/category_manager.py:51
+msgid "Category \"{}\" has been updated."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/category_manager.py:62
+#: F:\Programmieren\recipe_manager\action/tag_manager.py:70
+msgid "Name must not be empty."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/category_manager.py:68
+msgid "Category \"{}\" already exists."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:107
+msgid "Please select an import file."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:165
+msgid "Extension \"{}\" is not an allowed image type."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:185
+msgid "Title must not be empty."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:328
+msgid "New recipe \"{}\" has been created."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:330
+msgid "Recipe \"{}\" has been updated."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:332
+msgid ""
+"New recipe \"{}\" has been created. A recipe with the same title already "
+"exists."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:335
+msgid "Recipe \"{}\" has been removed."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/tag_manager.py:33
+msgid "New tag \"{}\" has been created."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/tag_manager.py:42
+msgid "New synonym \"{}\" has been created."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/tag_manager.py:54
+msgid "Tag \"{}\" has been removed."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/tag_manager.py:59
+msgid "Tag \"{}\" has been updated."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/tag_manager.py:76
+msgid "Tag \"{}\" already exists."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:64
+msgid "Please provide your user name and password."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:69
+msgid "Given user name or password is wrong. Please try again."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:135
+msgid "Please provide user name and password."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:138
+#: F:\Programmieren\recipe_manager\action/user_manager.py:167
+#: F:\Programmieren\recipe_manager\action/user_manager.py:192
+msgid "Both passwords are not the same."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:141
+msgid "User name is already taken."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:149
+msgid "User \"{}\" has been created."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:157
+msgid "User \"{}\" has been deleted."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:164
+#: F:\Programmieren\recipe_manager\action/user_manager.py:189
+msgid "Please provide the password."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:175
+msgid "User \"{}\" has been updated."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\action/user_manager.py:201
+msgid "Your profile has been updated. Please login again."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/category_list.html:5
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:6
+msgid "Not found"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/category_list.html:9
+msgid "No category found."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/category_list.html:17
+msgid "This category contains {} recipes."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:37
+#: F:\Programmieren\recipe_manager\views/search.html:5
+#: F:\Programmieren\recipe_manager\views/search.html:39
+#: F:\Programmieren\recipe_manager\views/search.html:55
+msgid "Search"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:38
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:10
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:19
+msgid "New Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:40
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:19
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:170
+msgid "Edit Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:42
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:41
+msgid "Categories"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:43
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:72
+msgid "Tags"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:45
+#: F:\Programmieren\recipe_manager\views/manage_users.html:5
+msgid "Users"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:45
+#: F:\Programmieren\recipe_manager\views/manage_users.html:5
+msgid "Profile"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/html_body.html:47
+msgid "Logout"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/index.html:7
+msgid "The database contains {} recipes."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/index.html:11
+msgid "All recipes have at least one category."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/login.html:5
+#: F:\Programmieren\recipe_manager\views/login.html:19
+msgid "Login"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/login.html:10
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:30
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:26
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:39
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:59
+msgid "Name:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/login.html:14
+msgid "Password:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:5
+msgid "Manage Categories"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:9
+msgid "New Category"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:11
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:11
+#: F:\Programmieren\recipe_manager\views/manage_users.html:13
+msgid "Name (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:16
+msgid "Create Category"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:22
+msgid "Edit Categories"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:34
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:30
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:63
+#: F:\Programmieren\recipe_manager\views/manage_users.html:45
+msgid "Edit"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_categories.html:35
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:31
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:64
+#: F:\Programmieren\recipe_manager\views/manage_users.html:46
+msgid "Delete"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:22
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:95
+msgid "Rating:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:33
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:113
+msgid "Category:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:47
+msgid "Title (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:55
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:62
+msgid "Synonym {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:70
+msgid "Add Synonym"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:74
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:42
+msgid "Serving Size:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:79
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:49
+msgid "Ingredients:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:84
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:56
+msgid "Preparation:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:89
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:63
+msgid "Info:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:94
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:123
+msgid "Tags:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:119
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:130
+msgid "Name of Link {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:123
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:134
+msgid "Link {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:142
+msgid "Add Link"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:149
+msgid "Image {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:152
+msgid "Remove Image"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:157
+msgid "New Image {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:159
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:190
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:205
+msgid "Select"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:166
+msgid "Add Image"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:170
+msgid "Create Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:172
+msgid "Delete Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:181
+msgid "Export Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:181
+msgid "Import Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:184
+msgid "Export"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:188
+msgid "File:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:194
+msgid "Import"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:203
+msgid "New Image {image_count+1}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:212
+msgid "Synonym {synonym_count+1}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:219
+msgid "Name of Link {url_count+1}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:223
+msgid "Link {url_count+1}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_recipe.html:229
+msgid "Recipe"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:5
+msgid "Manage Tags"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:9
+msgid "New Tag"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:16
+msgid "Create Tag"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:37
+msgid "New Synonym"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:45
+msgid "Create Synonym"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_tags.html:51
+msgid "Edit Synonym"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:11
+msgid "New User"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:17
+msgid "Password (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:21
+#: F:\Programmieren\recipe_manager\views/manage_users.html:60
+msgid "Confirm Password (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:26
+msgid "Create User"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:32
+msgid "Edit Users"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:40
+msgid "Password for {}:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:53
+msgid "Password"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:56
+msgid "New Password (required):"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/manage_users.html:65
+msgid "Save"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:10
+msgid "Query:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:15
+msgid "Fields:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:17
+msgid ""
+"author, category, description, info, ingredients, tags, title, titletags "
+"(default), rated (Example: \"tags:coffee\")"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:21
+msgid "Boolean:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:23
+msgid "AND (default), OR, NOT (Example: \"coffee AND cream NOT milk\")"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:27
+msgid "Inexact Terms:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:29
+msgid "?, * (Example: \"coconut*\")"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:33
+msgid "Boosting Query Elements:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:35
+msgid "^ (Example: \"coffee^2 cream\")"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:40
+msgid "Get Lucky"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:47
+msgid "Found {} matching recipes."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/search.html:49
+msgid "No recipe found. Please try again with another query."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:10
+msgid "No recipe found."
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:20
+msgid "Synonyms: {}"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:99
+msgid "Links:"
+msgstr ""
+
+#: F:\Programmieren\recipe_manager\views/view_recipe.html:134
+msgid "Author:"
+msgstr ""
