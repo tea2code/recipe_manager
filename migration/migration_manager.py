@@ -44,22 +44,28 @@ class MigrationManager:
             self.__update_version(db, current)
 
         # Version 2 -> 3
+        current = 2
         if self.__is_version(db, current):
             self.__tags_rename_vermouth(db)
             current += 1
             self.__update_version(db, current)
 
         # Version 3 -> 4
+        current = 3
         if self.__is_version(db, current):
             self.__tags_rename_brackets(db)
             current += 1
             self.__update_version(db, current)
             
         # Version 4 -> 5
+        current = 4
         if self.__is_version(db, current):
             self.__create_tags(db, tag_lists.tags_002)
             current += 1
             self.__update_version(db, current)
+
+        # Version 5 -> 6
+        current = 5
 
         # Finished
         db.close()
