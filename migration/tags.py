@@ -516,3 +516,7 @@ tags_002 = [
     ['Mittelalterlich', 'Medieval', 'Mediaeval'],
     ['Orientalisch', 'Oriental', 'Eastern'],
 ]
+
+tags_003 = [
+    ['Schwarzwurzel', 'Salsify']
+]
