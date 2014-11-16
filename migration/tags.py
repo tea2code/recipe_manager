@@ -520,3 +520,7 @@ tags_002 = [
 tags_003 = [
     ['Schwarzwurzel', 'Salsify']
 ]
+
+tags_004 = [
+    ['Kaki', 'Persimmon']
+]
