@@ -524,3 +524,7 @@ tags_003 = [
 tags_004 = [
     ['Kaki', 'Persimmon']
 ]
+
+tags_005 = [
+    ['Pudding']
+]
