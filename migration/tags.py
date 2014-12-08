@@ -528,3 +528,7 @@ tags_004 = [
 tags_005 = [
     ['Pudding']
 ]
+
+tags_006 = [
+    ['Rote Bete', 'Rote Rübe', 'Beet']
+]
