@@ -155,7 +155,7 @@
             % end
             <div class="input-row">
                 <label for="new-image-0">{{_('New Image {}:').format(1)}}</label>
-                <input type="text" id="fake-new-image-0" />
+                <input type="text" id="fake-new-image-0" readonly="readonly" />
                 <button class="upload-button" data-upload="new-image-0">{{_('Select')}}</button>
                 <input type="file" id="new-image-0" class="upload-input" accept="image/*" name="new-image-0" />
             </div>
@@ -186,7 +186,7 @@
         % else:
             <div class="input-row">
                 <label for="import-file">{{_('File:')}}</label>
-                <input type="text" id="fake-import-file" />
+                <input type="text" id="fake-import-file" readonly="readonly" />
                 <button class="upload-button" data-upload="import-file">{{_('Select')}}</button>
                 <input type="file" id="import-file" class="upload-input" accept="application/zip" name="import-file" />
             </div>
@@ -201,7 +201,7 @@
     <div id="template-add-image">
         <div class="input-row file-upload">
             <label for="new-image-{image_count}">{{_('New Image {image_count+1}:')}}</label>
-            <input type="text" id="fake-new-image-{image_count}" />
+            <input type="text" id="fake-new-image-{image_count}" readonly="readonly" />
             <button class="upload-button" data-upload="new-image-{image_count}">{{_('Select')}}</button>
             <input type="file" id="new-image-{image_count}" class="upload-input" accept="image/*" name="new-image-{image_count}" />
         </div>
