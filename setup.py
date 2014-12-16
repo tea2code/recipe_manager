@@ -5,7 +5,7 @@ includefiles = ['empty-db.sqlite', 'static/', 'README.md', 'LICENSE', 'views/', 
                 'default.config']
 includes = ['helper.browser', 'helper.html_escape', 'helper.url']
 excludes = []
-packages = []
+packages = ['whoosh', 'cherrypy']
 
 base = None # Console application.
 #if sys.platform == "win32":
