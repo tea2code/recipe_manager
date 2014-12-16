@@ -2,7 +2,7 @@ import sys
 from cx_Freeze import setup, Executable
 
 includefiles = ['empty-db.sqlite', 'static/', 'README.md', 'LICENSE', 'views/', 'Start.bat', 
-                'default.config']
+                'default.config', 'translation/']
 includes = ['helper.browser', 'helper.html_escape', 'helper.url']
 excludes = []
 packages = ['whoosh', 'cherrypy']
