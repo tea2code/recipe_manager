@@ -536,3 +536,7 @@ tags_006 = [
 tags_007 = [
     ['Rosenkohl', 'Kohlsprossen', 'Brussels Sprouts']
 ]
+
+tags_008 = [
+    ['Donut', 'Berliner', 'Krapfen', 'Doughnut']
+]
