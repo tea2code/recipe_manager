@@ -185,6 +185,11 @@ class RecipeManager(base_manager.BaseManager):
             hint_text = _('Title must not be empty.')
             self.hints.append(hint.Hint(hint_text))
         else:
+            # First check if the recipe already exists and is new.
+            new_exists = is_new and \
+                recipe_entity.Recipe.title_exists(self.db, recipe.title)
+
+            # Save the recipe.
             recipe.save(self.db)
 
             # Update search index.
@@ -193,10 +198,7 @@ class RecipeManager(base_manager.BaseManager):
             indexer.fill_index(writer, [recipe])
             indexer.close_index()
 
-            exists = is_new and \
-                     recipe_entity.Recipe.title_exists(self.db, recipe.title)
-
-            if exists:
+            if new_exists:
                 type = self.HINT_NEW_EXISTS
             elif is_new:
                 type = self.HINT_NEW
