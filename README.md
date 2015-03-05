@@ -37,13 +37,22 @@ The integrated Whoosh based search engine finds recipes (by default) by matching
 
 Extended search terms like filtering by category or only showing unrated recipes are also possible. 
 
-Fields in which can be searched are: category, description, info, ingredients, tags, title, titletags (default) and rated. For example the term "category:Cocktails rated:no orange" will find all recipes in the category "Cocktails" which are not rated and contain the word "orange" in their title or tags.
+Fields in which can be searched are: category, description, info, ingredients, tags, title, titletags (default), rated and rating. For example the term "category:Cocktails rated:no orange" will find all recipes in the category "Cocktails" which are not rated and contain the word "orange" in their title or tags. Explanation of all fields:
+
+- **category:** Searches in the category list of each recipe.
+- **description:** Searches in the description of each recipe.
+- **info:** Searchs in the info of each recipe.
+- **ingredients:** Searchs in the ingredients list of each recipe.
+- **tags:** Searchs in the tag list of each recipe.
+- **titletags:** Searchs in the title and the tag list of each recipe. This is the default field.
+- **rated:** Searchs for recipes which are rated (value "yes") or not rated (value "no").
+- **rating:** Searchs for a certain rating value beginning from zero (equivalent to the white star) and up to three (equivalent to three black stars).
 
 Search terms are by default with a logical AND linked. Other possible logical operations are OR and NOT which will exclude a term.
 
 Inexact terms with wildcards using * (any number of letters) and ? (one letter) are also possible.
 
-Whoosh uses an effective system which orders the result list by a match rating. If you wand to increase or decrease the importance of a search term you can do this by adding ^ and a number. For example "coffee^2 milk" will search for coffee and milk but doubles the importance of coffee.
+Whoosh uses an effective system which orders the result list by a match rating. If you want to increase or decrease the importance of a search term you can do this by adding ^ and a number. For example "coffee^2 milk" will search for coffee and milk but doubles the importance of coffee.
 
 ## Mobile Support
 

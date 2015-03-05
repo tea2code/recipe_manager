@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NomNomNom\n"
-"POT-Creation-Date: 2014-10-09 23:17+0100\n"
-"PO-Revision-Date: 2014-10-09 23:17+0100\n"
+"POT-Creation-Date: 2015-03-05 15:32+0100\n"
+"PO-Revision-Date: 2015-03-05 15:32+0100\n"
 "Last-Translator: tea2code <stefan4875@gmail.com>\n"
 "Language-Team: tea2code\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -50,21 +50,21 @@ msgstr ""
 msgid "Title must not be empty."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:328
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:330
 msgid "New recipe \"{}\" has been created."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:330
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:332
 msgid "Recipe \"{}\" has been updated."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:332
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:334
 msgid ""
 "New recipe \"{}\" has been created. A recipe with the same title already "
 "exists."
 msgstr ""
 
-#: F:\Programmieren\recipe_manager\action/recipe_manager.py:335
+#: F:\Programmieren\recipe_manager\action/recipe_manager.py:337
 msgid "Recipe \"{}\" has been removed."
 msgstr ""
 
@@ -452,7 +452,7 @@ msgstr ""
 #: F:\Programmieren\recipe_manager\views/search.html:17
 msgid ""
 "author, category, description, info, ingredients, tags, title, titletags "
-"(default), rated (Example: \"tags:coffee\")"
+"(default), rated, rating (Example: \"tags:coffee\")"
 msgstr ""
 
 #: F:\Programmieren\recipe_manager\views/search.html:21
