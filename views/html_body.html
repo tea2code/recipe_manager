@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div id="footer" class="grid">
+        <div id="footer" class="grid only-screen">
             <div class="unit w-1-2">
                 <select id="language-selection">
                     % for locale, name in languages.items():
@@ -121,7 +121,7 @@
                 lookup: [
                     // Whoosh
                     'author:', 'category:', 'description:', 'info:', 'ingredients:', 'tags:',
-                    'title:', 'rating:', 'rated:no ', 'rated:yes ', 'AND ', 'OR ', 'NOT ', '0 ', '1 ', '2 ', '3 ',
+                    'title:', 'rating:0 ', 'rating:1 ', 'rating:2 ', 'rating:3 ', 'rated:no ', 'rated:yes ', 'AND ', 'OR ', 'NOT ',
                     // Category
                     % for category in categories:
                         '{{category.name}} ',
