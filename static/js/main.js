@@ -27,6 +27,11 @@ $(document).ready(function() {
         }
     });
     
+    // Lazyloading
+    $(function() {
+        $("img.lazy").lazyload();
+    });
+    
     // Language Selection.
     $('#language-selection').change(function(event)
     {

@@ -15,7 +15,7 @@
                     % if recipe.images:
                         % img_url = Url.from_img(recipe.images[0].path)
                         <a class="fancybox" href="{{img_url}}" data-fancybox-group="images" data-fancybox-title="{{recipe.title}}" data-recipe="{{url}}">
-                            <img src="{{img_url}}" alt="{{recipe.images[0].path}}" />
+                            <img class="lazy" data-original="{{img_url}}" alt="{{recipe.images[0].path}}" />
                         </a>
                     % end
                 </div>
