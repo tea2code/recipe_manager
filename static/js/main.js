@@ -29,7 +29,9 @@ $(document).ready(function() {
     
     // Lazyloading
     $(function() {
-        $("img.lazy").lazyload();
+        $("img.lazy").lazyload({
+            threshold : 200            
+        });
     });
     
     // Language Selection.
