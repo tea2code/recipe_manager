@@ -11,7 +11,10 @@ $(document).ready(function() {
     
     // Custom content scroller.
     $('#images,#randoms').mCustomScrollbar({
-        theme:'dark-thin'
+        theme:'dark-thin',
+        advanced:{ 
+            updateOnContentResize: false 
+        }
     });
     
     // Fancybox.
