@@ -96,7 +96,7 @@
 
             <div class="unit w-1-2 right-align">
                 <a href="https://github.com/tea2code/recipe_manager">
-                    &copy; 2014 tea2code
+                    &copy; 2016 tea2code
                 </a>
             </div>
         </div>
@@ -125,13 +125,13 @@
                     'title:', 'rating:0 ', 'rating:1 ', 'rating:2 ', 'rating:3 ', 'rated:no ', 'rated:yes ', 'AND ', 'OR ', 'NOT ',
                     // Category
                     % for category in categories:
-                        '{{category.name}} ',
+                        '"{{category.name}}" ',
                     % end
                     // Tags
                     % for tag in tags:
-                        '{{tag.name}} ',
+                        '"{{tag.name}}" ',
                         % for synonym in tag.synonyms:
-                            '{{synonym.name}} ',
+                            '"{{synonym.name}}" ',
                         % end
                     % end
                 ],
