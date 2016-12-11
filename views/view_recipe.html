@@ -124,7 +124,7 @@
                 <p>
                     % last_i = len(recipe.tags) - 1
                     % for i, tag in enumerate(recipe.tags):
-                        % search_url = Url.search(tag.name)
+                        % search_url = Url.search('"' + tag.name + '"')
                         <a href="{{search_url}}">{{tag.name}}</a>{{', ' if i < last_i else ''}}
                     % end
                 </p>
