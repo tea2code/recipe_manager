@@ -4,7 +4,7 @@
 
 <h2>{{_('Manage Tags')}}</h2>
 
-<form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
+<form action="{{Url.from_path(['manage', 'tags'])}}" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>{{_('New Tag')}}</legend>
         <div class="input-row">
@@ -21,7 +21,7 @@
 % for tag in tags:
     <fieldset class="tag-group">
         <legend class="tag-group-legend">{{tag.name}}</legend>
-        <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
+        <form action="{{Url.from_path(['manage', 'tags'])}}" method="post" enctype="multipart/form-data">
             <div class="input-row">
                 <label for="edit-name-{{tag.id}}">{{_('Name:')}}</label>
                 <input type="text" id="edit-name-{{tag.id}}" name="name" value="{{tag.name}}" />
@@ -32,7 +32,7 @@
             </div>
         </form>
 
-        <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
+        <form action="{{Url.from_path(['manage', 'tags'])}}" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>{{_('New Synonym')}}</legend>
                 <div class="input-row">
@@ -54,7 +54,7 @@
                 % synonym = tag.synonyms[i]
                 % cls = ' class="input-row"'
                 % c = cls if (i < length - 1) else ''
-                <form action="{{Url.from_path(['manage', 'tags'])}}" method="post">
+                <form action="{{Url.from_path(['manage', 'tags'])}}" method="post" enctype="multipart/form-data">
                     <div{{!c}}>
                         <label for="edit-name-{{synonym.id}}">{{_('Name:')}}</label>
                         <input type="text" id="edit-name-{{synonym.id}}" name="name" value="{{synonym.name}}" />
