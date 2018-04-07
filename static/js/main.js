@@ -33,7 +33,7 @@ $(document).ready(function() {
     // Lazyloading
     $(function() {
         $("img.lazy").lazyload({
-            threshold : 200            
+            threshold : 200         
         });
     });
     

@@ -284,9 +284,10 @@ def statics(file, type='img'):
 
 
 # Run ##########################################################################
-try:
-    import cherrypy
-    server = 'cherrypy'
-except ImportError:
-    server = 'wsgiref'
+#try:
+#    import cherrypy
+#    server = 'cherrypy'
+#except ImportError:
+#    server = 'wsgiref'
+server = 'wsgiref'
 app.run(server=server, host=HOST, port=PORT, debug=DEBUG, reloader=DEBUG)
